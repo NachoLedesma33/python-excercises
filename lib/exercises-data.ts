@@ -1462,6 +1462,238 @@ A = np.array([[1, 2], [3, 4]])
 
 # Calcula el determinante
 `
+            },
+            {
+                id: "12.13",
+                number: "Ejercicio 12.13",
+                title: "Suma de Matrices",
+                description: "Dadas las matrices A = [[1, 2], [3, 4]] y B = [[5, 6], [7, 8]], calcula A + B y A - B.",
+                pythonFunctions: ["numpy", "np.array()", "operadores"],
+                solution: `import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+suma = A + B
+resta = A - B
+
+print("=== SUMA Y RESTA DE MATRICES ===")
+print(f"A =\\n{A}")
+print(f"B =\\n{B}")
+print(f"A + B =\\n{suma}")
+print(f"A - B =\\n{resta}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'suma' y 'resta' de matrices. Las operaciones elemento a elemento se hacen con + y -.\n\nFUNCIONES NECESARIAS:\n• np.array(): Crear matrices.\n• Operadores + y -: Suma y resta elemento a elemento.\n\nPOR QUÉ FUNCIONA: Para sumar matrices, deben tener la misma dimensión. Cada elemento se suma con su correspondiente.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+# Calcula A + B y A - B
+`
+            },
+            {
+                id: "12.14",
+                number: "Ejercicio 12.14",
+                title: "Multiplicación de Matrices",
+                description: "Calcula el producto de las matrices A = [[1, 2], [3, 4]] y B = [[5, 6], [7, 8]] usando np.matmul().",
+                pythonFunctions: ["numpy", "np.matmul()", "np.dot()"],
+                solution: `import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+producto = np.matmul(A, B)
+producto2 = A @ B
+
+print("=== MULTIPLICACION DE MATRICES ===")
+print(f"A =\\n{A}")
+print(f"B =\\n{B}")
+print(f"A @ B =\\n{producto}")
+
+# Verificación manual
+print("\\nVerificación (fila 1 × columna 1): 1*5 + 2*7 =", 1*5 + 2*7)`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'producto' de matrices. Se usa @ o np.matmul().\n\nFUNCIONES NECESARIAS:\n• np.matmul() o @: Multiplicación de matrices.\n• np.array(): Crear matrices.\n\nPOR QUÉ FUNCIONA: El producto de matrices no es elemento a elemento. La fila i de A por columna j de B da el elemento (i,j) del resultado.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+# Multiplica las matrices
+`
+            },
+            {
+                id: "12.15",
+                number: "Ejercicio 12.15",
+                title: "Matriz Transpuesta",
+                description: "Calcula la transpuesta de la matriz A = [[1, 2, 3], [4, 5, 6]].",
+                pythonFunctions: ["numpy", "np.transpose()", ".T"],
+                solution: `import numpy as np
+
+A = np.array([[1, 2, 3], [4, 5, 6]])
+
+At = A.T
+print("=== MATRIZ TRANSPUESTA ===")
+print(f"A =\\n{A}")
+print(f"A.T =\\n{At}")
+print(f"Forma original: {A.shape}")
+print(f"Forma transpuesta: {At.shape}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'transpuesta'. Se usa .T o np.transpose().\n\nFUNCIONES NECESARIAS:\n• .T o np.transpose(): Transponer matriz.\n\nPOR QUÉ FUNCIONA: La transpuesta intercambia filas por columnas. Una matriz m×n se convierte en n×m.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+A = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Calcula la transpuesta
+`
+            },
+            {
+                id: "12.16",
+                number: "Ejercicio 12.16",
+                title: "Traza de una Matriz",
+                description: "Calcula la traza (suma de diagonal principal) de A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]].",
+                pythonFunctions: ["numpy", "np.trace()"],
+                solution: `import numpy as np
+
+A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+traza = np.trace(A)
+print("=== TRAZA DE UNA MATRIZ ===")
+print(f"A =\\n{A}")
+print(f"Traza = {traza}")
+print(f"Verificacion: 1 + 5 + 9 = {1+5+9}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'traza'. Se usa np.trace().\n\nFUNCIONES NECESARIAS:\n• np.trace(): Suma de elementos diagonales.\n\nPOR QUÉ FUNCIONA: La traza es la suma de los elementos de la diagonal principal (desde arriba izquierda hacia abajo derecha).",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+# Calcula la traza
+`
+            },
+            {
+                id: "12.17",
+                number: "Ejercicio 12.17",
+                title: "Resolución de Sistema 2x2 por Cramer",
+                description: "Resuelve el sistema 2x + 3y = 16, 4x + 5y = 27 usando la regla de Cramer.",
+                pythonFunctions: ["numpy", "np.linalg.det()"],
+                solution: `import numpy as np
+
+# Sistema: 2x + 3y = 16, 4x + 5y = 27
+A = np.array([[2, 3], [4, 5]])
+B = np.array([16, 27])
+
+det_A = np.linalg.det(A)
+
+# Cramer: reemplazar columna
+A1 = np.array([[16, 3], [27, 5]])
+A2 = np.array([[2, 16], [4, 27]])
+
+x = np.linalg.det(A1) / det_A
+y = np.linalg.det(A2) / det_A
+
+print("=== REGLA DE CRAMER ===")
+print(f"A =\\n{A}")
+print(f"B = {B}")
+print(f"det(A) = {det_A:.2f}")
+print(f"x = {x:.2f}")
+print(f"y = {y:.2f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Cramer'. Requiere determinantes.\n\nFUNCIONES NECESARIAS:\n• np.linalg.det(): Calcular determinantes.\n• Reemplazar columnas: Para cada variable.\n\nPOR QUÉ FUNCIONA: La regla de Cramer dice x = det(A₁)/det(A), y = det(A₂)/det(A), donde A₁ y A₂ son las matrices con las columnas reemplazadas.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+A = np.array([[2, 3], [4, 5]])
+B = np.array([16, 27])
+
+# Aplica la regla de Cramer
+`
+            },
+            {
+                id: "12.18",
+                number: "Ejercicio 12.18",
+                title: "Potencia de Matriz",
+                description: "Calcula A² y A³ para A = [[1, 1], [0, 1]].",
+                pythonFunctions: ["numpy", "np.linalg.matrix_power()", "@"],
+                solution: `import numpy as np
+
+A = np.array([[1, 1], [0, 1]])
+
+A2 = A @ A
+A3 = A @ A @ A
+
+print("=== POTENCIA DE MATRIZ ===")
+print(f"A =\\n{A}")
+print(f"A^2 =\\n{A2}")
+print(f"A^3 =\\n{A3}")
+
+# Verificar patrón
+print("\\nPatrón: A^n = [[1, n], [0, 1]]")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'potencia' de matriz. Se usa @ repetidamente o np.linalg.matrix_power().\n\nFUNCIONES NECESARIAS:\n• @: Multiplicación de matrices.\n• np.linalg.matrix_power(): Potencia de matriz.\n\nPOR QUÉ FUNCIONA: A² = A·A, A³ = A·A·A. Para matrices nilpotentes o especiales, pueden tener patrones interesante.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+A = np.array([[1, 1], [0, 1]])
+
+# Calcula A^2 y A^3
+`
+            },
+            {
+                id: "12.19",
+                number: "Ejercicio 12.19",
+                title: "Norma de Vector",
+                description: "Calcula las normas L1, L2 e infinito del vector v = [3, 4, 0].",
+                pythonFunctions: ["numpy", "np.linalg.norm()"],
+                solution: `import numpy as np
+
+v = np.array([3, 4, 0])
+
+norma_l1 = np.linalg.norm(v, ord=1)
+norma_l2 = np.linalg.norm(v, ord=2)
+norma_inf = np.linalg.norm(v, ord=np.inf)
+
+print("=== NORMAS DE VECTOR ===")
+print(f"v = {v}")
+print(f"Norma L1 (suma): {norma_l1:.2f}")
+print(f"Norma L2 (euclidiana): {norma_l2:.2f}")
+print(f"Norma infinito (max): {norma_inf:.2f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'norma' con diferentes tipos. Se usa np.linalg.norm() con el parámetro ord.\n\nFUNCIONES NECESARIAS:\n• np.linalg.norm(ord=1): Norma L1 (suma de valores absolutos).\n• np.linalg.norm(ord=2): Norma L2 (euclidiana, default).\n• np.linalg.norm(ord=np.inf): Norma infinito (valor máximo).",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+v = np.array([3, 4, 0])
+
+# Calcula las tres normas
+`
+            },
+            {
+                id: "12.20",
+                number: "Ejercicio 12.20",
+                title: "Factorización LU",
+                description: "Realiza la factorización LU de la matriz A = [[2, 1], [1, 3]] usando scipy.",
+                pythonFunctions: ["scipy", "linalg.lu()"],
+                solution: `import numpy as np
+from scipy.linalg import lu
+
+A = np.array([[2, 1], [1, 3]])
+
+P, L, U = lu(A)
+
+print("=== FACTORIZACION LU ===")
+print(f"A =\\n{A}")
+print(f"P =\\n{P}")
+print(f"L =\\n{L}")
+print(f"U =\\n{U}")
+print(f"\\nVerificacion: P @ L @ U =\\n{P @ L @ U}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'factorización LU'. Se usa scipy.linalg.lu().\n\nFUNCIONES NECESARIAS:\n• scipy.linalg.lu(): Descompone A en P, L, U donde P es permutación, L triangular inferior, U triangular superior.\n\nPOR QUÉ FUNCIONA: A = P·L·U. Esta descomposición es útil para resolver sistemas más eficientemente.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
+from scipy.linalg import lu
+
+A = np.array([[2, 1], [1, 3]])
+
+# Factoriza A = P @ L @ U
+`
             }
         ]
     },
@@ -1933,6 +2165,283 @@ P2 = np.array([2, 0])
 t = np.linspace(0, 1, 100)
 
 # Calcula la curva de Bézier cuadrática
+`
+            },
+            {
+                id: "14.11",
+                number: "Ejercicio 14.11",
+                title: "Derivada Numérica",
+                description: "Calcula la derivada de f(x) = x³ en x = 2 usando diferencias finitas: forward, backward y central.",
+                pythonFunctions: ["numpy", "derivadas", "diferencias finitas"],
+                solution: `import numpy as np
+
+def f(x):
+    return x**3
+
+x = 2
+h = 0.001
+
+df_forward = (f(x+h) - f(x)) / h
+df_backward = (f(x) - f(x-h)) / h
+df_central = (f(x+h) - f(x-h)) / (2*h)
+df_exacta = 3 * x**2
+
+print("=== DERIVADA NUMERICA ===")
+print(f"f(x) = x**3, x = {x}")
+print(f"f' exacta: {df_exacta:.4f}")
+print(f"Forward:  {df_forward:.4f}")
+print(f"Backward: {df_backward:.4f}")
+print(f"Central:  {df_central:.4f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'derivada numérica' y 'diferencias finitas'.\n\nFUNCIONES NECESARIAS:\n• Diferencias finitas: (f(x+h)-f(x))/h\n\nPOR QUÉ FUNCIONA: La derivada es el límite de (f(x+h)-f(x))/h cuando h→0.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+def f(x):
+    return x**3
+
+x = 2
+h = 0.001
+
+# Calcula las tres derivadas numéricas
+`
+            },
+            {
+                id: "14.12",
+                number: "Ejercicio 14.12",
+                title: "Integración Numérica - Trapecio",
+                description: "Calcula la integral de f(x) = x² desde 0 hasta 1 usando la regla del trapecio con n=10 subintervalos.",
+                pythonFunctions: ["numpy", "integración", "trapecio"],
+                solution: `import numpy as np
+
+def f(x):
+    return x**2
+
+a, b = 0, 1
+n = 10
+h = (b - a) / n
+
+x = np.linspace(a, b, n+1)
+y = f(x)
+
+integral = (h/2) * (y[0] + 2*sum(y[1:-1]) + y[-1])
+integral_exacta = 1/3
+
+print("=== REGLA DEL TRAPECIO ===")
+print(f"f(x) = x**2, desde {a} hasta {b}, n = {n}")
+print(f"Integral aproximada: {integral:.4f}")
+print(f"Integral exacta: {integral_exacta:.4f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'integración numérica' y 'trapecio'.\n\nFUNCIONES NECESARIAS:\n• np.linspace: Para crear los puntos.\n• Fórmula del trapecio.\n\nPOR QUÉ FUNCIONA: Aproxima el área bajo la curva dividiendo en trapecios.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+def f(x):
+    return x**2
+
+a, b = 0, 1
+n = 10
+
+# Aplica la regla del trapecio
+`
+            },
+            {
+                id: "14.13",
+                number: "Ejercicio 14.13",
+                title: "Gráfico de Función Exponencial",
+                description: "Grafica las funciones y = 2^x y y = e^x en el intervalo [-2, 2].",
+                pythonFunctions: ["numpy", "np.exp()", "matplotlib", "plt.plot()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-2, 2, 100)
+y1 = 2**x
+y2 = np.exp(x)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y1, 'b-', linewidth=2, label='y = 2^x')
+plt.plot(x, y2, 'r--', linewidth=2, label='y = e^x')
+plt.axhline(y=0, color='k', linewidth=0.5)
+plt.axvline(x=0, color='k', linewidth=0.5)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Funciones Exponenciales')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'gráfico' y 'exponencial'.\n\nFUNCIONES NECESARIAS:\n• np.exp(): e^x\n• 2**x: base 2\n\nPOR QUÉ FUNCIONA: Las funciones exponenciales crecen rápidamente.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-2, 2, 100)
+
+# Grafica y = 2**x e y = exp(x)
+`
+            },
+            {
+                id: "14.14",
+                number: "Ejercicio 14.14",
+                title: "Curva Paramétrica - Elipse",
+                description: "Grafica una elipse con ecuaciones paramétricas: x = 3cos(t), y = 2sen(t) para t ∈ [0, 2π].",
+                pythonFunctions: ["numpy", "np.cos()", "np.sin()", "matplotlib"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 200)
+a, b = 3, 2
+
+x = a * np.cos(t)
+y = b * np.sin(t)
+
+plt.figure(figsize=(8, 8))
+plt.plot(x, y, 'b-', linewidth=2)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Elipse: x = 3cos(t), y = 2sen(t)')
+plt.grid(True, alpha=0.3)
+plt.axis('equal')
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'curva paramétrica' y 'elipse'.\n\nFUNCIONES NECESARIAS:\n• np.cos(), np.sin()\n\nPOR QUÉ FUNCIONA: x = a·cos(t), y = b·sen(t) describe una elipse.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 2*np.pi, 200)
+a, b = 3, 2
+
+# Calcula x e y
+`
+            },
+            {
+                id: "14.15",
+                number: "Ejercicio 14.15",
+                title: "Gráfico de Barras",
+                description: "Crea un gráfico de barras mostrando las ventas mensuales.",
+                pythonFunctions: ["matplotlib", "plt.bar()"],
+                solution: `import matplotlib.pyplot as plt
+
+meses = ['Ene', 'Feb', 'Mar', 'Abr']
+ventas = [150, 200, 180, 220]
+
+plt.figure(figsize=(10, 6))
+plt.bar(meses, ventas, color='skyblue', edgecolor='black')
+plt.xlabel('Mes')
+plt.ylabel('Ventas')
+plt.title('Ventas Mensuales')
+
+for i, v in enumerate(ventas):
+    plt.text(i, v + 5, str(v), ha='center')
+
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'gráfico de barras'.\n\nFUNCIONES NECESARIAS:\n• plt.bar()\n\nPOR QUÉ FUNCIONA: Compara valores categóricos.",
+                difficulty: "básico",
+                starterCode: `import matplotlib.pyplot as plt
+
+meses = ['Ene', 'Feb', 'Mar', 'Abr']
+ventas = [150, 200, 180, 220]
+
+# Crea el gráfico de barras
+`
+            },
+            {
+                id: "14.16",
+                number: "Ejercicio 14.16",
+                title: "Diagrama de Dispersión",
+                description: "Crea un diagrama de dispersión con línea de tendencia.",
+                pythonFunctions: ["matplotlib", "plt.scatter()", "np.polyfit()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 5, 4, 5])
+
+coefs = np.polyfit(x, y, 1)
+linea = np.poly1d(coefs)
+
+plt.figure(figsize=(10, 6))
+plt.scatter(x, y, s=100, c='red', label='Datos')
+plt.plot(x, linea(x), 'b-', linewidth=2, label=f'y = {coefs[0]:.2f}x + {coefs[1]:.2f}')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Diagrama de Dispersión')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'dispersión' y 'línea de tendencia'.\n\nFUNCIONES NECESARIAS:\n• plt.scatter()\n• np.polyfit()\n\nPOR QUÉ FUNCIONA: Muestra la relación entre variables.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 5, 4, 5])
+
+# Crea el diagrama y agrega línea de tendencia
+`
+            },
+            {
+                id: "14.17",
+                number: "Ejercicio 14.17",
+                title: "Histograma",
+                description: "Crea un histograma para los datos con 5 bins.",
+                pythonFunctions: ["matplotlib", "plt.hist()"],
+                solution: `import matplotlib.pyplot as plt
+import numpy as np
+
+datos = [1, 2, 2, 3, 3, 3, 4, 4, 5]
+
+plt.figure(figsize=(10, 6))
+plt.hist(datos, bins=5, color='lightgreen', edgecolor='black')
+plt.xlabel('Valor')
+plt.ylabel('Frecuencia')
+plt.title('Histograma')
+plt.grid(True, axis='y', alpha=0.3)
+plt.show()
+
+print(f"Media: {np.mean(datos):.2f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'histograma'.\n\nFUNCIONES NECESARIAS:\n• plt.hist()\n\nPOR QUÉ FUNCIONA: Muestra la distribución de frecuencia.",
+                difficulty: "básico",
+                starterCode: `import matplotlib.pyplot as plt
+
+datos = [1, 2, 2, 3, 3, 3, 4, 4, 5]
+
+# Crea el histograma
+`
+            },
+            {
+                id: "14.18",
+                number: "Ejercicio 14.18",
+                title: "Funciones Hiperbólicas",
+                description: "Grafica sinh(x), cosh(x) y tanh(x) usando subplot.",
+                pythonFunctions: ["numpy", "np.sinh()", "np.cosh()", "np.tanh()", "plt.subplot()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-2, 2, 100)
+
+fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+
+axes[0].plot(x, np.sinh(x), 'b-', linewidth=2)
+axes[0].set_title('sinh(x)')
+axes[0].grid(True, alpha=0.3)
+
+axes[1].plot(x, np.cosh(x), 'r-', linewidth=2)
+axes[1].set_title('cosh(x)')
+axes[1].grid(True, alpha=0.3)
+axes[1].set_ylim(0, 8)
+
+axes[2].plot(x, np.tanh(x), 'g-', linewidth=2)
+axes[2].set_title('tanh(x)')
+axes[2].grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'subgráficos' y 'hiperbólicas'.\n\nFUNCIONES NECESARIAS:\n• plt.subplot()\n• np.sinh(), np.cosh(), np.tanh()\n\nPOR QUÉ FUNCIONA: Funciones hiperbólicas basadas en e^x.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-2, 2, 100)
+
+# Crea los 3 subgráficos
 `
             }
         ]
