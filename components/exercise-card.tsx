@@ -312,22 +312,27 @@ output
                   </Button>
                 </div>
               </div>
-              <div className="h-64 border rounded-md overflow-hidden">
+              <div className="h-96 border rounded-md overflow-hidden">
                 <Editor
-                  height="256px"
+                  height="384px"
                   language="python"
                   theme={editorTheme}
                   value={code}
                   onChange={(value) => setCode(value || "")}
                   options={{
                     minimap: { enabled: false },
-                    fontSize: 14,
+                    fontSize: 13,
                     lineNumbers: "on",
                     scrollBeyondLastLine: false,
                     automaticLayout: true,
                     tabSize: 4,
                     wordWrap: "on",
                     padding: { top: 12, bottom: 12 },
+                    folding: true,
+                    renderLineHighlight: "line",
+                    contextmenu: true,
+                    quickSuggestions: false,
+                    suggestOnTriggerCharacters: false,
                   }}
                 />
               </div>
@@ -414,22 +419,24 @@ output
                   {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                 </Button>
               </div>
-              <div className="h-[400px] border rounded-md overflow-hidden">
+              <div className="h-[500px] border rounded-md overflow-hidden">
                 <Editor
-                  height="400px"
+                  height="500px"
                   language="python"
                   theme={editorTheme}
                   value={exercise.solution}
                   options={{
                     readOnly: true,
                     minimap: { enabled: false },
-                    fontSize: 14,
+                    fontSize: 13,
                     lineNumbers: "on",
                     scrollBeyondLastLine: false,
                     automaticLayout: true,
                     tabSize: 4,
                     wordWrap: "on",
                     padding: { top: 12, bottom: 12 },
+                    folding: true,
+                    renderLineHighlight: "line",
                   }}
                 />
               </div>
