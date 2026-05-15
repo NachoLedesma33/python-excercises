@@ -318,6 +318,239 @@ theta_grados = 60
 
 # Convierte a radianes y calcula el área
 `
+            },
+            {
+                id: "7.2",
+                number: "Ejercicio 7.2",
+                title: "Ley de los Cosenos",
+                description: "Calcula el tercer lado de un triángulo usando la ley de los cosenos: c² = a² + b² − 2ab·cos(θ). Para a = 8, b = 6, θ = 45°.",
+                pythonFunctions: ["import math", "math.cos()", "math.radians()", "**"],
+                solution: `import math
+
+a = 8
+b = 6
+theta_grados = 45
+
+theta_rad = math.radians(theta_grados)
+c_squared = a**2 + b**2 - 2*a*b*math.cos(theta_rad)
+c = math.sqrt(c_squared)
+
+print("=== LEY DE LOS COSENOS ===")
+print(f"Lado a: {a}, Lado b: {b}, Angulo: {theta_grados}°")
+print(f"c² = a² + b² − 2ab·cos(θ)")
+print(f"c² = {a}² + {b}² − 2·{a}·{b}·cos({theta_grados}°)")
+print(f"c² = {a**2} + {b**2} − {2*a*b*math.cos(theta_rad):.4f}")
+print(f"c² = {c_squared:.4f}")
+print(f"c = {c:.4f}")`,
+                explanation: "La ley de los cosenos generaliza el teorema de Pitágoras para triángulos no rectángulos. Cuando θ = 90°, cos(θ) = 0 y se reduce a c² = a² + b² (Pitágoras). Para θ < 90°, el triángulo es acutángulo; para θ > 90°, es obtusángulo.",
+                difficulty: "intermedio",
+                starterCode: `import math
+
+a = 8
+b = 6
+theta_grados = 45
+
+# Calcula el tercer lado usando la ley de los cosenos
+`
+            },
+            {
+                id: "7.3",
+                number: "Ejercicio 7.3",
+                title: "Distancia entre Dos Puntos 3D",
+                description: "Calcula la distancia entre los puntos P1(1, 2, 3) y P2(4, 5, 6) usando la fórmula d = √((x₂−x₁)² + (y₂−y₁)² + (z₂−z₁)²).",
+                pythonFunctions: ["import math", "math.sqrt()", "**"],
+                solution: `import math
+
+P1 = (1, 2, 3)
+P2 = (4, 5, 6)
+
+dx = P2[0] - P1[0]
+dy = P2[1] - P1[1]
+dz = P2[2] - P1[2]
+
+distancia = math.sqrt(dx**2 + dy**2 + dz**2)
+
+print("=== DISTANCIA EN 3D ===")
+print(f"P1: {P1}")
+print(f"P2: {P2}")
+print(f"dx = {dx}, dy = {dy}, dz = {dz}")
+print(f"d = √({dx}² + {dy}² + {dz}²)")
+print(f"d = √({dx**2} + {dy**2} + {dz**2})")
+print(f"d = {distancia:.6f}")`,
+                explanation: "La distancia euclidiana en 3D es la generalización del teorema de Pitágoras. En 2D: d = √(dx² + dy²). En 3D agregamos dz². Esto representa la longitud del segmento que une los dos puntos en el espacio tridimensional.",
+                difficulty: "básico",
+                starterCode: `import math
+
+P1 = (1, 2, 3)
+P2 = (4, 5, 6)
+
+# Calcula la distancia
+`
+            },
+            {
+                id: "8.1",
+                number: "Ejercicio 8.1",
+                title: "Conversión de Temperatura",
+                description: "Convierte 100°C a Fahrenheit usando F = C × 9/5 + 32 y a Kelvin usando K = C + 273.15.",
+                pythonFunctions: ["operadores aritméticos", "print()", "f-strings"],
+                solution: `C = 100
+
+F = C * 9/5 + 32
+K = C + 273.15
+
+print("=== CONVERSIONES DE TEMPERATURA ===")
+print(f"{C}°C = {F:.2f}°F")
+print(f"{C}°C = {K:.2f}K")
+
+# Conversión inversa: Fahrenheit a Celsius
+F2 = 98.6
+C2 = (F2 - 32) * 5/9
+print(f"\n{F2}°F = {C2:.2f}°C (temperatura corporal)")`,
+                explanation: "Las fórmulas de conversión de temperatura son transformaciones lineales. El punto de congelación del agua es 0°C = 32°F = 273.15K. El punto de ebullición es 100°C = 212°F = 373.15K. La escala Kelvin es absoluta (no tiene valores negativos).",
+                difficulty: "básico",
+                starterCode: `C = 100
+
+# Convierte a Fahrenheit y Kelvin
+`
+            },
+            {
+                id: "8.2",
+                number: "Ejercicio 8.2",
+                title: "Interest Compuesto",
+                description: "Calcula el monto final de $1000 invertido al 5% anual durante 10 años con capitalización anual: M = P(1 + r)^t.",
+                pythonFunctions: ["** (potenciación)", "operadores aritméticos", "f-strings"],
+                solution: `P = 1000  # Capital inicial
+r = 0.05  # Tasa anual (5%)
+t = 10    # Años
+
+M = P * (1 + r)**t
+intereses = M - P
+
+print("=== INTERES COMPUESTO ===")
+print("Capital inicial: " + str(P))
+print("Tasa anual: " + str(r*100) + "%")
+print("Periodo: " + str(t) + " años")
+print("\nMonto final: " + str(round(M, 2)))
+print("Intereses ganados: " + str(round(intereses, 2)))
+
+# Con fórmula logarítmica para encontrar tiempo
+M_objetivo = 2000
+t_necesario = math.log(M_objetivo/P) / math.log(1 + r)
+print("\nPara duplicar a " + str(M_objetivo) + ": " + str(round(t_necesario, 1)) + " años")`,
+                explanation: "El interés compuesto grows exponencialmente porque los intereses generan más intereses. La fórmula M = P(1+r)^t muestra que el crecimiento es exponencial en el tiempo. Para tasas pequeñas y períodos largos, el efecto es significativo.",
+                difficulty: "básico",
+                starterCode: `P = 1000
+r = 0.05
+t = 10
+
+# Calcula el monto final
+`
+            },
+            {
+                id: "9.1",
+                number: "Ejercicio 9.1",
+                title: "Progressión Aritmética",
+                description: "Calcula la suma de los primeros 50 números naturales y el término n-ésimo. Para una PA con a₁ = 1 y d = 1.",
+                pythonFunctions: ["operadores aritméticos", "range()", "for"],
+                solution: `a1 = 1   # Primer término
+d = 1    # Diferencia
+n = 50   # Cantidad de términos
+
+# Término n-ésimo: an = a1 + (n-1)*d
+an = a1 + (n-1) * d
+print("=== PROGRESION ARITMETICA ===")
+print(f"a₁ = {a1}, d = {d}, n = {n}")
+print(f"Término {n}: a₅₀ = {an}")
+
+# Suma: Sn = n*(a1 + an)/2
+Sn = n * (a1 + an) / 2
+print(f"Suma de los primeros {n} números: S₅₀ = {Sn}")
+
+# Verificación con bucle
+suma = sum(i for i in range(1, n+1))
+print(f"Verificación: {suma}")`,
+                explanation: "Una progresión aritmética (PA) tiene diferencia constante entre términos consecutivos. La fórmula del término n-ésimo es aₙ = a₁ + (n−1)d. La suma de los primeros n términos es Sₙ = n(a₁ + aₙ)/2. Para números naturales: 1+2+...+n = n(n+1)/2.",
+                difficulty: "básico",
+                starterCode: `a1 = 1
+d = 1
+n = 50
+
+# Calcula el término 50 y la suma
+`
+            },
+            {
+                id: "9.2",
+                number: "Ejercicio 9.2",
+                title: "Progressión Geométrica",
+                description: "Calcula la suma de los primeros 10 términos de una PG con a₁ = 2 y razón r = 3. Usa Sₙ = a₁(rⁿ−1)/(r−1).",
+                pythonFunctions: ["** (potenciación)", "operadores aritméticos", "for"],
+                solution: `a1 = 2   # Primer término
+r = 3    # Razón
+n = 10   # Cantidad de términos
+
+# Suma de PG: Sn = a1*(r^n - 1)/(r - 1)
+Sn = a1 * (r**n - 1) / (r - 1)
+print("=== PROGRESION GEOMETRICA ===")
+print(f"a₁ = {a1}, razón r = {r}, n = {n}")
+
+# Término n-ésimo
+an = a1 * r**(n-1)
+print(f"Término {n}: a₁₀ = {an}")
+print(f"Suma: S₁₀ = {Sn:.2f}")
+
+# Verificación con bucle
+suma = sum(a1 * r**i for i in range(n))
+print(f"Verificación: {suma:.2f}")`,
+                explanation: "Una progresión geométrica (PG) tiene razón constante entre términos. La fórmula del término n-ésimo es aₙ = a₁·rⁿ⁻¹. La suma de los primeros n términos es Sₙ = a₁(rⁿ−1)/(r−1) para r ≠ 1. Las PG crecen exponencialmente si r > 1.",
+                difficulty: "intermedio",
+                starterCode: `a1 = 2
+r = 3
+n = 10
+
+# Calcula la suma de los primeros 10 términos
+`
+            },
+            {
+                id: "10.1",
+                number: "Ejercicio 10.1",
+                title: "Factorial y Combinaciones",
+                description: "Calcula 5! (factorial) y las combinaciones C(5,2) = 5!/(2!·3!). También binomial: (a+b)⁵.",
+                pythonFunctions: ["for", "range()", "math.factorial()", "operadores"],
+                solution: `import math
+
+n = 5
+r = 2
+
+# Factorial: n! = n * (n-1) * ... * 1
+factorial = 1
+for i in range(1, n+1):
+    factorial *= i
+
+print("=== FACTORIAL Y COMBINACIONES ===")
+print(f"5! = {factorial}")
+
+# Combinaciones: C(n,r) = n! / (r! * (n-r)!)
+combinaciones = math.factorial(n) // (math.factorial(r) * math.factorial(n-r))
+print(f"C({n},{r}) = {combinaciones}")
+
+# Permutaciones: P(n,r) = n! / (n-r)!
+permutaciones = math.factorial(n) // math.factorial(n-r)
+print(f"P({n},{r}) = {permutaciones}")
+
+# Coeficientes binomiales (a+b)^n
+print(f"\nCoeficientes de (a+b)⁵:")
+for k in range(n+1):
+    coef = math.factorial(n) // (math.factorial(k) * math.factorial(n-k))
+    print(f"  a{5-k}b{k}: {coef}")`,
+                explanation: "El factorial n! cuenta el número de formas de ordenar n elementos. Las combinaciones C(n,r) cuentan subconjuntos de tamaño r sin importar orden. Las permutaciones P(n,r) consideran el orden. Los coeficientes binomiales aparecen en el desarrollo de (a+b)ⁿ.",
+                difficulty: "intermedio",
+                starterCode: `import math
+
+n = 5
+r = 2
+
+# Calcula factorial, combinaciones y permutaciones
+`
             }
         ]
     },
