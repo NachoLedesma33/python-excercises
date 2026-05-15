@@ -519,18 +519,68 @@ output
             )}
           </TabsContent>
 
-          <TabsContent value="explanation" className="mt-4">
+          <TabsContent value="explanation" className="mt-4 space-y-4">
+            {/* Sección: Cómo identificar qué usar */}
+            <Card className="bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-blue-800 dark:text-blue-300 mb-2">CÓMO IDENTIFICAR QUÉ USAR</h4>
+                    <p className="text-sm text-blue-700 dark:text-blue-400 leading-relaxed">
+                      Lee el enunciado y busca las palabras clave que indican qué funciones necesitas:
+                    </p>
+                    <ul className="mt-2 space-y-1 text-sm text-blue-700 dark:text-blue-400">
+                      <li>• <strong>"punto fijo"</strong> → iteración, despejar x = g(x)</li>
+                      <li>• <strong>"Newton-Raphson"</strong> → derivadas, fórmula iterativa</li>
+                      <li>• <strong>"EDO" o "ecuación diferencial"</strong> → solve_ivp, Euler</li>
+                      <li>• <strong>"raíces de polinomio"</strong> → numpy.roots()</li>
+                      <li>• <strong>"graficar"</strong> → matplotlib.pyplot</li>
+                      <li>• <strong>"interpolar"</strong> → Lagrange, spline</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Sección: Funciones necesarias */}
+            <Card className="bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-400 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-green-800 dark:text-green-300 mb-2">FUNCIONES QUE NECESITAS</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {exercise.pythonFunctions.map((func, idx) => (
+                        <span key={idx} className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full text-sm font-mono">
+                          {func}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="mt-3 text-sm text-green-700 dark:text-green-400">
+                      Estas funciones se identifican mirando las fórmulas y palabras clave del enunciado.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Sección: Por qué funciona */}
             <Card className="bg-accent/5 border-accent/20">
-              <CardContent className="p-6">
+              <CardContent className="p-5">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent shrink-0">
                     <Lightbulb className="w-5 h-5" />
                   </div>
-                  <div className="explanation-content">
-                    <h4 className="font-semibold text-foreground mb-2">Por que esta solucion funciona</h4>
-                    <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                  <div className="explanation-content flex-1">
+                    <h4 className="font-semibold text-foreground mb-3">EXPLICACIÓN DETALLADA</h4>
+                    <div className="text-muted-foreground leading-relaxed whitespace-pre-line">
                       <MathText text={exercise.explanation} />
-                    </p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
