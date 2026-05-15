@@ -1,26 +1,38 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
   <style>
     @media (prefers-color-scheme: light) {
-      .background { fill: black; }
-      .foreground { fill: white; }
+      .bg { fill: #2563eb; }
+      .fg { fill: white; }
     }
     @media (prefers-color-scheme: dark) {
-      .background { fill: white; }
-      .foreground { fill: black; }
+      .bg { fill: #3b82f6; }
+      .fg { fill: white; }
     }
   </style>
-  <g clip-path="url(#clip0_7960_43945)">
-    <rect class="background" width="180" height="180" rx="37" />
-    <g style="transform: scale(95%); transform-origin: center">
-      <path class="foreground"
-        d="M101.141 53H136.632C151.023 53 162.689 64.6662 162.689 79.0573V112.904H148.112V79.0573C148.112 78.7105 148.098 78.3662 148.072 78.0251L112.581 112.898C112.701 112.902 112.821 112.904 112.941 112.904H148.112V126.672H112.941C98.5504 126.672 86.5638 114.891 86.5638 100.5V66.7434H101.141V100.5C101.141 101.15 101.191 101.792 101.289 102.422L137.56 66.7816C137.255 66.7563 136.945 66.7434 136.632 66.7434H101.141V53Z" />
-      <path class="foreground"
-        d="M65.2926 124.136L14 66.7372H34.6355L64.7495 100.436V66.7372H80.1365V118.47C80.1365 126.278 70.4953 129.958 65.2926 124.136Z" />
-    </g>
+  <rect class="bg" width="180" height="180" rx="37"/>
+  <g transform="translate(30, 35)">
+    <path class="fg" d="M85 5L95 5L95 15L85 15L85 5Z"/>
+    <path class="fg" d="M95 15L105 15L105 25L95 25L95 15Z"/>
+    <path class="fg" d="M65 25L75 25L75 35L65 35L65 25Z"/>
+    <path class="fg" d="M75 35L85 35L85 45L75 45L75 35Z"/>
+    <path class="fg" d="M85 45L95 45L95 55L85 55L85 45Z"/>
+    <path class="fg" d="M95 55L105 55L105 65L95 65L95 55Z"/>
+    <path class="fg" d="M105 65L115 65L115 75L105 75L105 65Z"/>
+    <path class="fg" d="M75 65L85 65L85 75L75 75L75 65Z"/>
+    <path class="fg" d="M85 75L95 75L95 85L85 85L85 75Z"/>
+    <path class="fg" d="M95 85L105 85L105 95L95 95L95 85Z"/>
+    <path class="fg" d="M35 85L45 85L45 95L35 95L35 85Z"/>
+    <path class="fg" d="M45 95L55 95L55 105L45 105L45 95Z"/>
+    <path class="fg" d="M55 105L65 105L65 115L55 115L55 105Z"/>
+    <path class="fg" d="M65 115L75 115L75 125L65 125L65 115Z"/>
+    <path class="fg" d="M75 85L85 85L85 95L75 95L75 85Z"/>
+    <path class="fg" d="M85 95L95 95L95 105L85 105L85 95Z"/>
+    <path class="fg" d="M95 105L105 105L105 115L95 115L95 105Z"/>
+    <path class="fg" d="M105 115L115 115L115 125L105 125L105 115Z"/>
+    <path class="fg" d="M55 75L65 75L65 85L55 85L55 75Z"/>
+    <path class="fg" d="M65 85L75 85L75 95L65 95L65 85Z"/>
   </g>
-  <defs>
-    <clipPath id="clip0_7960_43945">
-      <rect width="180" height="180" fill="white" />
-    </clipPath>
-  </defs>
+  <path class="fg" d="M115 130C128.807 130 140 118.807 140 105C140 91.193 128.807 80 115 80C101.193 80 90 91.193 90 105C90 118.807 101.193 130 115 130Z" fill="none" stroke="white" stroke-width="4"/>
+  <path class="fg" d="M125 105H105" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <path class="fg" d="M115 95V115" stroke="white" stroke-width="4" stroke-linecap="round"/>
 </svg>
