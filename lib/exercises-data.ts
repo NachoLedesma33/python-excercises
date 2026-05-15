@@ -368,7 +368,7 @@ x0 = 0.5
 raiz = punto_fijo(g, x0)
 print(f"\\nRaíz encontrada: x = {raiz:.10f}")
 print(f"Verificación: f({raiz:.6f}) = {f(raiz):.2e}")`,
-                explanation: "El método de punto fijo transforma f(x) = 0 en x = g(x). Para f(x) = e⁻ˣ − x = 0, despejamos x = e⁻ˣ. Partiendo de x₀, iteramos xₙ₊₁ = g(xₙ) hasta que |xₙ₊₁ − xₙ| < tolerancia. La convergencia depende de que |g'(x)| < 1 cerca de la raíz. La raíz es aproximadamente 0.567143.",
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'punto fijo' y 'f(x) = e⁻ˣ − x = 0'. Esto indica que debes despejar x para obtener x = g(x).\n\nFUNCIONES NECESARIAS:\n• math.exp(-x): Para calcular e⁻ˣ. Se identifica porque el enunciado tiene 'e^(-x)'.\n• math.exp(): Observa que hay una exponencial en la fórmula.\n• Bucles (while/for): El método es iterativo, necesitas repetir hasta convergencia.\n• abs(): Para calcular el error |xₙ₊₁ − xₙ|. Se identifica porque el enunciado menciona 'tolerancia'.\n\nPOR QUÉ FUNCIONA: Transformas f(x) = 0 en x = g(x). Para f(x) = e⁻ˣ − x = 0, despejas x = e⁻ˣ. Partiendo de x₀, iteras xₙ₊₁ = g(xₙ) hasta que |xₙ₊₁ − xₙ| < tolerancia. La convergencia depende de que |g'(x)| < 1 cerca de la raíz. La raíz es aproximadamente 0.567143.",
                 difficulty: "intermedio",
                 starterCode: `import math
 
@@ -426,7 +426,7 @@ for x0 in valores_iniciales:
 coefs = [2, -12, 17, -5]
 raices_numpy = np.roots(coefs)
 print("Raíces con numpy.roots():", raices_numpy)`,
-                explanation: "Newton-Raphson usa la fórmula xₙ₊₁ = xₙ − f(xₙ)/f'(xₙ). La derivada f'(x) = 6x² − 24x + 17. Diferentes valores iniciales convergen a diferentes raíces. Las tres raíces son aproximadamente: x₁ ≈ 0.385, x₂ ≈ 1.294, x₃ ≈ 4.321. numpy.roots() encuentra todas las raíces directamente.",
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Newton-Raphson' y es un polinomio. También menciona 'diferentes valores iniciales' lo que indica que hay múltiples raíces.\n\nFUNCIONES NECESARIAS:\n• **operator (pow o **): Para calcular x³, x². Se identifica porque es un polinomio.\n• Definir f(x): El polinomio es 2x³ − 12x² + 17x − 5, usas operadores aritméticos.\n• Definir df(x): Newton-Raphson requiere derivada. Derivas manualmente: 6x² − 24x + 17.\n• Bucles (for/while): Iteras hasta convergencia.\n• numpy.roots(): El enunciado menciona encontrar las tres raíces de un polinomio.\n\nPOR QUÉ FUNCIONA: Newton-Raphson usa la fórmula xₙ₊₁ = xₙ − f(xₙ)/f'(xₙ). La derivada f'(x) = 6x² − 24x + 17. Diferentes valores iniciales convergen a diferentes raíces. Las tres raíces son aproximadamente: x₁ ≈ 0.385, x₂ ≈ 1.294, x₃ ≈ 4.321. numpy.roots() encuentra todas las raíces directamente.",
                 difficulty: "avanzado",
                 starterCode: `import numpy as np
 
@@ -1245,7 +1245,7 @@ plt.grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()`,
-                explanation: "El método de Euler es el más simple para EDOs: yₙ₊₁ = yₙ + h·f(tₙ, yₙ). Para y' = −2y, la solución exacta es y = e⁻²ᵗ. Euler tiene error O(h), así que con h = 0.1 el error crece con t. Pasos más pequeños dan mejor precisión pero más cálculos.",
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'método de Euler' y menciona 'EDO' (ecuación diferencial ordinaria), 'y' = −2y, 'y(0) = 1', e '[0, 2]'. Esto indica resolver una EDO con condición inicial.\n\nFUNCIONES NECESARIAS:\n• ** (potencia): Para calcular y², t². Se identifica en las fórmulas.\n• numpy.linspace: Para crear el intervalo de tiempo [0, 2]. Se identifica porque dice 'en [0, 2]' y necesitas evaluar en múltiples puntos.\n• math.exp: Para la solución exacta e⁻²ᵗ. Se identifica porque la EDO tiene exponencial.\n• Listas/arrays: Para almacenar los valores de t e y.\n• Bucles (for): Para implementar el método iterativo.\n\nPOR QUÉ FUNCIONA: El método de Euler es el más simple para EDOs: yₙ₊₁ = yₙ + h·f(tₙ, yₙ). Para y' = −2y, la solución exacta es y = e⁻²ᵗ. Euler tiene error O(h), así que con h = 0.1 el error crece con t. Pasos más pequeños dan mejor precisión pero más cálculos.",
                 difficulty: "intermedio",
                 starterCode: `import numpy as np
 

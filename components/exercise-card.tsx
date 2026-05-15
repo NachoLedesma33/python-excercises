@@ -13,6 +13,28 @@ import {
 import { type Exercise, SUITE_NUMERICA_CODE } from "@/lib/exercises-data";
 import { useTheme } from "next-themes";
 
+function formatTextWithMath(text: string): React.ReactNode {
+  if (!text) return null;
+  
+  const parts = text.split(/(\[[^\]]+\])/g);
+  
+  return parts.map((part, index) => {
+    if (part.startsWith('[') && part.endsWith(']')) {
+      const content = part.slice(1, -1);
+      return (
+        <span key={index} className="math-formula-inline mx-1">
+          {content}
+        </span>
+      );
+    }
+    return part;
+  });
+}
+
+function MathText({ text }: { text: string }) {
+  return <>{formatTextWithMath(text)}</>;
+}
+
 declare global {
   interface Window {
     loadPyodide: (options: { indexURL: string }) => Promise<any>;
@@ -202,7 +224,7 @@ output
             <Badge variant="outline" className="shrink-0">{exercise.number}</Badge>
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold text-foreground">{exercise.title}</h3>
-              <p className="text-sm text-muted-foreground line-clamp-2 mt-1">{exercise.description}</p>
+              <p className="text-sm text-muted-foreground line-clamp-2 mt-1"><MathText text={exercise.description} /></p>
             </div>
             <div className="flex items-center gap-2 shrink-0">
               {exercise.requiresGraph && (
@@ -256,7 +278,7 @@ output
             <CardTitle className="text-xl">{exercise.title}</CardTitle>
           </div>
         </div>
-        <p className="text-muted-foreground mt-2">{exercise.description}</p>
+        <p className="text-muted-foreground mt-2 exercise-desc"><MathText text={exercise.description} /></p>
         
         <div className="flex flex-wrap gap-1 mt-3">
           {exercise.pythonFunctions.map((func) => (
@@ -504,10 +526,10 @@ output
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent shrink-0">
                     <Lightbulb className="w-5 h-5" />
                   </div>
-                  <div>
+                  <div className="explanation-content">
                     <h4 className="font-semibold text-foreground mb-2">Por que esta solucion funciona</h4>
                     <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
-                      {exercise.explanation}
+                      <MathText text={exercise.explanation} />
                     </p>
                   </div>
                 </div>
