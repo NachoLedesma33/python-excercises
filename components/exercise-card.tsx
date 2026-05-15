@@ -5,11 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Editor from "@monaco-editor/react";
 import { 
   Play, Lightbulb, Code, Copy, Check, 
   RotateCcw, Sparkles, BookOpen, Terminal, Loader2, LineChart, ImageIcon
 } from "lucide-react";
 import { type Exercise, SUITE_NUMERICA_CODE } from "@/lib/exercises-data";
+import { useTheme } from "next-themes";
 
 declare global {
   interface Window {
@@ -32,6 +34,12 @@ export function ExerciseCard({ exercise, expanded = false }: ExerciseCardProps) 
   const [pyodideLoading, setPyodideLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("code");
   const pyodideRef = useRef<any>(null);
+  const { theme } = useTheme();
+  const [editorTheme, setEditorTheme] = useState("vs-light");
+
+  useEffect(() => {
+    setEditorTheme(theme === "dark" ? "vs-dark" : "vs-light");
+  }, [theme]);
 
   // Load Pyodide
   const loadPyodide = useCallback(async () => {
@@ -304,13 +312,25 @@ output
                   </Button>
                 </div>
               </div>
-              <textarea
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                className="w-full h-64 p-4 font-mono text-sm bg-background resize-none focus:outline-none"
-                spellCheck={false}
-                placeholder="Escribe tu codigo Python aqui..."
-              />
+              <div className="h-64 border rounded-md overflow-hidden">
+                <Editor
+                  height="256px"
+                  language="python"
+                  theme={editorTheme}
+                  value={code}
+                  onChange={(value) => setCode(value || "")}
+                  options={{
+                    minimap: { enabled: false },
+                    fontSize: 14,
+                    lineNumbers: "on",
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                    tabSize: 4,
+                    wordWrap: "on",
+                    padding: { top: 12, bottom: 12 },
+                  }}
+                />
+              </div>
             </div>
 
             {/* Run Button */}
@@ -394,9 +414,25 @@ output
                   {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                 </Button>
               </div>
-              <pre className="p-4 font-mono text-sm bg-background overflow-x-auto max-h-[400px]">
-                <code>{exercise.solution}</code>
-              </pre>
+              <div className="h-[400px] border rounded-md overflow-hidden">
+                <Editor
+                  height="400px"
+                  language="python"
+                  theme={editorTheme}
+                  value={exercise.solution}
+                  options={{
+                    readOnly: true,
+                    minimap: { enabled: false },
+                    fontSize: 14,
+                    lineNumbers: "on",
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                    tabSize: 4,
+                    wordWrap: "on",
+                    padding: { top: 12, bottom: 12 },
+                  }}
+                />
+              </div>
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
