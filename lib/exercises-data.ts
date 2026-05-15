@@ -308,7 +308,7 @@ print(f"Ángulo θ: {theta_grados}°")
 print(f"\\nsin({theta_grados}°) = {math.sin(theta_rad):.6f}")
 print(f"\\nÁrea = (1/2)·{a}·{b}·sin({theta_grados}°)")
 print(f"Área = {area:.4f} unidades²")`,
-                explanation: "Cuando conocemos dos lados y el ángulo entre ellos, el área se calcula como A = (1/2)ab·sin(θ). Es importante convertir grados a radianes con math.radians() porque las funciones trigonométricas de Python trabajan en radianes. Para θ = 60°, sin(60°) = √3/2 ≈ 0.866.",
+                explanation: "Cuando conocemos dos lados y el ángulo entre ellos, el área se calcula como A = ½ab·sin(θ). Es importante convertir grados a radianes con math.radians() porque las funciones trigonométricas de Python trabajan en radianes. Para θ = 60°, sin(60°) = √3/2 ≈ 0.866.",
                 difficulty: "intermedio",
                 starterCode: `import math
 
@@ -333,8 +333,8 @@ theta_grados = 60
             {
                 id: "11.1",
                 number: "Ejemplo 11.1",
-                title: "Punto Fijo: f(x) = e^(-x) - x",
-                description: "Encuentra la raíz de f(x) = e^(-x) - x usando el método de iteración de punto fijo. Reescribe como x = g(x) = e^(-x).",
+                title: "Punto Fijo: f(x) = e⁻ˣ − x",
+                description: "Encuentra la raíz de f(x) = e⁻ˣ − x usando el método de iteración de punto fijo. Reescribe como x = g(x) = e⁻ˣ.",
                 pythonFunctions: ["import math", "math.exp()", "while", "abs()", "iteración"],
                 solution: `import math
 
@@ -342,7 +342,7 @@ def f(x):
     return math.exp(-x) - x
 
 def g(x):
-    """Función de iteración: x = e^(-x)"""
+    """Función de iteración: x = e⁻ˣ"""
     return math.exp(-x)
 
 def punto_fijo(g, x0, tol=1e-6, max_iter=100):
@@ -368,7 +368,7 @@ x0 = 0.5
 raiz = punto_fijo(g, x0)
 print(f"\\nRaíz encontrada: x = {raiz:.10f}")
 print(f"Verificación: f({raiz:.6f}) = {f(raiz):.2e}")`,
-                explanation: "El método de punto fijo transforma f(x) = 0 en x = g(x). Para f(x) = e^(-x) - x = 0, despejamos x = e^(-x). Partiendo de x₀, iteramos x_{n+1} = g(x_n) hasta que |x_{n+1} - x_n| < tolerancia. La convergencia depende de que |g'(x)| < 1 cerca de la raíz. La raíz es aproximadamente 0.567143.",
+                explanation: "El método de punto fijo transforma f(x) = 0 en x = g(x). Para f(x) = e⁻ˣ − x = 0, despejamos x = e⁻ˣ. Partiendo de x₀, iteramos xₙ₊₁ = g(xₙ) hasta que |xₙ₊₁ − xₙ| < tolerancia. La convergencia depende de que |g'(x)| < 1 cerca de la raíz. La raíz es aproximadamente 0.567143.",
                 difficulty: "intermedio",
                 starterCode: `import math
 
@@ -385,7 +385,7 @@ def g(x):
                 id: "11.3",
                 number: "Ejemplo 11.3",
                 title: "Raíces de Polinomio Cúbico",
-                description: "Encuentra las tres raíces del polinomio f(x) = 2x³ - 12x² + 17x - 5 usando el método de Newton-Raphson con diferentes valores iniciales.",
+                description: "Encuentra las tres raíces del polinomio f(x) = 2x³ − 12x² + 17x − 5 usando el método de Newton-Raphson con diferentes valores iniciales.",
                 pythonFunctions: ["numpy.roots()", "derivadas", "Newton-Raphson", "bucles"],
                 solution: `import numpy as np
 
@@ -426,7 +426,7 @@ for x0 in valores_iniciales:
 coefs = [2, -12, 17, -5]
 raices_numpy = np.roots(coefs)
 print("Raíces con numpy.roots():", raices_numpy)`,
-                explanation: "Newton-Raphson usa la fórmula x_{n+1} = x_n - f(x_n)/f'(x_n). La derivada f'(x) = 6x² - 24x + 17. Diferentes valores iniciales convergen a diferentes raíces. Las tres raíces son aproximadamente: x₁ ≈ 0.385, x₂ ≈ 1.294, x₃ ≈ 4.321. numpy.roots() encuentra todas las raíces directamente.",
+                explanation: "Newton-Raphson usa la fórmula xₙ₊₁ = xₙ − f(xₙ)/f'(xₙ). La derivada f'(x) = 6x² − 24x + 17. Diferentes valores iniciales convergen a diferentes raíces. Las tres raíces son aproximadamente: x₁ ≈ 0.385, x₂ ≈ 1.294, x₃ ≈ 4.321. numpy.roots() encuentra todas las raíces directamente.",
                 difficulty: "avanzado",
                 starterCode: `import numpy as np
 
@@ -443,8 +443,8 @@ def df(x):
             {
                 id: "11.2",
                 number: "Ejercicio 11.2",
-                title: "Raíces de f(x) = 2sin(√x) - x",
-                description: "Localiza y calcula las raíces de f(x) = 2sin(√x) - x. Primero grafica la función para identificar aproximadamente dónde están las raíces.",
+                title: "Raíces de f(x) = 2sin(√x) − x",
+                description: "Localiza y calcula las raíces de f(x) = 2sin(√x) − x. Primero grafica la función para identificar aproximadamente dónde están las raíces.",
                 pythonFunctions: ["numpy", "matplotlib", "math.sin()", "math.sqrt()", "bisección"],
                 solution: `import numpy as np
 import math
@@ -492,7 +492,7 @@ except ValueError as e:
 print("\\nTabla de valores:")
 for x in [0, 0.5, 1, 1.5, 2, 2.5, 3]:
     print(f"f({x}) = {f(x):.6f}")`,
-                explanation: "La función f(x) = 2sin(√x) - x tiene raíz trivial en x = 0 (ya que sin(0) = 0). Otra raíz está cerca de x ≈ 1.9. El método de bisección divide el intervalo por la mitad repetidamente, garantizando convergencia si f(a) y f(b) tienen signos opuestos.",
+                explanation: "La función f(x) = 2sin(√x) − x tiene raíz trivial en x = 0 (ya que sin(0) = 0). Otra raíz está cerca de x ≈ 1.9. El método de bisección divide el intervalo por la mitad repetidamente, garantizando convergencia si f(a) y f(b) tienen signos opuestos.",
                 difficulty: "intermedio",
                 starterCode: `import math
 
@@ -506,7 +506,7 @@ def f(x):
                 id: "11.4",
                 number: "Ejercicio 11.4",
                 title: "Primera Raíz Positiva",
-                description: "Encuentra la primera raíz positiva de f(x) = sin(x) + cos(1 + x²) - 1.",
+                description: "Encuentra la primera raíz positiva de f(x) = sin(x) + cos(1 + x²) − 1.",
                 pythonFunctions: ["math.sin()", "math.cos()", "Newton-Raphson", "derivada numérica"],
                 solution: `import math
 
@@ -550,7 +550,7 @@ print("\\nAplicando Newton desde x0 = 0.5:")
 raiz, iters = newton_numerico(f, 0.5)
 print(f"\\nRaíz: x = {raiz:.10f}")
 print(f"Verificación: f({raiz:.8f}) = {f(raiz):.2e}")`,
-                explanation: "Primero exploramos la función para encontrar un cambio de signo. La derivada f'(x) = cos(x) - 2x·sin(1+x²) es complicada, así que usamos derivada numérica con diferencias centradas: f'(x) ≈ (f(x+h) - f(x-h))/(2h). La primera raíz positiva está cerca de x ≈ 0.48.",
+                explanation: "Primero exploramos la función para encontrar un cambio de signo. La derivada f'(x) = cos(x) − 2x·sin(1+x²) es complicada, así que usamos derivada numérica con diferencias centradas: f'(x) ≈ (f(x+h) − f(x−h))/(2h). La primera raíz positiva está cerca de x ≈ 0.48.",
                 difficulty: "avanzado",
                 starterCode: `import math
 
@@ -564,7 +564,7 @@ def f(x):
                 id: "11.6",
                 number: "Ejercicio 11.6",
                 title: "Profundidad en Tanque Esférico",
-                description: "Un tanque esférico de radio R tiene volumen V = (πh²/3)(3R - h) cuando está lleno hasta altura h. Para R = 3m y V = 30m³, encuentra h.",
+                description: "Un tanque esférico de radio R tiene volumen V = (πh²/3)(3R − h) cuando está lleno hasta altura h. Para R = 3m y V = 30m³, encuentra h.",
                 pythonFunctions: ["math.pi", "bisección", "ecuación no lineal", "ingeniería"],
                 solution: `import math
 
@@ -614,7 +614,7 @@ print(f"Profundidad h = {h_sol:.6f} m")
 print(f"Iteraciones: {iters}")
 print(f"\\nVerificación:")
 print(f"V({h_sol:.4f}) = {volumen_esfera_parcial(h_sol, R):.6f} m³")`,
-                explanation: "Este es un problema de ingeniería real. La fórmula V = (πh²/3)(3R - h) relaciona el volumen con la altura del líquido en un tanque esférico. Despejamos h resolviendo la ecuación no lineal V(h) - 30 = 0 usando bisección en el intervalo [0, 2R]. La solución es h ≈ 2.027 m.",
+                explanation: "Este es un problema de ingeniería real. La fórmula V = (πh²/3)(3R − h) relaciona el volumen con la altura del líquido en un tanque esférico. Despejamos h resolviendo la ecuación no lineal V(h) − 30 = 0 usando bisección en el intervalo [0, 2R]. La solución es h ≈ 2.027 m.",
                 difficulty: "avanzado",
                 starterCode: `import math
 
@@ -891,7 +891,7 @@ A = np.array([
                 id: "9.2",
                 number: "Ejercicio 9.2",
                 title: "Cicloide Paramétrica",
-                description: "Grafica la cicloide definida por x(φ) = r(φ - sin(φ)), y(φ) = r(1 - cos(φ)) para r = 1 y φ ∈ [0, 4π].",
+                description: "Grafica la cicloide definida por x(φ) = r(φ − sen(φ)), y(φ) = r(1 − cos(φ)) para r = 1 y φ ∈ [0, 4π].",
                 pythonFunctions: ["numpy", "matplotlib", "np.sin()", "np.cos()", "plt.plot()"],
                 solution: `import numpy as np
 import matplotlib.pyplot as plt
@@ -1169,7 +1169,7 @@ y = np.array([1, 1.8, 1.3, 2.5, 6.3])
                 id: "15.1",
                 number: "Ejercicio 15.1",
                 title: "Método de Euler",
-                description: "Resuelve y' = -2y con y(0) = 1 en [0, 2] usando el método de Euler con h = 0.1. Compara con la solución exacta y = e^(-2t).",
+                description: "Resuelve y' = −2y con y(0) = 1 en [0, 2] usando el método de Euler con h = 0.1. Compara con la solución exacta y = e⁻²ᵗ.",
                 pythonFunctions: ["numpy", "método de Euler", "EDO", "matplotlib"],
                 solution: `import numpy as np
 import matplotlib.pyplot as plt
@@ -1245,7 +1245,7 @@ plt.grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()`,
-                explanation: "El método de Euler es el más simple para EDOs: y_{n+1} = y_n + h·f(t_n, y_n). Para y' = -2y, la solución exacta es y = e^(-2t). Euler tiene error O(h), así que con h = 0.1 el error crece con t. Pasos más pequeños dan mejor precisión pero más cálculos.",
+                explanation: "El método de Euler es el más simple para EDOs: yₙ₊₁ = yₙ + h·f(tₙ, yₙ). Para y' = −2y, la solución exacta es y = e⁻²ᵗ. Euler tiene error O(h), así que con h = 0.1 el error crece con t. Pasos más pequeños dan mejor precisión pero más cálculos.",
                 difficulty: "intermedio",
                 starterCode: `import numpy as np
 
@@ -1263,7 +1263,7 @@ def f(t, y):
                 id: "15.3",
                 number: "Ejercicio 15.3",
                 title: "PVI con scipy.solve_ivp",
-                description: "Resuelve el oscilador armónico amortiguado: y'' + 0.5y' + 4y = 0, con y(0) = 1, y'(0) = 0 en [0, 10]. Usa scipy.integrate.solve_ivp.",
+                description: "Resuelve el oscilador armónico amortiguado: y″ + 0.5y′ + 4y = 0, con y(0) = 1, y′(0) = 0 en [0, 10]. Usa scipy.integrate.solve_ivp.",
                 pythonFunctions: ["scipy.integrate.solve_ivp", "sistema de EDOs", "oscilador"],
                 solution: `import numpy as np
 from scipy.integrate import solve_ivp
@@ -1353,7 +1353,7 @@ axes[1,1].grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()`,
-                explanation: "Una EDO de orden 2 se convierte en un sistema de 2 EDOs de orden 1. El oscilador amortiguado tiene solución y(t) = Ae^(-γt/2)cos(ωt + φ). scipy.solve_ivp usa métodos adaptativos como RK45. El diagrama de fase (y vs y') muestra una espiral hacia el origen debido al amortiguamiento.",
+                explanation: "Una EDO de orden 2 se convierte en un sistema de 2 EDOs de orden 1. El oscilador amortiguado tiene solución y(t) = Ae^(−γt/2)cos(ωt + φ). scipy.solve_ivp usa métodos adaptativos como RK45. El diagrama de fase (y vs y′) muestra una espiral hacia el origen debido al amortiguamiento.",
                 difficulty: "avanzado",
                 starterCode: `import numpy as np
 from scipy.integrate import solve_ivp
@@ -1373,7 +1373,7 @@ Y0 = [1, 0]  # y(0) = 1, y'(0) = 0
                 id: "15.5",
                 number: "Ejercicio 15.5",
                 title: "Sistema de Lotka-Volterra",
-                description: "Simula el modelo depredador-presa de Lotka-Volterra: x' = αx - βxy, y' = δxy - γy, con α=1.5, β=1, δ=1, γ=3, x(0)=10, y(0)=5.",
+                description: "Simula el modelo depredador-presa de Lotka-Volterra: x′ = αx − βxy, y′ = δxy − γy, con α=1.5, β=1, δ=1, γ=3, x(0)=10, y(0)=5.",
                 pythonFunctions: ["scipy.integrate.solve_ivp", "sistema no lineal", "ecología"],
                 solution: `import numpy as np
 from scipy.integrate import solve_ivp
@@ -1487,7 +1487,7 @@ Z0 = [10, 5]
                 id: "16.1",
                 number: "Ejercicio 16.1",
                 title: "Problema de Valor en Frontera",
-                description: "Resuelve el PVF: y'' = -y, con y(0) = 0 y y(π) = 0. Esto es un problema de autovalores (la solución es y = sin(x)).",
+                description: "Resuelve el PVF: y″ = −y, con y(0) = 0 y y(π) = 0. Esto es un problema de autovalores (la solución es y = sin(x)).",
                 pythonFunctions: ["scipy.integrate.solve_bvp", "PVF", "condiciones de frontera"],
                 solution: `import numpy as np
 from scipy.integrate import solve_bvp
@@ -1572,7 +1572,7 @@ plt.show()
 
 print("\\nNota: Este PVF tiene infinitas soluciones: y = A*sin(x) para cualquier A.")
 print("solve_bvp encuentra una de ellas basándose en la estimación inicial.")`,
-                explanation: "Un PVF especifica condiciones en ambos extremos del intervalo, no solo al inicio. La ecuación y'' = -y con y(0) = y(π) = 0 tiene solución y = A·sin(x). scipy.solve_bvp usa un método de colocación que requiere una estimación inicial. Este problema es especial porque tiene infinitas soluciones (cualquier múltiplo de sin(x)).",
+                explanation: "Un PVF especifica condiciones en ambos extremos del intervalo, no solo al inicio. La ecuación y″ = −y con y(0) = y(π) = 0 tiene solución y = A·sin(x). scipy.solve_bvp usa un método de colocación que requiere una estimación inicial. Este problema es especial porque tiene infinitas soluciones (cualquier múltiplo de sin(x)).",
                 difficulty: "avanzado",
                 starterCode: `import numpy as np
 from scipy.integrate import solve_bvp
