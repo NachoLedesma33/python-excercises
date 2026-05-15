@@ -1,24 +1,24 @@
 export interface Exercise {
-  id: string;
-  number: string;
-  title: string;
-  description: string;
-  pythonFunctions: string[];
-  solution: string;
-  explanation: string;
-  difficulty: 'básico' | 'intermedio' | 'avanzado';
-  starterCode?: string;
-  useSuiteNumerica?: boolean;
-  requiresGraph?: boolean;
+    id: string;
+    number: string;
+    title: string;
+    description: string;
+    pythonFunctions: string[];
+    solution: string;
+    explanation: string;
+    difficulty: 'básico' | 'intermedio' | 'avanzado';
+    starterCode?: string;
+    useSuiteNumerica?: boolean;
+    requiresGraph?: boolean;
 }
 
 export interface Section {
-  id: string;
-  title: string;
-  chapter: string;
-  description: string;
-  icon: string;
-  exercises: Exercise[];
+    id: string;
+    title: string;
+    chapter: string;
+    description: string;
+    icon: string;
+    exercises: Exercise[];
 }
 
 // Código de la Suite Numérica Master para incluir en ejercicios avanzados
@@ -40,7 +40,7 @@ class SuiteNumericaMaster:
         x = x0
         for _ in range(max_iter):
             x_new = g(x)
-            if abs(x_new - x) &lt; tol:
+            if abs(x_new - x) < tol:
                 return x_new
             x = x_new
         raise RuntimeError("Punto fijo no convergió")
@@ -55,7 +55,7 @@ class SuiteNumericaMaster:
             if dfx == 0:
                 raise ZeroDivisionError(f"Derivada cero en x={x}")
             x_new = x - fx / dfx
-            if abs(x_new - x) &lt; tol:
+            if abs(x_new - x) < tol:
                 return x_new
             x = x_new
         raise RuntimeError("Newton no convergió")
@@ -63,13 +63,13 @@ class SuiteNumericaMaster:
     @staticmethod
     def biseccion(f, a, b, tol=1e-6, max_iter=100):
         """Método de bisección para f(x)=0 en [a,b]"""
-        if f(a) * f(b) &gt; 0:
+        if f(a) * f(b) > 0:
             raise ValueError("f(a) y f(b) deben tener signos opuestos")
         for _ in range(max_iter):
             c = (a + b) / 2
-            if abs(f(c)) &lt; tol or (b - a) / 2 &lt; tol:
+            if abs(f(c)) < tol or (b - a) / 2 < tol:
                 return c
-            if f(c) * f(a) &lt; 0:
+            if f(c) * f(a) < 0:
                 b = c
             else:
                 a = c
@@ -130,21 +130,21 @@ class SuiteNumericaMaster:
 `;
 
 export const sectionsData: Section[] = [
-  // ==================== SECCIÓN 1: ÁLGEBRA, POLINOMIOS Y FUNCIONES ====================
-  {
-    id: "algebra-polinomios",
-    title: "Álgebra, Polinomios y Funciones Básicas",
-    chapter: "Cap. 2-4",
-    description: "Evaluación de expresiones, funciones matemáticas, geometría básica y tablas de verdad",
-    icon: "calculator",
-    exercises: [
-      {
-        id: "2.13",
-        number: "Ejemplo 2.13",
-        title: "Tablas de Verdad",
-        description: "Genera una tabla de verdad para la expresión lógica (p AND q) OR (NOT p). Evalúa todas las combinaciones posibles de p y q.",
-        pythonFunctions: ["for", "range()", "bool", "and", "or", "not", "print()"],
-        solution: `# Tabla de verdad para (p AND q) OR (NOT p)
+    // ==================== SECCIÓN 1: ÁLGEBRA, POLINOMIOS Y FUNCIONES ====================
+    {
+        id: "algebra-polinomios",
+        title: "Álgebra, Polinomios y Funciones Básicas",
+        chapter: "Cap. 2-4",
+        description: "Evaluación de expresiones, funciones matemáticas, geometría básica y tablas de verdad",
+        icon: "calculator",
+        exercises: [
+            {
+                id: "2.13",
+                number: "Ejemplo 2.13",
+                title: "Tablas de Verdad",
+                description: "Genera una tabla de verdad para la expresión lógica (p AND q) OR (NOT p). Evalúa todas las combinaciones posibles de p y q.",
+                pythonFunctions: ["for", "range()", "bool", "and", "or", "not", "print()"],
+                solution: `# Tabla de verdad para (p AND q) OR (NOT p)
 print("p\\tq\\tp AND q\\tNOT p\\t(p AND q) OR (NOT p)")
 print("-" * 50)
 
@@ -154,60 +154,60 @@ for p in [True, False]:
         not_p = not p
         resultado = p_and_q or not_p
         print(f"{p}\\t{q}\\t{p_and_q}\\t{not_p}\\t{resultado}")`,
-        explanation: "Una tabla de verdad muestra todas las combinaciones posibles de valores de verdad para las variables proposicionales. Usamos dos bucles anidados para generar las 4 combinaciones de p y q (True/True, True/False, False/True, False/False). Los operadores lógicos de Python (and, or, not) evalúan las expresiones compuestas.",
-        difficulty: "básico",
-        starterCode: `# Genera la tabla de verdad para (p AND q) OR (NOT p)
+                explanation: "Una tabla de verdad muestra todas las combinaciones posibles de valores de verdad para las variables proposicionales. Usamos dos bucles anidados para generar las 4 combinaciones de p y q (True/True, True/False, False/True, False/False). Los operadores lógicos de Python (and, or, not) evalúan las expresiones compuestas.",
+                difficulty: "básico",
+                starterCode: `# Genera la tabla de verdad para (p AND q) OR (NOT p)
 # Usa bucles for para iterar sobre True y False
 
 `
-      },
-      {
-        id: "3.1",
-        number: "Ejercicio 3.1",
-        title: "Evaluación de Seno",
-        description: "Asigna a la variable x el valor 2.5 y calcula el seno de x. El seno es una función trigonométrica fundamental.",
-        pythonFunctions: ["import math", "math.sin()", "variables"],
-        solution: `import math
+            },
+            {
+                id: "3.1",
+                number: "Ejercicio 3.1",
+                title: "Evaluación de Seno",
+                description: "Asigna a la variable x el valor 2.5 y calcula el seno de x. El seno es una función trigonométrica fundamental.",
+                pythonFunctions: ["import math", "math.sin()", "variables"],
+                solution: `import math
 
 x = 2.5
 resultado = math.sin(x)
 print(f"sin({x}) = {resultado}")
 print(f"Redondeado: {resultado:.6f}")`,
-        explanation: "La función math.sin() calcula el seno de un ángulo dado en radianes. Para x = 2.5 radianes (aproximadamente 143°), el seno es aproximadamente 0.5985. En Python, math.sin() usa la implementación de alta precisión de la biblioteca estándar de C.",
-        difficulty: "básico",
-        starterCode: `import math
+                explanation: "La función math.sin() calcula el seno de un ángulo dado en radianes. Para x = 2.5 radianes (aproximadamente 143°), el seno es aproximadamente 0.5985. En Python, math.sin() usa la implementación de alta precisión de la biblioteca estándar de C.",
+                difficulty: "básico",
+                starterCode: `import math
 
 x = 2.5
 # Calcula el seno de x
 `
-      },
-      {
-        id: "3.2",
-        number: "Ejercicio 3.2",
-        title: "Logaritmo Natural",
-        description: "Asigna a la variable x el valor 10 y calcula el logaritmo natural (ln) de x.",
-        pythonFunctions: ["import math", "math.log()", "variables"],
-        solution: `import math
+            },
+            {
+                id: "3.2",
+                number: "Ejercicio 3.2",
+                title: "Logaritmo Natural",
+                description: "Asigna a la variable x el valor 10 y calcula el logaritmo natural (ln) de x.",
+                pythonFunctions: ["import math", "math.log()", "variables"],
+                solution: `import math
 
 x = 10
 logaritmo = math.log(x)
 print(f"ln({x}) = {logaritmo}")
 print(f"Verificación: e^{logaritmo:.6f} = {math.exp(logaritmo):.6f}")`,
-        explanation: "El logaritmo natural (ln) es el logaritmo en base e (número de Euler ≈ 2.71828). math.log(x) devuelve el valor y tal que e^y = x. Para x = 10, ln(10) ≈ 2.3026. Esta función es la inversa de la exponencial e^x.",
-        difficulty: "básico",
-        starterCode: `import math
+                explanation: "El logaritmo natural (ln) es el logaritmo en base e (número de Euler ≈ 2.71828). math.log(x) devuelve el valor y tal que e^y = x. Para x = 10, ln(10) ≈ 2.3026. Esta función es la inversa de la exponencial e^x.",
+                difficulty: "básico",
+                starterCode: `import math
 
 x = 10
 # Calcula el logaritmo natural de x
 `
-      },
-      {
-        id: "3.3",
-        number: "Ejercicio 3.3",
-        title: "Raíz Cuadrada",
-        description: "Asigna a la variable x el valor 25 y calcula su raíz cuadrada.",
-        pythonFunctions: ["import math", "math.sqrt()", "** (exponenciación)"],
-        solution: `import math
+            },
+            {
+                id: "3.3",
+                number: "Ejercicio 3.3",
+                title: "Raíz Cuadrada",
+                description: "Asigna a la variable x el valor 25 y calcula su raíz cuadrada.",
+                pythonFunctions: ["import math", "math.sqrt()", "** (exponenciación)"],
+                solution: `import math
 
 x = 25
 raiz1 = math.sqrt(x)
@@ -216,21 +216,21 @@ raiz2 = x ** 0.5  # Método alternativo
 print(f"sqrt({x}) usando math.sqrt(): {raiz1}")
 print(f"sqrt({x}) usando x**0.5: {raiz2}")
 print(f"Verificación: {raiz1}² = {raiz1**2}")`,
-        explanation: "La raíz cuadrada de un número x es el valor y tal que y² = x. En Python hay dos formas: math.sqrt(x) y x**0.5 (usando exponenciación). Ambas dan el mismo resultado. Para 25, la raíz es exactamente 5.0.",
-        difficulty: "básico",
-        starterCode: `import math
+                explanation: "La raíz cuadrada de un número x es el valor y tal que y² = x. En Python hay dos formas: math.sqrt(x) y x**0.5 (usando exponenciación). Ambas dan el mismo resultado. Para 25, la raíz es exactamente 5.0.",
+                difficulty: "básico",
+                starterCode: `import math
 
 x = 25
 # Calcula la raíz cuadrada de dos formas diferentes
 `
-      },
-      {
-        id: "3.4",
-        number: "Ejercicio 3.4",
-        title: "Polinomio de Cuarto Grado",
-        description: "Evalúa el polinomio P(x) = x⁴ + x³ + 2x² - x en x = 3. Los polinomios son expresiones algebraicas fundamentales.",
-        pythonFunctions: ["** (exponenciación)", "operadores aritméticos", "variables"],
-        solution: `x = 3
+            },
+            {
+                id: "3.4",
+                number: "Ejercicio 3.4",
+                title: "Polinomio de Cuarto Grado",
+                description: "Evalúa el polinomio P(x) = x⁴ + x³ + 2x² - x en x = 3. Los polinomios son expresiones algebraicas fundamentales.",
+                pythonFunctions: ["** (exponenciación)", "operadores aritméticos", "variables"],
+                solution: `x = 3
 
 # Método directo
 P = x**4 + x**3 + 2*x**2 - x
@@ -241,20 +241,20 @@ print(f"P({x}) = {P}")
 # Método Horner (más eficiente)
 P_horner = x*(x*(x*(x + 1) + 2) - 1)
 print(f"\\nVerificación con Horner: {P_horner}")`,
-        explanation: "El polinomio P(x) = x⁴ + x³ + 2x² - x se evalúa sustituyendo x = 3. Calculamos: 81 + 27 + 18 - 3 = 123. El método de Horner reescribe el polinomio para minimizar operaciones: P(x) = x(x(x(x + 1) + 2) - 1), reduciendo multiplicaciones.",
-        difficulty: "básico",
-        starterCode: `x = 3
+                explanation: "El polinomio P(x) = x⁴ + x³ + 2x² - x se evalúa sustituyendo x = 3. Calculamos: 81 + 27 + 18 - 3 = 123. El método de Horner reescribe el polinomio para minimizar operaciones: P(x) = x(x(x(x + 1) + 2) - 1), reduciendo multiplicaciones.",
+                difficulty: "básico",
+                starterCode: `x = 3
 
 # Evalúa el polinomio P(x) = x⁴ + x³ + 2x² - x
 `
-      },
-      {
-        id: "4.11",
-        number: "Ejercicio 4.11",
-        title: "Área y Volumen de Cilindro",
-        description: "Calcula el área superficial total (2πr² + 2πrh) y el volumen (πr²h) de un cilindro con radio r = 5 y altura h = 3.",
-        pythonFunctions: ["import math", "math.pi", "** (exponenciación)", "f-strings"],
-        solution: `import math
+            },
+            {
+                id: "4.11",
+                number: "Ejercicio 4.11",
+                title: "Área y Volumen de Cilindro",
+                description: "Calcula el área superficial total (2πr² + 2πrh) y el volumen (πr²h) de un cilindro con radio r = 5 y altura h = 3.",
+                pythonFunctions: ["import math", "math.pi", "** (exponenciación)", "f-strings"],
+                solution: `import math
 
 r = 5  # radio
 h = 3  # altura
@@ -273,23 +273,23 @@ print(f"\\nÁrea de las tapas: 2πr² = {area_tapas:.4f}")
 print(f"Área lateral: 2πrh = {area_lateral:.4f}")
 print(f"Área total: {area_total:.4f}")
 print(f"\\nVolumen: πr²h = {volumen:.4f}")`,
-        explanation: "El cilindro tiene dos tapas circulares (área = πr² cada una) y una superficie lateral (área = 2πrh, que es el perímetro de la base por la altura). El área total es 2πr² + 2πrh = 2πr(r+h). El volumen es el área de la base por la altura: πr²h.",
-        difficulty: "básico",
-        starterCode: `import math
+                explanation: "El cilindro tiene dos tapas circulares (área = πr² cada una) y una superficie lateral (área = 2πrh, que es el perímetro de la base por la altura). El área total es 2πr² + 2πrh = 2πr(r+h). El volumen es el área de la base por la altura: πr²h.",
+                difficulty: "básico",
+                starterCode: `import math
 
 r = 5  # radio
 h = 3  # altura
 
 # Calcula área superficial y volumen
 `
-      },
-      {
-        id: "7.1",
-        number: "Ejercicio 7.1",
-        title: "Área de Triángulo por Trigonometría",
-        description: "Calcula el área de un triángulo conociendo dos lados a = 5 y b = 7, y el ángulo θ = 60° entre ellos. Usa la fórmula A = (1/2)·a·b·sin(θ).",
-        pythonFunctions: ["import math", "math.sin()", "math.radians()", "f-strings"],
-        solution: `import math
+            },
+            {
+                id: "7.1",
+                number: "Ejercicio 7.1",
+                title: "Área de Triángulo por Trigonometría",
+                description: "Calcula el área de un triángulo conociendo dos lados a = 5 y b = 7, y el ángulo θ = 60° entre ellos. Usa la fórmula A = (1/2)·a·b·sin(θ).",
+                pythonFunctions: ["import math", "math.sin()", "math.radians()", "f-strings"],
+                solution: `import math
 
 a = 5  # primer lado
 b = 7  # segundo lado
@@ -308,9 +308,9 @@ print(f"Ángulo θ: {theta_grados}°")
 print(f"\\nsin({theta_grados}°) = {math.sin(theta_rad):.6f}")
 print(f"\\nÁrea = (1/2)·{a}·{b}·sin({theta_grados}°)")
 print(f"Área = {area:.4f} unidades²")`,
-        explanation: "Cuando conocemos dos lados y el ángulo entre ellos, el área se calcula como A = (1/2)ab·sin(θ). Es importante convertir grados a radianes con math.radians() porque las funciones trigonométricas de Python trabajan en radianes. Para θ = 60°, sin(60°) = √3/2 ≈ 0.866.",
-        difficulty: "intermedio",
-        starterCode: `import math
+                explanation: "Cuando conocemos dos lados y el ángulo entre ellos, el área se calcula como A = (1/2)ab·sin(θ). Es importante convertir grados a radianes con math.radians() porque las funciones trigonométricas de Python trabajan en radianes. Para θ = 60°, sin(60°) = √3/2 ≈ 0.866.",
+                difficulty: "intermedio",
+                starterCode: `import math
 
 a = 5
 b = 7
@@ -318,25 +318,25 @@ theta_grados = 60
 
 # Convierte a radianes y calcula el área
 `
-      }
-    ]
-  },
+            }
+        ]
+    },
 
-  // ==================== SECCIÓN 2: ECUACIONES NO LINEALES (RAÍCES) ====================
-  {
-    id: "ecuaciones-raices",
-    title: "Ecuaciones No Lineales (Raíces)",
-    chapter: "Cap. 11",
-    description: "Métodos numéricos para encontrar raíces: punto fijo, Newton-Raphson, bisección",
-    icon: "function-square",
-    exercises: [
-      {
-        id: "11.1",
-        number: "Ejemplo 11.1",
-        title: "Punto Fijo: f(x) = e^(-x) - x",
-        description: "Encuentra la raíz de f(x) = e^(-x) - x usando el método de iteración de punto fijo. Reescribe como x = g(x) = e^(-x).",
-        pythonFunctions: ["import math", "math.exp()", "while", "abs()", "iteración"],
-        solution: `import math
+    // ==================== SECCIÓN 2: ECUACIONES NO LINEALES (RAÍCES) ====================
+    {
+        id: "ecuaciones-raices",
+        title: "Ecuaciones No Lineales (Raíces)",
+        chapter: "Cap. 11",
+        description: "Métodos numéricos para encontrar raíces: punto fijo, Newton-Raphson, bisección",
+        icon: "function-square",
+        exercises: [
+            {
+                id: "11.1",
+                number: "Ejemplo 11.1",
+                title: "Punto Fijo: f(x) = e^(-x) - x",
+                description: "Encuentra la raíz de f(x) = e^(-x) - x usando el método de iteración de punto fijo. Reescribe como x = g(x) = e^(-x).",
+                pythonFunctions: ["import math", "math.exp()", "while", "abs()", "iteración"],
+                solution: `import math
 
 def f(x):
     return math.exp(-x) - x
@@ -368,9 +368,9 @@ x0 = 0.5
 raiz = punto_fijo(g, x0)
 print(f"\\nRaíz encontrada: x = {raiz:.10f}")
 print(f"Verificación: f({raiz:.6f}) = {f(raiz):.2e}")`,
-        explanation: "El método de punto fijo transforma f(x) = 0 en x = g(x). Para f(x) = e^(-x) - x = 0, despejamos x = e^(-x). Partiendo de x₀, iteramos x_{n+1} = g(x_n) hasta que |x_{n+1} - x_n| < tolerancia. La convergencia depende de que |g'(x)| < 1 cerca de la raíz. La raíz es aproximadamente 0.567143.",
-        difficulty: "intermedio",
-        starterCode: `import math
+                explanation: "El método de punto fijo transforma f(x) = 0 en x = g(x). Para f(x) = e^(-x) - x = 0, despejamos x = e^(-x). Partiendo de x₀, iteramos x_{n+1} = g(x_n) hasta que |x_{n+1} - x_n| < tolerancia. La convergencia depende de que |g'(x)| < 1 cerca de la raíz. La raíz es aproximadamente 0.567143.",
+                difficulty: "intermedio",
+                starterCode: `import math
 
 def f(x):
     return math.exp(-x) - x
@@ -380,14 +380,14 @@ def g(x):
 
 # Implementa el método de punto fijo
 `
-      },
-      {
-        id: "11.3",
-        number: "Ejemplo 11.3",
-        title: "Raíces de Polinomio Cúbico",
-        description: "Encuentra las tres raíces del polinomio f(x) = 2x³ - 12x² + 17x - 5 usando el método de Newton-Raphson con diferentes valores iniciales.",
-        pythonFunctions: ["numpy.roots()", "derivadas", "Newton-Raphson", "bucles"],
-        solution: `import numpy as np
+            },
+            {
+                id: "11.3",
+                number: "Ejemplo 11.3",
+                title: "Raíces de Polinomio Cúbico",
+                description: "Encuentra las tres raíces del polinomio f(x) = 2x³ - 12x² + 17x - 5 usando el método de Newton-Raphson con diferentes valores iniciales.",
+                pythonFunctions: ["numpy.roots()", "derivadas", "Newton-Raphson", "bucles"],
+                solution: `import numpy as np
 
 def f(x):
     return 2*x**3 - 12*x**2 + 17*x - 5
@@ -426,9 +426,9 @@ for x0 in valores_iniciales:
 coefs = [2, -12, 17, -5]
 raices_numpy = np.roots(coefs)
 print("Raíces con numpy.roots():", raices_numpy)`,
-        explanation: "Newton-Raphson usa la fórmula x_{n+1} = x_n - f(x_n)/f'(x_n). La derivada f'(x) = 6x² - 24x + 17. Diferentes valores iniciales convergen a diferentes raíces. Las tres raíces son aproximadamente: x₁ ≈ 0.385, x₂ ≈ 1.294, x₃ ≈ 4.321. numpy.roots() encuentra todas las raíces directamente.",
-        difficulty: "avanzado",
-        starterCode: `import numpy as np
+                explanation: "Newton-Raphson usa la fórmula x_{n+1} = x_n - f(x_n)/f'(x_n). La derivada f'(x) = 6x² - 24x + 17. Diferentes valores iniciales convergen a diferentes raíces. Las tres raíces son aproximadamente: x₁ ≈ 0.385, x₂ ≈ 1.294, x₃ ≈ 4.321. numpy.roots() encuentra todas las raíces directamente.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
 
 def f(x):
     return 2*x**3 - 12*x**2 + 17*x - 5
@@ -439,14 +439,14 @@ def df(x):
 
 # Implementa Newton-Raphson y encuentra las 3 raíces
 `
-      },
-      {
-        id: "11.2",
-        number: "Ejercicio 11.2",
-        title: "Raíces de f(x) = 2sin(√x) - x",
-        description: "Localiza y calcula las raíces de f(x) = 2sin(√x) - x. Primero grafica la función para identificar aproximadamente dónde están las raíces.",
-        pythonFunctions: ["numpy", "matplotlib", "math.sin()", "math.sqrt()", "bisección"],
-        solution: `import numpy as np
+            },
+            {
+                id: "11.2",
+                number: "Ejercicio 11.2",
+                title: "Raíces de f(x) = 2sin(√x) - x",
+                description: "Localiza y calcula las raíces de f(x) = 2sin(√x) - x. Primero grafica la función para identificar aproximadamente dónde están las raíces.",
+                pythonFunctions: ["numpy", "matplotlib", "math.sin()", "math.sqrt()", "bisección"],
+                solution: `import numpy as np
 import math
 
 def f(x):
@@ -492,23 +492,23 @@ except ValueError as e:
 print("\\nTabla de valores:")
 for x in [0, 0.5, 1, 1.5, 2, 2.5, 3]:
     print(f"f({x}) = {f(x):.6f}")`,
-        explanation: "La función f(x) = 2sin(√x) - x tiene raíz trivial en x = 0 (ya que sin(0) = 0). Otra raíz está cerca de x ≈ 1.9. El método de bisección divide el intervalo por la mitad repetidamente, garantizando convergencia si f(a) y f(b) tienen signos opuestos.",
-        difficulty: "intermedio",
-        starterCode: `import math
+                explanation: "La función f(x) = 2sin(√x) - x tiene raíz trivial en x = 0 (ya que sin(0) = 0). Otra raíz está cerca de x ≈ 1.9. El método de bisección divide el intervalo por la mitad repetidamente, garantizando convergencia si f(a) y f(b) tienen signos opuestos.",
+                difficulty: "intermedio",
+                starterCode: `import math
 
 def f(x):
     return 2 * math.sin(math.sqrt(x)) - x
 
 # Implementa bisección y encuentra las raíces
 `
-      },
-      {
-        id: "11.4",
-        number: "Ejercicio 11.4",
-        title: "Primera Raíz Positiva",
-        description: "Encuentra la primera raíz positiva de f(x) = sin(x) + cos(1 + x²) - 1.",
-        pythonFunctions: ["math.sin()", "math.cos()", "Newton-Raphson", "derivada numérica"],
-        solution: `import math
+            },
+            {
+                id: "11.4",
+                number: "Ejercicio 11.4",
+                title: "Primera Raíz Positiva",
+                description: "Encuentra la primera raíz positiva de f(x) = sin(x) + cos(1 + x²) - 1.",
+                pythonFunctions: ["math.sin()", "math.cos()", "Newton-Raphson", "derivada numérica"],
+                solution: `import math
 
 def f(x):
     return math.sin(x) + math.cos(1 + x**2) - 1
@@ -550,23 +550,23 @@ print("\\nAplicando Newton desde x0 = 0.5:")
 raiz, iters = newton_numerico(f, 0.5)
 print(f"\\nRaíz: x = {raiz:.10f}")
 print(f"Verificación: f({raiz:.8f}) = {f(raiz):.2e}")`,
-        explanation: "Primero exploramos la función para encontrar un cambio de signo. La derivada f'(x) = cos(x) - 2x·sin(1+x²) es complicada, así que usamos derivada numérica con diferencias centradas: f'(x) ≈ (f(x+h) - f(x-h))/(2h). La primera raíz positiva está cerca de x ≈ 0.48.",
-        difficulty: "avanzado",
-        starterCode: `import math
+                explanation: "Primero exploramos la función para encontrar un cambio de signo. La derivada f'(x) = cos(x) - 2x·sin(1+x²) es complicada, así que usamos derivada numérica con diferencias centradas: f'(x) ≈ (f(x+h) - f(x-h))/(2h). La primera raíz positiva está cerca de x ≈ 0.48.",
+                difficulty: "avanzado",
+                starterCode: `import math
 
 def f(x):
     return math.sin(x) + math.cos(1 + x**2) - 1
 
 # Implementa Newton con derivada numérica
 `
-      },
-      {
-        id: "11.6",
-        number: "Ejercicio 11.6",
-        title: "Profundidad en Tanque Esférico",
-        description: "Un tanque esférico de radio R tiene volumen V = (πh²/3)(3R - h) cuando está lleno hasta altura h. Para R = 3m y V = 30m³, encuentra h.",
-        pythonFunctions: ["math.pi", "bisección", "ecuación no lineal", "ingeniería"],
-        solution: `import math
+            },
+            {
+                id: "11.6",
+                number: "Ejercicio 11.6",
+                title: "Profundidad en Tanque Esférico",
+                description: "Un tanque esférico de radio R tiene volumen V = (πh²/3)(3R - h) cuando está lleno hasta altura h. Para R = 3m y V = 30m³, encuentra h.",
+                pythonFunctions: ["math.pi", "bisección", "ecuación no lineal", "ingeniería"],
+                solution: `import math
 
 def volumen_esfera_parcial(h, R):
     """Volumen de casquete esférico: V = (πh²/3)(3R - h)"""
@@ -614,9 +614,9 @@ print(f"Profundidad h = {h_sol:.6f} m")
 print(f"Iteraciones: {iters}")
 print(f"\\nVerificación:")
 print(f"V({h_sol:.4f}) = {volumen_esfera_parcial(h_sol, R):.6f} m³")`,
-        explanation: "Este es un problema de ingeniería real. La fórmula V = (πh²/3)(3R - h) relaciona el volumen con la altura del líquido en un tanque esférico. Despejamos h resolviendo la ecuación no lineal V(h) - 30 = 0 usando bisección en el intervalo [0, 2R]. La solución es h ≈ 2.027 m.",
-        difficulty: "avanzado",
-        starterCode: `import math
+                explanation: "Este es un problema de ingeniería real. La fórmula V = (πh²/3)(3R - h) relaciona el volumen con la altura del líquido en un tanque esférico. Despejamos h resolviendo la ecuación no lineal V(h) - 30 = 0 usando bisección en el intervalo [0, 2R]. La solución es h ≈ 2.027 m.",
+                difficulty: "avanzado",
+                starterCode: `import math
 
 R = 3.0  # radio en metros
 V_objetivo = 30.0  # volumen en m³
@@ -626,26 +626,26 @@ def volumen_esfera_parcial(h, R):
 
 # Resuelve para encontrar h
 `,
-        useSuiteNumerica: true
-      }
-    ]
-  },
+                useSuiteNumerica: true
+            }
+        ]
+    },
 
-  // ==================== SECCIÓN 3: SISTEMAS DE ECUACIONES Y MATRICES ====================
-  {
-    id: "sistemas-matrices",
-    title: "Sistemas de Ecuaciones y Matrices",
-    chapter: "Cap. 12",
-    description: "Álgebra lineal: sistemas de ecuaciones, determinantes, inversas, autovalores y autovectores",
-    icon: "grid-3x3",
-    exercises: [
-      {
-        id: "12.4",
-        number: "Ejemplo 12.4",
-        title: "Producto Vectorial",
-        description: "Calcula el producto vectorial (producto cruz) entre los vectores u = [1, 2, 3] y v = [4, 5, 6] en R³.",
-        pythonFunctions: ["numpy", "np.array()", "np.cross()", "vectores"],
-        solution: `import numpy as np
+    // ==================== SECCIÓN 3: SISTEMAS DE ECUACIONES Y MATRICES ====================
+    {
+        id: "sistemas-matrices",
+        title: "Sistemas de Ecuaciones y Matrices",
+        chapter: "Cap. 12",
+        description: "Álgebra lineal: sistemas de ecuaciones, determinantes, inversas, autovalores y autovectores",
+        icon: "grid-3x3",
+        exercises: [
+            {
+                id: "12.4",
+                number: "Ejemplo 12.4",
+                title: "Producto Vectorial",
+                description: "Calcula el producto vectorial (producto cruz) entre los vectores u = [1, 2, 3] y v = [4, 5, 6] en R³.",
+                pythonFunctions: ["numpy", "np.array()", "np.cross()", "vectores"],
+                solution: `import numpy as np
 
 u = np.array([1, 2, 3])
 v = np.array([4, 5, 6])
@@ -672,23 +672,23 @@ print(f"\\nPropiedades:")
 print(f"u · (u × v) = {np.dot(u, producto):.0f} (debe ser 0)")
 print(f"v · (u × v) = {np.dot(v, producto):.0f} (debe ser 0)")
 print(f"|u × v| = {np.linalg.norm(producto):.4f}")`,
-        explanation: "El producto vectorial u × v da un vector perpendicular a ambos. Se calcula con la regla del determinante: (u₂v₃-u₃v₂, u₃v₁-u₁v₃, u₁v₂-u₂v₁). Para u=[1,2,3] y v=[4,5,6]: u × v = [-3, 6, -3]. El resultado es perpendicular a u y v (productos punto = 0).",
-        difficulty: "intermedio",
-        starterCode: `import numpy as np
+                explanation: "El producto vectorial u × v da un vector perpendicular a ambos. Se calcula con la regla del determinante: (u₂v₃-u₃v₂, u₃v₁-u₁v₃, u₁v₂-u₂v₁). Para u=[1,2,3] y v=[4,5,6]: u × v = [-3, 6, -3]. El resultado es perpendicular a u y v (productos punto = 0).",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
 
 u = np.array([1, 2, 3])
 v = np.array([4, 5, 6])
 
 # Calcula el producto vectorial
 `
-      },
-      {
-        id: "12.7",
-        number: "Ejemplo 12.7",
-        title: "Determinante e Inversa",
-        description: "Calcula el determinante y la inversa de la matriz A = [[1,2,3],[4,5,6],[7,8,10]]. Verifica si es invertible.",
-        pythonFunctions: ["numpy", "np.linalg.det()", "np.linalg.inv()", "matrices"],
-        solution: `import numpy as np
+            },
+            {
+                id: "12.7",
+                number: "Ejemplo 12.7",
+                title: "Determinante e Inversa",
+                description: "Calcula el determinante y la inversa de la matriz A = [[1,2,3],[4,5,6],[7,8,10]]. Verifica si es invertible.",
+                pythonFunctions: ["numpy", "np.linalg.det()", "np.linalg.inv()", "matrices"],
+                solution: `import numpy as np
 
 A = np.array([
     [1, 2, 3],
@@ -729,9 +729,9 @@ B = np.array([
 ])
 print(B)
 print(f"det(B) = {np.linalg.det(B):.10f}")`,
-        explanation: "El determinante indica si una matriz es invertible (det ≠ 0). Para A con última fila [7,8,10], det(A) = -3, así que es invertible. Si la última fila fuera [7,8,9], las filas serían linealmente dependientes y det = 0 (singular). La inversa satisface A·A⁻¹ = I.",
-        difficulty: "intermedio",
-        starterCode: `import numpy as np
+                explanation: "El determinante indica si una matriz es invertible (det ≠ 0). Para A con última fila [7,8,10], det(A) = -3, así que es invertible. Si la última fila fuera [7,8,9], las filas serían linealmente dependientes y det = 0 (singular). La inversa satisface A·A⁻¹ = I.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
 
 A = np.array([
     [1, 2, 3],
@@ -741,14 +741,14 @@ A = np.array([
 
 # Calcula determinante e inversa
 `
-      },
-      {
-        id: "12.2",
-        number: "Ejercicio 12.2",
-        title: "Sistema de Ecuaciones Lineales",
-        description: "Resuelve el sistema: 2x + y - z = 8, -3x - y + 2z = -11, -2x + y + 2z = -3. Usa matrices y verifica la solución.",
-        pythonFunctions: ["numpy", "np.linalg.solve()", "np.dot()", "sistemas lineales"],
-        solution: `import numpy as np
+            },
+            {
+                id: "12.2",
+                number: "Ejercicio 12.2",
+                title: "Sistema de Ecuaciones Lineales",
+                description: "Resuelve el sistema: 2x + y - z = 8, -3x - y + 2z = -11, -2x + y + 2z = -3. Usa matrices y verifica la solución.",
+                pythonFunctions: ["numpy", "np.linalg.solve()", "np.dot()", "sistemas lineales"],
+                solution: `import numpy as np
 
 # Sistema: Ax = b
 # 2x + y - z = 8
@@ -797,9 +797,9 @@ if abs(det_A) > 1e-10:
     print(f"\\nUsando x = A⁻¹·b: {x_inv}")
 else:
     print("El sistema no tiene solución única (matriz singular)")`,
-        explanation: "Un sistema Ax = b se resuelve con x = A⁻¹b o usando np.linalg.solve() que es más eficiente y estable. Primero verificamos que det(A) ≠ 0. La solución es x = 2, y = 3, z = -1. Verificamos sustituyendo en las ecuaciones originales.",
-        difficulty: "intermedio",
-        starterCode: `import numpy as np
+                explanation: "Un sistema Ax = b se resuelve con x = A⁻¹b o usando np.linalg.solve() que es más eficiente y estable. Primero verificamos que det(A) ≠ 0. La solución es x = 2, y = 3, z = -1. Verificamos sustituyendo en las ecuaciones originales.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
 
 A = np.array([
     [2, 1, -1],
@@ -811,14 +811,14 @@ b = np.array([8, -11, -3])
 
 # Resuelve el sistema y verifica
 `
-      },
-      {
-        id: "12.4b",
-        number: "Sección 12.4",
-        title: "Autovalores y Autovectores",
-        description: "Calcula los autovalores y autovectores de la matriz A = [[4,-2,1],[-2,4,-2],[1,-2,4]]. Verifica que Av = λv.",
-        pythonFunctions: ["numpy", "np.linalg.eig()", "autovalores", "autovectores"],
-        solution: `import numpy as np
+            },
+            {
+                id: "12.4b",
+                number: "Sección 12.4",
+                title: "Autovalores y Autovectores",
+                description: "Calcula los autovalores y autovectores de la matriz A = [[4,-2,1],[-2,4,-2],[1,-2,4]]. Verifica que Av = λv.",
+                pythonFunctions: ["numpy", "np.linalg.eig()", "autovalores", "autovectores"],
+                solution: `import numpy as np
 
 A = np.array([
     [4, -2, 1],
@@ -862,9 +862,9 @@ print(f"Suma de autovalores = {sum(autovalores):.4f}")
 print(f"Traza de A = {np.trace(A):.4f} (deben ser iguales)")
 print(f"Producto de autovalores = {np.prod(autovalores):.4f}")
 print(f"det(A) = {np.linalg.det(A):.4f} (deben ser iguales)")`,
-        explanation: "Los autovalores λ y autovectores v satisfacen Av = λv. Para esta matriz simétrica, los autovalores son reales: λ₁ ≈ 7, λ₂ ≈ 4, λ₃ ≈ 1. La suma de autovalores = traza(A) = 12. El producto de autovalores = det(A) = 28. Los autovectores son ortogonales por ser A simétrica.",
-        difficulty: "avanzado",
-        starterCode: `import numpy as np
+                explanation: "Los autovalores λ y autovectores v satisfacen Av = λv. Para esta matriz simétrica, los autovalores son reales: λ₁ ≈ 7, λ₂ ≈ 4, λ₃ ≈ 1. La suma de autovalores = traza(A) = 12. El producto de autovalores = det(A) = 28. Los autovectores son ortogonales por ser A simétrica.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
 
 A = np.array([
     [4, -2, 1],
@@ -874,26 +874,26 @@ A = np.array([
 
 # Calcula autovalores y autovectores
 `,
-        useSuiteNumerica: true
-      }
-    ]
-  },
+                useSuiteNumerica: true
+            }
+        ]
+    },
 
-  // ==================== SECCIÓN 4: INTERPOLACIÓN, REGRESIÓN Y GEOMETRÍA ====================
-  {
-    id: "interpolacion-regresion",
-    title: "Interpolación, Regresión y Curvas",
-    chapter: "Cap. 9, 13-14",
-    description: "Interpolación polinómica, regresión por mínimos cuadrados, curvas paramétricas",
-    icon: "trending-up",
-    exercises: [
-      {
-        id: "9.2",
-        number: "Ejercicio 9.2",
-        title: "Cicloide Paramétrica",
-        description: "Grafica la cicloide definida por x(φ) = r(φ - sin(φ)), y(φ) = r(1 - cos(φ)) para r = 1 y φ ∈ [0, 4π].",
-        pythonFunctions: ["numpy", "matplotlib", "np.sin()", "np.cos()", "plt.plot()"],
-        solution: `import numpy as np
+    // ==================== SECCIÓN 4: INTERPOLACIÓN, REGRESIÓN Y GEOMETRÍA ====================
+    {
+        id: "interpolacion-regresion",
+        title: "Interpolación, Regresión y Curvas",
+        chapter: "Cap. 9, 13-14",
+        description: "Interpolación polinómica, regresión por mínimos cuadrados, curvas paramétricas",
+        icon: "trending-up",
+        exercises: [
+            {
+                id: "9.2",
+                number: "Ejercicio 9.2",
+                title: "Cicloide Paramétrica",
+                description: "Grafica la cicloide definida por x(φ) = r(φ - sin(φ)), y(φ) = r(1 - cos(φ)) para r = 1 y φ ∈ [0, 4π].",
+                pythonFunctions: ["numpy", "matplotlib", "np.sin()", "np.cos()", "plt.plot()"],
+                solution: `import numpy as np
 import matplotlib.pyplot as plt
 
 # Parámetros
@@ -928,9 +928,9 @@ print("en el borde de un círculo que rueda sin deslizar.")
 print(f"\\nRadio r = {r}")
 print(f"Período en x: 2πr = {2*np.pi*r:.4f}")
 print(f"Altura máxima: 2r = {2*r}")`,
-        explanation: "La cicloide es la trayectoria de un punto en el borde de un círculo que rueda. Las ecuaciones x = r(φ - sin φ) y y = r(1 - cos φ) generan arcos con cúspides donde el punto toca el suelo (φ = 0, 2π, 4π...). Es famosa por ser la solución al problema de la braquistócrona.",
-        difficulty: "intermedio",
-        starterCode: `import numpy as np
+                explanation: "La cicloide es la trayectoria de un punto en el borde de un círculo que rueda. Las ecuaciones x = r(φ - sin φ) y y = r(1 - cos φ) generan arcos con cúspides donde el punto toca el suelo (φ = 0, 2π, 4π...). Es famosa por ser la solución al problema de la braquistócrona.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
 import matplotlib.pyplot as plt
 
 r = 1
@@ -938,14 +938,14 @@ phi = np.linspace(0, 4*np.pi, 1000)
 
 # Define las ecuaciones paramétricas y grafica
 `
-      },
-      {
-        id: "13.2",
-        number: "Ejercicio 13.2",
-        title: "Interpolación de Lagrange",
-        description: "Dado los puntos (0,1), (1,3), (2,2), (3,5), encuentra el polinomio interpolador de Lagrange y evalúalo en x = 1.5.",
-        pythonFunctions: ["numpy", "interpolación", "polinomio de Lagrange", "matplotlib"],
-        solution: `import numpy as np
+            },
+            {
+                id: "13.2",
+                number: "Ejercicio 13.2",
+                title: "Interpolación de Lagrange",
+                description: "Dado los puntos (0,1), (1,3), (2,2), (3,5), encuentra el polinomio interpolador de Lagrange y evalúalo en x = 1.5.",
+                pythonFunctions: ["numpy", "interpolación", "polinomio de Lagrange", "matplotlib"],
+                solution: `import numpy as np
 import matplotlib.pyplot as plt
 
 # Datos
@@ -997,9 +997,9 @@ plt.show()
 print("\\nFórmula de Lagrange:")
 print("P(x) = Σ y_i · L_i(x)")
 print("donde L_i(x) = Π(x - x_j)/(x_i - x_j) para j ≠ i")`,
-        explanation: "La interpolación de Lagrange construye un polinomio que pasa exactamente por todos los puntos dados. Para n puntos, el polinomio tiene grado n-1. Cada L_i(x) es un polinomio base que vale 1 en x_i y 0 en los demás puntos. Para x = 1.5, el valor interpolado es aproximadamente 2.0625.",
-        difficulty: "avanzado",
-        starterCode: `import numpy as np
+                explanation: "La interpolación de Lagrange construye un polinomio que pasa exactamente por todos los puntos dados. Para n puntos, el polinomio tiene grado n-1. Cada L_i(x) es un polinomio base que vale 1 en x_i y 0 en los demás puntos. Para x = 1.5, el valor interpolado es aproximadamente 2.0625.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
 
 x_datos = np.array([0, 1, 2, 3])
 y_datos = np.array([1, 3, 2, 5])
@@ -1010,15 +1010,15 @@ def lagrange(x_datos, y_datos, x):
 
 # Evalúa en x = 1.5
 `,
-        useSuiteNumerica: true
-      },
-      {
-        id: "14.1",
-        number: "Ejercicio 14.1",
-        title: "Regresión Lineal",
-        description: "Ajusta una recta y = ax + b a los datos: x = [1,2,3,4,5], y = [2.1, 3.9, 6.2, 7.8, 10.1]. Calcula el coeficiente de correlación R².",
-        pythonFunctions: ["numpy", "np.polyfit()", "regresión", "mínimos cuadrados", "R²"],
-        solution: `import numpy as np
+                useSuiteNumerica: true
+            },
+            {
+                id: "14.1",
+                number: "Ejercicio 14.1",
+                title: "Regresión Lineal",
+                description: "Ajusta una recta y = ax + b a los datos: x = [1,2,3,4,5], y = [2.1, 3.9, 6.2, 7.8, 10.1]. Calcula el coeficiente de correlación R².",
+                pythonFunctions: ["numpy", "np.polyfit()", "regresión", "mínimos cuadrados", "R²"],
+                solution: `import numpy as np
 import matplotlib.pyplot as plt
 
 # Datos experimentales
@@ -1067,23 +1067,23 @@ plt.title(f'Regresión Lineal (R² = {R2:.4f})')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()`,
-        explanation: "La regresión lineal encuentra la mejor recta y = ax + b que minimiza la suma de errores cuadráticos. np.polyfit() usa el método de mínimos cuadrados. R² mide qué tan bien el modelo explica la variabilidad de los datos: R² = 1 es ajuste perfecto, R² = 0 significa que el modelo no explica nada.",
-        difficulty: "intermedio",
-        starterCode: `import numpy as np
+                explanation: "La regresión lineal encuentra la mejor recta y = ax + b que minimiza la suma de errores cuadráticos. np.polyfit() usa el método de mínimos cuadrados. R² mide qué tan bien el modelo explica la variabilidad de los datos: R² = 1 es ajuste perfecto, R² = 0 significa que el modelo no explica nada.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
 
 x = np.array([1, 2, 3, 4, 5])
 y = np.array([2.1, 3.9, 6.2, 7.8, 10.1])
 
 # Realiza la regresión lineal y calcula R²
 `
-      },
-      {
-        id: "14.3",
-        number: "Ejercicio 14.3",
-        title: "Regresión Polinomial",
-        description: "Ajusta un polinomio de grado 2 y otro de grado 3 a los datos: x = [0,1,2,3,4], y = [1,1.8,1.3,2.5,6.3]. Compara cuál ajusta mejor.",
-        pythonFunctions: ["numpy", "np.polyfit()", "np.poly1d()", "comparación de modelos"],
-        solution: `import numpy as np
+            },
+            {
+                id: "14.3",
+                number: "Ejercicio 14.3",
+                title: "Regresión Polinomial",
+                description: "Ajusta un polinomio de grado 2 y otro de grado 3 a los datos: x = [0,1,2,3,4], y = [1,1.8,1.3,2.5,6.3]. Compara cuál ajusta mejor.",
+                pythonFunctions: ["numpy", "np.polyfit()", "np.poly1d()", "comparación de modelos"],
+                solution: `import numpy as np
 import matplotlib.pyplot as plt
 
 # Datos
@@ -1143,35 +1143,35 @@ plt.title('Comparación de Regresión Polinomial')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()`,
-        explanation: "Comparamos polinomios de diferentes grados para ver cuál ajusta mejor los datos. El grado 3 siempre tendrá R² mayor o igual que el grado 2 (más parámetros = mejor ajuste). Sin embargo, un grado muy alto puede causar sobreajuste. Para estos datos, el grado 3 captura mejor la curvatura.",
-        difficulty: "avanzado",
-        starterCode: `import numpy as np
+                explanation: "Comparamos polinomios de diferentes grados para ver cuál ajusta mejor los datos. El grado 3 siempre tendrá R² mayor o igual que el grado 2 (más parámetros = mejor ajuste). Sin embargo, un grado muy alto puede causar sobreajuste. Para estos datos, el grado 3 captura mejor la curvatura.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
 
 x = np.array([0, 1, 2, 3, 4])
 y = np.array([1, 1.8, 1.3, 2.5, 6.3])
 
 # Ajusta polinomios de grado 2 y 3, compara R²
 `,
-        useSuiteNumerica: true
-      }
-    ]
-  },
+                useSuiteNumerica: true
+            }
+        ]
+    },
 
-  // ==================== SECCIÓN 5: ECUACIONES DIFERENCIALES ====================
-  {
-    id: "ecuaciones-diferenciales",
-    title: "Ecuaciones Diferenciales",
-    chapter: "Cap. 15-16",
-    description: "EDOs: problemas de valor inicial (PVI) y valor en la frontera (PVF)",
-    icon: "git-branch",
-    exercises: [
-      {
-        id: "15.1",
-        number: "Ejercicio 15.1",
-        title: "Método de Euler",
-        description: "Resuelve y' = -2y con y(0) = 1 en [0, 2] usando el método de Euler con h = 0.1. Compara con la solución exacta y = e^(-2t).",
-        pythonFunctions: ["numpy", "método de Euler", "EDO", "matplotlib"],
-        solution: `import numpy as np
+    // ==================== SECCIÓN 5: ECUACIONES DIFERENCIALES ====================
+    {
+        id: "ecuaciones-diferenciales",
+        title: "Ecuaciones Diferenciales",
+        chapter: "Cap. 15-16",
+        description: "EDOs: problemas de valor inicial (PVI) y valor en la frontera (PVF)",
+        icon: "git-branch",
+        exercises: [
+            {
+                id: "15.1",
+                number: "Ejercicio 15.1",
+                title: "Método de Euler",
+                description: "Resuelve y' = -2y con y(0) = 1 en [0, 2] usando el método de Euler con h = 0.1. Compara con la solución exacta y = e^(-2t).",
+                pythonFunctions: ["numpy", "método de Euler", "EDO", "matplotlib"],
+                solution: `import numpy as np
 import matplotlib.pyplot as plt
 
 def euler(f, y0, t_span, h):
@@ -1245,9 +1245,9 @@ plt.grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()`,
-        explanation: "El método de Euler es el más simple para EDOs: y_{n+1} = y_n + h·f(t_n, y_n). Para y' = -2y, la solución exacta es y = e^(-2t). Euler tiene error O(h), así que con h = 0.1 el error crece con t. Pasos más pequeños dan mejor precisión pero más cálculos.",
-        difficulty: "intermedio",
-        starterCode: `import numpy as np
+                explanation: "El método de Euler es el más simple para EDOs: y_{n+1} = y_n + h·f(t_n, y_n). Para y' = -2y, la solución exacta es y = e^(-2t). Euler tiene error O(h), así que con h = 0.1 el error crece con t. Pasos más pequeños dan mejor precisión pero más cálculos.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
 
 def euler(f, y0, t_span, h):
     # Implementa el método de Euler
@@ -1258,14 +1258,14 @@ def f(t, y):
 
 # Resuelve y compara con la solución exacta
 `
-      },
-      {
-        id: "15.3",
-        number: "Ejercicio 15.3",
-        title: "PVI con scipy.solve_ivp",
-        description: "Resuelve el oscilador armónico amortiguado: y'' + 0.5y' + 4y = 0, con y(0) = 1, y'(0) = 0 en [0, 10]. Usa scipy.integrate.solve_ivp.",
-        pythonFunctions: ["scipy.integrate.solve_ivp", "sistema de EDOs", "oscilador"],
-        solution: `import numpy as np
+            },
+            {
+                id: "15.3",
+                number: "Ejercicio 15.3",
+                title: "PVI con scipy.solve_ivp",
+                description: "Resuelve el oscilador armónico amortiguado: y'' + 0.5y' + 4y = 0, con y(0) = 1, y'(0) = 0 en [0, 10]. Usa scipy.integrate.solve_ivp.",
+                pythonFunctions: ["scipy.integrate.solve_ivp", "sistema de EDOs", "oscilador"],
+                solution: `import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
@@ -1353,9 +1353,9 @@ axes[1,1].grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()`,
-        explanation: "Una EDO de orden 2 se convierte en un sistema de 2 EDOs de orden 1. El oscilador amortiguado tiene solución y(t) = Ae^(-γt/2)cos(ωt + φ). scipy.solve_ivp usa métodos adaptativos como RK45. El diagrama de fase (y vs y') muestra una espiral hacia el origen debido al amortiguamiento.",
-        difficulty: "avanzado",
-        starterCode: `import numpy as np
+                explanation: "Una EDO de orden 2 se convierte en un sistema de 2 EDOs de orden 1. El oscilador amortiguado tiene solución y(t) = Ae^(-γt/2)cos(ωt + φ). scipy.solve_ivp usa métodos adaptativos como RK45. El diagrama de fase (y vs y') muestra una espiral hacia el origen debido al amortiguamiento.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
 from scipy.integrate import solve_ivp
 
 def sistema(t, Y):
@@ -1367,15 +1367,15 @@ Y0 = [1, 0]  # y(0) = 1, y'(0) = 0
 
 # Resuelve con solve_ivp
 `,
-        useSuiteNumerica: true
-      },
-      {
-        id: "15.5",
-        number: "Ejercicio 15.5",
-        title: "Sistema de Lotka-Volterra",
-        description: "Simula el modelo depredador-presa de Lotka-Volterra: x' = αx - βxy, y' = δxy - γy, con α=1.5, β=1, δ=1, γ=3, x(0)=10, y(0)=5.",
-        pythonFunctions: ["scipy.integrate.solve_ivp", "sistema no lineal", "ecología"],
-        solution: `import numpy as np
+                useSuiteNumerica: true
+            },
+            {
+                id: "15.5",
+                number: "Ejercicio 15.5",
+                title: "Sistema de Lotka-Volterra",
+                description: "Simula el modelo depredador-presa de Lotka-Volterra: x' = αx - βxy, y' = δxy - γy, con α=1.5, β=1, δ=1, γ=3, x(0)=10, y(0)=5.",
+                pythonFunctions: ["scipy.integrate.solve_ivp", "sistema no lineal", "ecología"],
+                solution: `import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
@@ -1466,9 +1466,9 @@ axes[2].set_ylim(0, 10)
 
 plt.tight_layout()
 plt.show()`,
-        explanation: "El modelo Lotka-Volterra describe interacciones depredador-presa. Las presas crecen exponencialmente (αx) pero son cazadas (βxy). Los depredadores aumentan al comer (δxy) pero mueren naturalmente (γy). Las soluciones son ciclos cerrados en el espacio de fases, mostrando oscilaciones periódicas en ambas poblaciones.",
-        difficulty: "avanzado",
-        starterCode: `import numpy as np
+                explanation: "El modelo Lotka-Volterra describe interacciones depredador-presa. Las presas crecen exponencialmente (αx) pero son cazadas (βxy). Los depredadores aumentan al comer (δxy) pero mueren naturalmente (γy). Las soluciones son ciclos cerrados en el espacio de fases, mostrando oscilaciones periódicas en ambas poblaciones.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
 from scipy.integrate import solve_ivp
 
 def lotka_volterra(t, Z, alpha, beta, delta, gamma):
@@ -1481,15 +1481,15 @@ Z0 = [10, 5]
 
 # Resuelve y grafica
 `,
-        useSuiteNumerica: true
-      },
-      {
-        id: "16.1",
-        number: "Ejercicio 16.1",
-        title: "Problema de Valor en Frontera",
-        description: "Resuelve el PVF: y'' = -y, con y(0) = 0 y y(π) = 0. Esto es un problema de autovalores (la solución es y = sin(x)).",
-        pythonFunctions: ["scipy.integrate.solve_bvp", "PVF", "condiciones de frontera"],
-        solution: `import numpy as np
+                useSuiteNumerica: true
+            },
+            {
+                id: "16.1",
+                number: "Ejercicio 16.1",
+                title: "Problema de Valor en Frontera",
+                description: "Resuelve el PVF: y'' = -y, con y(0) = 0 y y(π) = 0. Esto es un problema de autovalores (la solución es y = sin(x)).",
+                pythonFunctions: ["scipy.integrate.solve_bvp", "PVF", "condiciones de frontera"],
+                solution: `import numpy as np
 from scipy.integrate import solve_bvp
 import matplotlib.pyplot as plt
 
@@ -1572,9 +1572,9 @@ plt.show()
 
 print("\\nNota: Este PVF tiene infinitas soluciones: y = A*sin(x) para cualquier A.")
 print("solve_bvp encuentra una de ellas basándose en la estimación inicial.")`,
-        explanation: "Un PVF especifica condiciones en ambos extremos del intervalo, no solo al inicio. La ecuación y'' = -y con y(0) = y(π) = 0 tiene solución y = A·sin(x). scipy.solve_bvp usa un método de colocación que requiere una estimación inicial. Este problema es especial porque tiene infinitas soluciones (cualquier múltiplo de sin(x)).",
-        difficulty: "avanzado",
-        starterCode: `import numpy as np
+                explanation: "Un PVF especifica condiciones en ambos extremos del intervalo, no solo al inicio. La ecuación y'' = -y con y(0) = y(π) = 0 tiene solución y = A·sin(x). scipy.solve_bvp usa un método de colocación que requiere una estimación inicial. Este problema es especial porque tiene infinitas soluciones (cualquier múltiplo de sin(x)).",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
 from scipy.integrate import solve_bvp
 
 def ecuacion(x, y):
@@ -1587,79 +1587,79 @@ def condiciones_frontera(ya, yb):
 
 # Resuelve el PVF
 `,
-        useSuiteNumerica: true
-      }
-    ]
-  }
+                useSuiteNumerica: true
+            }
+        ]
+    }
 ];
 
 // Lista de todas las funciones Python usadas en el libro
 export const pythonFunctions: { name: string; description: string; category: string }[] = [
-  // Funciones básicas
-  { name: "print()", description: "Muestra información en la consola", category: "Básicas" },
-  { name: "input()", description: "Lee entrada del usuario", category: "Básicas" },
-  { name: "type()", description: "Devuelve el tipo de un objeto", category: "Básicas" },
-  { name: "len()", description: "Devuelve la longitud de una secuencia", category: "Básicas" },
-  { name: "range()", description: "Genera una secuencia de números", category: "Básicas" },
-  { name: "abs()", description: "Valor absoluto", category: "Básicas" },
-  { name: "round()", description: "Redondea un número", category: "Básicas" },
-  { name: "sum()", description: "Suma elementos de una secuencia", category: "Básicas" },
-  { name: "max()", description: "Máximo de una secuencia", category: "Básicas" },
-  { name: "min()", description: "Mínimo de una secuencia", category: "Básicas" },
-  
-  // Módulo math
-  { name: "math.sin()", description: "Seno (radianes)", category: "math" },
-  { name: "math.cos()", description: "Coseno (radianes)", category: "math" },
-  { name: "math.tan()", description: "Tangente (radianes)", category: "math" },
-  { name: "math.exp()", description: "Exponencial e^x", category: "math" },
-  { name: "math.log()", description: "Logaritmo natural", category: "math" },
-  { name: "math.log10()", description: "Logaritmo base 10", category: "math" },
-  { name: "math.sqrt()", description: "Raíz cuadrada", category: "math" },
-  { name: "math.pi", description: "Constante π", category: "math" },
-  { name: "math.e", description: "Constante e", category: "math" },
-  { name: "math.radians()", description: "Convierte grados a radianes", category: "math" },
-  { name: "math.degrees()", description: "Convierte radianes a grados", category: "math" },
-  
-  // NumPy
-  { name: "np.array()", description: "Crea un arreglo NumPy", category: "NumPy" },
-  { name: "np.linspace()", description: "Genera puntos equiespaciados", category: "NumPy" },
-  { name: "np.arange()", description: "Genera secuencia con paso", category: "NumPy" },
-  { name: "np.zeros()", description: "Arreglo de ceros", category: "NumPy" },
-  { name: "np.ones()", description: "Arreglo de unos", category: "NumPy" },
-  { name: "np.dot()", description: "Producto punto", category: "NumPy" },
-  { name: "np.cross()", description: "Producto vectorial", category: "NumPy" },
-  { name: "np.linalg.det()", description: "Determinante de matriz", category: "NumPy" },
-  { name: "np.linalg.inv()", description: "Inversa de matriz", category: "NumPy" },
-  { name: "np.linalg.solve()", description: "Resuelve sistema lineal", category: "NumPy" },
-  { name: "np.linalg.eig()", description: "Autovalores y autovectores", category: "NumPy" },
-  { name: "np.polyfit()", description: "Ajuste polinomial", category: "NumPy" },
-  { name: "np.poly1d()", description: "Crea función polinómica", category: "NumPy" },
-  { name: "np.roots()", description: "Raíces de polinomio", category: "NumPy" },
-  
-  // SciPy
-  { name: "optimize.root_scalar()", description: "Busca raíz de función escalar", category: "SciPy" },
-  { name: "optimize.fsolve()", description: "Resuelve sistema no lineal", category: "SciPy" },
-  { name: "integrate.solve_ivp()", description: "Resuelve PVI de EDO", category: "SciPy" },
-  { name: "integrate.solve_bvp()", description: "Resuelve PVF de EDO", category: "SciPy" },
-  { name: "integrate.quad()", description: "Integración numérica", category: "SciPy" },
-  
-  // Matplotlib
-  { name: "plt.plot()", description: "Grafica líneas", category: "Matplotlib" },
-  { name: "plt.scatter()", description: "Grafica puntos dispersos", category: "Matplotlib" },
-  { name: "plt.xlabel()", description: "Etiqueta eje X", category: "Matplotlib" },
-  { name: "plt.ylabel()", description: "Etiqueta eje Y", category: "Matplotlib" },
-  { name: "plt.title()", description: "Título del gráfico", category: "Matplotlib" },
-  { name: "plt.legend()", description: "Muestra leyenda", category: "Matplotlib" },
-  { name: "plt.grid()", description: "Muestra cuadrícula", category: "Matplotlib" },
-  { name: "plt.show()", description: "Muestra el gráfico", category: "Matplotlib" },
-  { name: "plt.subplot()", description: "Crea subgráficos", category: "Matplotlib" },
-  { name: "plt.figure()", description: "Crea nueva figura", category: "Matplotlib" },
-  
-  // Métodos numéricos (SuiteNumericaMaster)
-  { name: "punto_fijo()", description: "Iteración de punto fijo x = g(x)", category: "Métodos Numéricos" },
-  { name: "newton()", description: "Método de Newton-Raphson", category: "Métodos Numéricos" },
-  { name: "biseccion()", description: "Método de bisección", category: "Métodos Numéricos" },
-  { name: "euler()", description: "Método de Euler para EDOs", category: "Métodos Numéricos" },
-  { name: "lagrange()", description: "Interpolación de Lagrange", category: "Métodos Numéricos" },
-  { name: "regresion_lineal()", description: "Regresión por mínimos cuadrados", category: "Métodos Numéricos" },
+    // Funciones básicas
+    { name: "print()", description: "Muestra información en la consola", category: "Básicas" },
+    { name: "input()", description: "Lee entrada del usuario", category: "Básicas" },
+    { name: "type()", description: "Devuelve el tipo de un objeto", category: "Básicas" },
+    { name: "len()", description: "Devuelve la longitud de una secuencia", category: "Básicas" },
+    { name: "range()", description: "Genera una secuencia de números", category: "Básicas" },
+    { name: "abs()", description: "Valor absoluto", category: "Básicas" },
+    { name: "round()", description: "Redondea un número", category: "Básicas" },
+    { name: "sum()", description: "Suma elementos de una secuencia", category: "Básicas" },
+    { name: "max()", description: "Máximo de una secuencia", category: "Básicas" },
+    { name: "min()", description: "Mínimo de una secuencia", category: "Básicas" },
+
+    // Módulo math
+    { name: "math.sin()", description: "Seno (radianes)", category: "math" },
+    { name: "math.cos()", description: "Coseno (radianes)", category: "math" },
+    { name: "math.tan()", description: "Tangente (radianes)", category: "math" },
+    { name: "math.exp()", description: "Exponencial e^x", category: "math" },
+    { name: "math.log()", description: "Logaritmo natural", category: "math" },
+    { name: "math.log10()", description: "Logaritmo base 10", category: "math" },
+    { name: "math.sqrt()", description: "Raíz cuadrada", category: "math" },
+    { name: "math.pi", description: "Constante π", category: "math" },
+    { name: "math.e", description: "Constante e", category: "math" },
+    { name: "math.radians()", description: "Convierte grados a radianes", category: "math" },
+    { name: "math.degrees()", description: "Convierte radianes a grados", category: "math" },
+
+    // NumPy
+    { name: "np.array()", description: "Crea un arreglo NumPy", category: "NumPy" },
+    { name: "np.linspace()", description: "Genera puntos equiespaciados", category: "NumPy" },
+    { name: "np.arange()", description: "Genera secuencia con paso", category: "NumPy" },
+    { name: "np.zeros()", description: "Arreglo de ceros", category: "NumPy" },
+    { name: "np.ones()", description: "Arreglo de unos", category: "NumPy" },
+    { name: "np.dot()", description: "Producto punto", category: "NumPy" },
+    { name: "np.cross()", description: "Producto vectorial", category: "NumPy" },
+    { name: "np.linalg.det()", description: "Determinante de matriz", category: "NumPy" },
+    { name: "np.linalg.inv()", description: "Inversa de matriz", category: "NumPy" },
+    { name: "np.linalg.solve()", description: "Resuelve sistema lineal", category: "NumPy" },
+    { name: "np.linalg.eig()", description: "Autovalores y autovectores", category: "NumPy" },
+    { name: "np.polyfit()", description: "Ajuste polinomial", category: "NumPy" },
+    { name: "np.poly1d()", description: "Crea función polinómica", category: "NumPy" },
+    { name: "np.roots()", description: "Raíces de polinomio", category: "NumPy" },
+
+    // SciPy
+    { name: "optimize.root_scalar()", description: "Busca raíz de función escalar", category: "SciPy" },
+    { name: "optimize.fsolve()", description: "Resuelve sistema no lineal", category: "SciPy" },
+    { name: "integrate.solve_ivp()", description: "Resuelve PVI de EDO", category: "SciPy" },
+    { name: "integrate.solve_bvp()", description: "Resuelve PVF de EDO", category: "SciPy" },
+    { name: "integrate.quad()", description: "Integración numérica", category: "SciPy" },
+
+    // Matplotlib
+    { name: "plt.plot()", description: "Grafica líneas", category: "Matplotlib" },
+    { name: "plt.scatter()", description: "Grafica puntos dispersos", category: "Matplotlib" },
+    { name: "plt.xlabel()", description: "Etiqueta eje X", category: "Matplotlib" },
+    { name: "plt.ylabel()", description: "Etiqueta eje Y", category: "Matplotlib" },
+    { name: "plt.title()", description: "Título del gráfico", category: "Matplotlib" },
+    { name: "plt.legend()", description: "Muestra leyenda", category: "Matplotlib" },
+    { name: "plt.grid()", description: "Muestra cuadrícula", category: "Matplotlib" },
+    { name: "plt.show()", description: "Muestra el gráfico", category: "Matplotlib" },
+    { name: "plt.subplot()", description: "Crea subgráficos", category: "Matplotlib" },
+    { name: "plt.figure()", description: "Crea nueva figura", category: "Matplotlib" },
+
+    // Métodos numéricos (SuiteNumericaMaster)
+    { name: "punto_fijo()", description: "Iteración de punto fijo x = g(x)", category: "Métodos Numéricos" },
+    { name: "newton()", description: "Método de Newton-Raphson", category: "Métodos Numéricos" },
+    { name: "biseccion()", description: "Método de bisección", category: "Métodos Numéricos" },
+    { name: "euler()", description: "Método de Euler para EDOs", category: "Métodos Numéricos" },
+    { name: "lagrange()", description: "Interpolación de Lagrange", category: "Métodos Numéricos" },
+    { name: "regresion_lineal()", description: "Regresión por mínimos cuadrados", category: "Métodos Numéricos" },
 ];
