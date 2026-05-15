@@ -172,7 +172,7 @@ for p in [True, False]:
 x = 2.5
 resultado = math.sin(x)
 print(f"sin({x}) = {resultado}")
-print(f"Redondeado: {resultado:.6f}")`,
+print(f"Redondeado: {resultado:.2f}")`,
                 explanation: "La función math.sin() calcula el seno de un ángulo dado en radianes. Para x = 2.5 radianes (aproximadamente 143°), el seno es aproximadamente 0.5985. En Python, math.sin() usa la implementación de alta precisión de la biblioteca estándar de C.",
                 difficulty: "básico",
                 starterCode: `import math
@@ -192,7 +192,7 @@ x = 2.5
 x = 10
 logaritmo = math.log(x)
 print(f"ln({x}) = {logaritmo}")
-print(f"Verificación: e^{logaritmo:.6f} = {math.exp(logaritmo):.6f}")`,
+print(f"Verificación: e^{logaritmo:.2f} = {math.exp(logaritmo):.2f}")`,
                 explanation: "El logaritmo natural (ln) es el logaritmo en base e (número de Euler ≈ 2.71828). math.log(x) devuelve el valor y tal que e^y = x. Para x = 10, ln(10) ≈ 2.3026. Esta función es la inversa de la exponencial e^x.",
                 difficulty: "básico",
                 starterCode: `import math
@@ -305,7 +305,7 @@ print("=== TRIÁNGULO ===")
 print(f"Lado a: {a}")
 print(f"Lado b: {b}")
 print(f"Ángulo θ: {theta_grados}°")
-print(f"\\nsin({theta_grados}°) = {math.sin(theta_rad):.6f}")
+print(f"\\nsin({theta_grados}°) = {math.sin(theta_rad):.4f}")
 print(f"\\nÁrea = (1/2)·{a}·{b}·sin({theta_grados}°)")
 print(f"Área = {area:.4f} unidades²")`,
                 explanation: "Cuando conocemos dos lados y el ángulo entre ellos, el área se calcula como A = ½ab·sin(θ). Es importante convertir grados a radianes con math.radians() porque las funciones trigonométricas de Python trabajan en radianes. Para θ = 60°, sin(60°) = √3/2 ≈ 0.866.",
@@ -376,7 +376,7 @@ print(f"P2: {P2}")
 print(f"dx = {dx}, dy = {dy}, dz = {dz}")
 print(f"d = √({dx}² + {dy}² + {dz}²)")
 print(f"d = √({dx**2} + {dy**2} + {dz**2})")
-print(f"d = {distancia:.6f}")`,
+print(f"d = {distancia:.2f}")`,
                 explanation: "La distancia euclidiana en 3D es la generalización del teorema de Pitágoras. En 2D: d = √(dx² + dy²). En 3D agregamos dz². Esto representa la longitud del segmento que une los dos puntos en el espacio tridimensional.",
                 difficulty: "básico",
                 starterCode: `import math
@@ -600,7 +600,7 @@ def punto_fijo(g, x0, tol=1e-6, max_iter=100):
 x0 = 0.5
 raiz = punto_fijo(g, x0)
 print(f"\\nRaíz encontrada: x = {raiz:.10f}")
-print(f"Verificación: f({raiz:.6f}) = {f(raiz):.2e}")`,
+print(f"Verificación: f({raiz:.2f}) = {f(raiz):.2e}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'punto fijo' y 'f(x) = e⁻ˣ − x = 0'. Esto indica que debes despejar x para obtener x = g(x).\n\nFUNCIONES NECESARIAS:\n• math.exp(-x): Para calcular e⁻ˣ. Se identifica porque el enunciado tiene 'e^(-x)'.\n• math.exp(): Observa que hay una exponencial en la fórmula.\n• Bucles (while/for): El método es iterativo, necesitas repetir hasta convergencia.\n• abs(): Para calcular el error |xₙ₊₁ − xₙ|. Se identifica porque el enunciado menciona 'tolerancia'.\n\nPOR QUÉ FUNCIONA: Transformas f(x) = 0 en x = g(x). Para f(x) = e⁻ˣ − x = 0, despejas x = e⁻ˣ. Partiendo de x₀, iteras xₙ₊₁ = g(xₙ) hasta que |xₙ₊₁ − xₙ| < tolerancia. La convergencia depende de que |g'(x)| < 1 cerca de la raíz. La raíz es aproximadamente 0.567143.",
                 difficulty: "intermedio",
                 starterCode: `import math
@@ -652,8 +652,8 @@ raices = []
 for x0 in valores_iniciales:
     raiz, iters = newton(f, df, x0)
     raices.append(raiz)
-    print(f"x0 = {x0}: raíz = {raiz:.8f} ({iters} iteraciones)")
-    print(f"  Verificación: f({raiz:.6f}) = {f(raiz):.2e}\\n")
+    print(f"x0 = {x0}: raíz = {raiz:.2f} ({iters} iteraciones)")
+    print(f"  Verificación: f({raiz:.2f}) = {f(raiz):.2e}\\n")
 
 # Verificar con numpy
 coefs = [2, -12, 17, -5]
@@ -715,9 +715,9 @@ print(f"Raíz trivial: x = 0, f(0) = {f(0)}")
 # Buscar otra raíz cerca de x = 2
 try:
     raiz, iters = biseccion(f, 1.5, 2.5)
-    print(f"\\nRaíz encontrada: x = {raiz:.8f}")
-    print(f"Iteraciones: {iters}")
-    print(f"Verificación: f({raiz:.6f}) = {f(raiz):.2e}")
+print(f"\\nRaíz encontrada: x = {raiz:.2f}")
+print(f"Iteraciones: {iters}")
+print(f"Verificación: f({raiz:.2f}) = {f(raiz):.2e}")
 except ValueError as e:
     print(f"Error: {e}")
 
@@ -781,8 +781,8 @@ for x in [0, 0.2, 0.4, 0.6, 0.8, 1.0]:
 
 print("\\nAplicando Newton desde x0 = 0.5:")
 raiz, iters = newton_numerico(f, 0.5)
-print(f"\\nRaíz: x = {raiz:.10f}")
-print(f"Verificación: f({raiz:.8f}) = {f(raiz):.2e}")`,
+print(f"\\nRaíz: x = {raiz:.2f}")
+print(f"Verificación: f({raiz:.2f}) = {f(raiz):.2e}")`,
                 explanation: "Primero exploramos la función para encontrar un cambio de signo. La derivada f'(x) = cos(x) − 2x·sin(1+x²) es complicada, así que usamos derivada numérica con diferencias centradas: f'(x) ≈ (f(x+h) − f(x−h))/(2h). La primera raíz positiva está cerca de x ≈ 0.48.",
                 difficulty: "avanzado",
                 starterCode: `import math
@@ -843,10 +843,10 @@ print("\\nBuscando h tal que V(h) = 30 m³...")
 h_sol, iters = biseccion(ecuacion, 0.1, h_max, args=(R, V_objetivo))
 
 print(f"\\nSOLUCIÓN:")
-print(f"Profundidad h = {h_sol:.6f} m")
+print(f"Profundidad h = {h_sol:.2f} m")
 print(f"Iteraciones: {iters}")
 print(f"\\nVerificación:")
-print(f"V({h_sol:.4f}) = {volumen_esfera_parcial(h_sol, R):.6f} m³")`,
+print(f"V({h_sol:.2f}) = {volumen_esfera_parcial(h_sol, R):.2f} m³")`,
                 explanation: "Este es un problema de ingeniería real. La fórmula V = (πh²/3)(3R − h) relaciona el volumen con la altura del líquido en un tanque esférico. Despejamos h resolviendo la ecuación no lineal V(h) − 30 = 0 usando bisección en el intervalo [0, 2R]. La solución es h ≈ 2.027 m.",
                 difficulty: "avanzado",
                 starterCode: `import math
@@ -891,7 +891,7 @@ def secante(f, x0, x1, tol=1e-6, max_iter=50):
     raise RuntimeError("No convergió")
 
 raiz, iteraciones = secante(f, 0, 1)
-print(f"\nRaíz encontrada: x = {raiz:.8f}")
+print(f"\nRaíz encontrada: x = {raiz:.2f}")
 print(f"Iteraciones: {iteraciones}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'método de la secante' y tiene una ecuación polinómica x³ − x − 1 = 0.\n\nFUNCIONES NECESARIAS:\n• ** (potenciación): Para x³. Se identifica porque hay término x³.\n• Bucles (for/while): El método es iterativo.\n• abs(): Para el error |x₂−x₁|.\n\nPOR QUÉ FUNCIONA: El método de la secante usa la fórmula: x₂ = x₁ − f(x₁)·(x₁−x₀)/(f(x₁)−f(x₀)). A diferencia de Newton, no requiere la derivada. Necesita dos puntos iniciales. La raíz de x³ − x − 1 ≈ 1.3247.",
                 difficulty: "intermedio",
@@ -944,9 +944,9 @@ raiz_newton, iter_newton = newton(f, df, 1)
 raiz_exacta = math.sqrt(2)
 
 print("=== COMPARACION DE METODOS ===")
-print(f"Raíz exacta: {raiz_exacta:.8f}")
-print(f"\nBisección: x = {raiz_bis:.8f}, iter = {iter_bis}")
-print(f"Newton: x = {raiz_newton:.8f}, iter = {iter_newton}")`,
+print(f"Raíz exacta: {raiz_exacta:.2f}")
+print(f"\nBisección: x = {raiz_bis:.2f}, iter = {iter_bis}")
+print(f"Newton: x = {raiz_newton:.2f}, iter = {iter_newton}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'comparar' y menciona 'bisección', 'punto fijo' y 'Newton'. Esto indica implementar múltiples métodos y comparar su convergencia.\n\nFUNCIONES NECESARIAS:\n• lambda: Para definir funciones cortas f(x) y df(x).\n• math.sqrt(): Para el valor exacto.\n• Bucles: Para las iteraciones de cada método.\n\nPOR QUÉ FUNCIONA: Los tres métodos resuelven x² − 2 = 0. Bisección es más lento (más iteraciones) pero seguro. Newton converge más rápido (menos iteraciones) pero necesita derivada. El punto fijo depende de la función g(x) elegida.",
                 difficulty: "intermedio",
                 starterCode: `import math
@@ -1120,7 +1120,7 @@ print(A)
 
 # Determinante
 det_A = np.linalg.det(A)
-print(f"\\ndet(A) = {det_A:.6f}")
+print(f"\\ndet(A) = {det_A:.2f}")
 
 if abs(det_A) < 1e-10:
     print("La matriz es SINGULAR (no invertible)")
@@ -1198,9 +1198,9 @@ if abs(det_A) > 1e-10:
     x = np.linalg.solve(A, b)
     
     print("\\n=== SOLUCIÓN ===")
-    print(f"x = {x[0]:.6f}")
-    print(f"y = {x[1]:.6f}")
-    print(f"z = {x[2]:.6f}")
+    print(f"x = {x[0]:.2f}")
+    print(f"y = {x[1]:.2f}")
+    print(f"z = {x[2]:.2f}")
     
     # Verificación
     print("\\n=== VERIFICACIÓN ===")
@@ -1253,7 +1253,7 @@ autovalores, autovectores = np.linalg.eig(A)
 
 print("\\n=== AUTOVALORES ===")
 for i, lam in enumerate(autovalores):
-    print(f"λ_{i+1} = {lam:.6f}")
+    print(f"λ_{i+1} = {lam:.2f}")
 
 print("\\n=== AUTOVECTORES ===")
 print("(columnas de la matriz)")
@@ -1568,7 +1568,7 @@ print("\\nPuntos dados:")
 for xi, yi in zip(x_datos, y_datos):
     print(f"  ({xi}, {yi})")
 
-print(f"\\nP({x_eval}) = {y_eval:.6f}")
+print(f"\\nP({x_eval}) = {y_eval:.2f}")
 
 # Graficar
 x_plot = np.linspace(-0.5, 3.5, 200)
@@ -1635,11 +1635,11 @@ print("\\nDatos:")
 print(f"x = {x}")
 print(f"y = {y}")
 print(f"\\nModelo: y = ax + b")
-print(f"a (pendiente) = {a:.6f}")
-print(f"b (ordenada) = {b:.6f}")
-print(f"\\nEcuación: y = {a:.4f}x + {b:.4f}")
-print(f"\\nCoeficiente R² = {R2:.6f}")
-print(f"Correlación R = {np.sqrt(R2):.6f}")
+print(f"a (pendiente) = {a:.2f}")
+print(f"b (ordenada) = {b:.2f}")
+
+print(f"\\nCoeficiente R² = {R2:.3f}")
+print(f"Correlación R = {np.sqrt(R2):.3f}")
 
 # Tabla de valores
 print("\\n{'x':<8}{'y real':<12}{'y pred':<12}{'error':<12}")
@@ -1707,12 +1707,12 @@ for xi, yi in zip(x, y):
 print("\\n=== GRADO 2 ===")
 print(f"Coeficientes: {coefs2}")
 print(f"P₂(x) = {coefs2[0]:.4f}x² + {coefs2[1]:.4f}x + {coefs2[2]:.4f}")
-print(f"R² = {R2_2:.6f}")
+print(f"R² = {R2_2:.3f}")
 
 print("\\n=== GRADO 3 ===")
 print(f"Coeficientes: {coefs3}")
 print(f"P₃(x) = {coefs3[0]:.4f}x³ + {coefs3[1]:.4f}x² + {coefs3[2]:.4f}x + {coefs3[3]:.4f}")
-print(f"R² = {R2_3:.6f}")
+print(f"R² = {R2_3:.3f}")
 
 print("\\n=== COMPARACIÓN ===")
 if R2_3 > R2_2:
@@ -2007,8 +2007,8 @@ print("-" * 53)
 for i in range(0, len(t_euler), 2):
     print(f"{t_euler[i]:<8.2f}{y_euler[i]:<15.6f}{y_exact_puntos[i]:<15.6f}{error[i]:<15.2e}")
 
-print(f"\\nError máximo: {max(error):.6f}")
-print(f"Error en t=2: {error[-1]:.6f}")
+print(f"\\nError máximo: {max(error):.4f}")
+print(f"Error en t=2: {error[-1]:.4f}")
 
 # Graficar
 plt.figure(figsize=(12, 5))
@@ -2413,7 +2413,7 @@ print(f"y' = 0.5y, y(0) = 1")
 print(f"h = {h}")
 print(f"\nSolución en algunos puntos:")
 for i in range(0, len(t), 5):
-    print(f"t = {t[i]:.1f}, y = {y[i]:.6f}")
+    print(f"t = {t[i]:.1f}, y = {y[i]:.2f}")
 
 plt.figure(figsize=(10, 5))
 plt.plot(t_exact, y_exact, 'b-', linewidth=2, label='Exacta: y = e^(0.5t)')
