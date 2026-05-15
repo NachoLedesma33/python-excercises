@@ -860,6 +860,191 @@ def volumen_esfera_parcial(h, R):
 # Resuelve para encontrar h
 `,
                 useSuiteNumerica: true
+            },
+            {
+                id: "11.7",
+                number: "Ejercicio 11.7",
+                title: "Método de la Secante",
+                description: "Implementa el método de la secante para encontrar la raíz de f(x) = x³ − x − 1. Usa x₀ = 0 y x₁ = 1.",
+                pythonFunctions: ["** (potenciación)", "bucles", "abs()"],
+                solution: `def f(x):
+    return x**3 - x - 1
+
+def secante(f, x0, x1, tol=1e-6, max_iter=50):
+    print(f"{'Iter':<6}{'x0':<15}{'x1':<15}{'x2':<15}{'|x2-x1|':<15}")
+    print("-" * 66)
+    
+    for i in range(max_iter):
+        f0, f1 = f(x0), f(x1)
+        if f1 - f0 == 0:
+            raise ZeroDivisionError("División por cero en método de secante")
+        
+        x2 = x1 - f1 * (x1 - x0) / (f1 - f0)
+        error = abs(x2 - x1)
+        print(f"{i+1:<6}{x0:<15.6f}{x1:<15.6f}{x2:<15.6f}{error:<15.6e}")
+        
+        if error < tol:
+            return x2, i+1
+        
+        x0, x1 = x1, x2
+    
+    raise RuntimeError("No convergió")
+
+raiz, iteraciones = secante(f, 0, 1)
+print(f"\nRaíz encontrada: x = {raiz:.8f}")
+print(f"Iteraciones: {iteraciones}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'método de la secante' y tiene una ecuación polinómica x³ − x − 1 = 0.\n\nFUNCIONES NECESARIAS:\n• ** (potenciación): Para x³. Se identifica porque hay término x³.\n• Bucles (for/while): El método es iterativo.\n• abs(): Para el error |x₂−x₁|.\n\nPOR QUÉ FUNCIONA: El método de la secante usa la fórmula: x₂ = x₁ − f(x₁)·(x₁−x₀)/(f(x₁)−f(x₀)). A diferencia de Newton, no requiere la derivada. Necesita dos puntos iniciales. La raíz de x³ − x − 1 ≈ 1.3247.",
+                difficulty: "intermedio",
+                starterCode: `def f(x):
+    return x**3 - x - 1
+
+# Implementa el método de la secante
+x0 = 0
+x1 = 1
+
+# Iteraciones
+`
+            },
+            {
+                id: "11.8",
+                number: "Ejercicio 11.8",
+                title: "Comparación de Métodos",
+                description: "Compara la convergencia de bisección, punto fijo y Newton para f(x) = x² − 2 = 0 (raíz √2 ≈ 1.4142).",
+                pythonFunctions: ["math.sqrt()", "while", "for", "abs()"],
+                solution: `import math
+
+f = lambda x: x**2 - 2
+df = lambda x: 2*x
+
+# Bisección
+def biseccion(f, a, b, tol=1e-6):
+    for i in range(100):
+        c = (a+b)/2
+        if abs(f(c)) < tol or (b-a)/2 < tol:
+            return c, i+1
+        if f(a)*f(c) < 0:
+            b = c
+        else:
+            a = c
+    return c, 100
+
+# Newton
+def newton(f, df, x0, tol=1e-6):
+    x = x0
+    for i in range(100):
+        fx = f(x)
+        if abs(fx) < tol:
+            return x, i+1
+        x = x - fx/df(x)
+    return x, 100
+
+# Comparar
+raiz_bis, iter_bis = biseccion(f, 0, 2)
+raiz_newton, iter_newton = newton(f, df, 1)
+raiz_exacta = math.sqrt(2)
+
+print("=== COMPARACION DE METODOS ===")
+print(f"Raíz exacta: {raiz_exacta:.8f}")
+print(f"\nBisección: x = {raiz_bis:.8f}, iter = {iter_bis}")
+print(f"Newton: x = {raiz_newton:.8f}, iter = {iter_newton}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'comparar' y menciona 'bisección', 'punto fijo' y 'Newton'. Esto indica implementar múltiples métodos y comparar su convergencia.\n\nFUNCIONES NECESARIAS:\n• lambda: Para definir funciones cortas f(x) y df(x).\n• math.sqrt(): Para el valor exacto.\n• Bucles: Para las iteraciones de cada método.\n\nPOR QUÉ FUNCIONA: Los tres métodos resuelven x² − 2 = 0. Bisección es más lento (más iteraciones) pero seguro. Newton converge más rápido (menos iteraciones) pero necesita derivada. El punto fijo depende de la función g(x) elegida.",
+                difficulty: "intermedio",
+                starterCode: `import math
+
+f = lambda x: x**2 - 2
+df = lambda x: 2*x
+
+# Implementa bisección y Newton, luego compara
+`
+            },
+            {
+                id: "11.9",
+                number: "Ejercicio 11.9",
+                title: "Raíz de Función Trigonométrica",
+                description: "Encuentra la raíz positiva de f(x) = cos(x) − x³ en el intervalo [0, 1]. Usa el método de bisección.",
+                pythonFunctions: ["math.cos()", "while", "for", "abs()"],
+                solution: `import math
+
+def f(x):
+    return math.cos(x) - x**3
+
+a, b = 0, 1
+tol = 1e-8
+
+print("=== BISECCION: cos(x) - x^3 = 0 ===")
+for i in range(100):
+    c = (a + b) / 2
+    fc = f(c)
+    
+    if abs(fc) < tol or (b - a) / 2 < tol:
+        print(f"\nConvergencia en iteración {i+1}")
+        print(f"Raíz: x = {c:.10f}")
+        print(f"Verificación: f({c:.10f}) = {fc:.2e}")
+        break
+    
+    if f(a) * fc < 0:
+        b = c
+    else:
+        a = c`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado tiene 'cos(x)' y 'x³', y dice 'bisección' con intervalo [0, 1].\n\nFUNCIONES NECESARIAS:\n• math.cos(): Para cos(x). Se identifica en la fórmula.\n• ** (potenciación): Para x³.\n• math.pi: Puede ser útil para intervalos relacionados con π.\n\nPOR QUÉ FUNCIONA: La función cos(x) − x³ tiene raíz en el intervalo [0, 1] porque f(0) = 1 > 0 y f(1) = cos(1) − 1 ≈ −0.46 < 0. La raíz es aproximadamente 0.865.",
+                difficulty: "básico",
+                starterCode: `import math
+
+def f(x):
+    return math.cos(x) - x**3
+
+a = 0
+b = 1
+
+# Implementa bisección
+`
+            },
+            {
+                id: "11.10",
+                number: "Ejercicio 11.10",
+                title: "Newton con Convergencia Lenta",
+                description: "Usa Newton para encontrar la raíz de f(x) = x⁵ − x − 1 partiendo de x₀ = 1.5. Observa la convergencia.",
+                pythonFunctions: ["** (potenciación)", "derivada", "while"],
+                solution: `def f(x):
+    return x**5 - x - 1
+
+def df(x):
+    return 5*x**4 - 1
+
+x = 1.5
+tol = 1e-8
+max_iter = 50
+
+print("=== NEWTON: x^5 - x - 1 = 0 ===")
+print(f"{'Iter':<6}{'x':<20}{'f(x)':<20}{'Error':<20}")
+print("-" * 66)
+
+for i in range(max_iter):
+    fx = f(x)
+    error = abs(fx)
+    print(f"{i+1:<6}{x:<20.10f}{fx:<20.10e}{error:<20.10e}")
+    
+    if error < tol:
+        print(f"\nConvergencia en {i+1} iteraciones")
+        print(f"Raíz: {x:.10f}")
+        break
+    
+    x = x - fx / df(x)
+else:
+    print("No convergió en el máximo de iteraciones")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Newton' y tiene un polinomio de grado 5 x⁵ − x − 1.\n\nFUNCIONES NECESARIAS:\n• **: Para calcular x⁵.\n• Derivada manual: df(x) = 5x⁴ − 1.\n• Bucles: Iterar hasta convergencia.\n\nPOR QUÉ FUNCIONA: Newton-Raphson converge cuadráticamente (el error se cuadra cada iteración) cuando la raíz es simple. Pero si la derivada cerca de la raíz es pequeña, la convergencia puede ser lenta. La raíz es aproximadamente 1.178.",
+                difficulty: "intermedio",
+                starterCode: `def f(x):
+    return x**5 - x - 1
+
+def df(x):
+    return 5*x**4 - 1
+
+x = 1.5
+tol = 1e-8
+
+# Itera con Newton
+`
             }
         ]
     },
@@ -1108,6 +1293,180 @@ A = np.array([
 # Calcula autovalores y autovectores
 `,
                 useSuiteNumerica: true
+            },
+            {
+                id: "12.8",
+                number: "Ejercicio 12.8",
+                title: "Norma y Producto Interno de Vectores",
+                description: "Calcula la norma (magnitud) del vector v = [3, 4, 0] y el producto interno con u = [1, 2, 3].",
+                pythonFunctions: ["numpy", "np.linalg.norm()", "np.dot()"],
+                solution: `import numpy as np
+
+v = np.array([3, 4, 0])
+u = np.array([1, 2, 3])
+
+norma_v = np.linalg.norm(v)
+producto = np.dot(u, v)
+
+print("=== NORMA Y PRODUCTO INTERNO ===")
+print(f"v = {v}")
+print(f"u = {u}")
+print(f"\n|v| = {norma_v}")
+print(f"u · v = {producto}")
+
+# Verificación manual
+norma_manual = np.sqrt(sum(v**2))
+print(f"\nVerificación |v|: {norma_manual}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado menciona 'norma', 'producto interno', 'vectores'. Esto indica usar álgebra lineal.\n\nFUNCIONES NECESARIAS:\n• np.array(): Crear vectores. Se identifica porque hay vectores.\n• np.linalg.norm(): Para la norma euclidiana.\n• np.dot(): Para el producto punto.\n\nPOR QUÉ FUNCIONA: La norma de un vector es su longitud: |v| = √(v₁² + v₂² + ...). El producto interno u·v = Σ uᵢvᵢ. Para v = [3,4,0], |v| = 5 (triángulo 3-4-5).",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+v = np.array([3, 4, 0])
+u = np.array([1, 2, 3])
+
+# Calcula norma y producto interno
+`
+            },
+            {
+                id: "12.9",
+                number: "Ejercicio 12.9",
+                title: "Sistema 3x3 con numpy.linalg.solve",
+                description: "Resuelve el sistema: 2x + y + z = 5, x + 2y + z = 6, x + y + 2z = 7.",
+                pythonFunctions: ["numpy", "np.linalg.solve()", "np.array()"],
+                solution: `import numpy as np
+
+# Matriz de coeficientes A*x = B
+A = np.array([
+    [2, 1, 1],
+    [1, 2, 1],
+    [1, 1, 2]
+])
+B = np.array([5, 6, 7])
+
+# Resolver sistema
+x = np.linalg.solve(A, B)
+
+print("=== SISTEMA 3x3 ===")
+print("Ecuaciones:")
+print("  2x + y + z = 5")
+print("  x + 2y + z = 6")
+print("  x + y + 2z = 7")
+print(f"\nSolución: x = {x[0]:.4f}, y = {x[1]:.4f}, z = {x[2]:.4f}")
+
+# Verificación
+print("\nVerificación:")
+print(f"  2({x[0]:.4f}) + {x[1]:.4f} + {x[2]:.4f} = {2*x[0] + x[1] + x[2]:.4f}")
+print(f"  {x[0]:.4f} + 2({x[1]:.4f}) + {x[2]:.4f} = {x[0] + 2*x[1] + x[2]:.4f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'sistema' con 3 ecuaciones y 3 variables. La palabra 'resuelve' indica usar un solver.\n\nFUNCIONES NECESARIAS:\n• np.array(): Para la matriz de coeficientes y vector de términos independientes.\n• np.linalg.solve(): Resuelve sistemas lineales Ax = B.\n\nPOR QUÉ FUNCIONA: El sistema se escribe como Ax = B donde A es la matriz de coeficientes, x es el vector de incógnitas y B es el vector de términos independientes. La solución es x = A⁻¹B.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+A = np.array([
+    [2, 1, 1],
+    [1, 2, 1],
+    [1, 1, 2]
+])
+B = np.array([5, 6, 7])
+
+# Resuelve el sistema
+`
+            },
+            {
+                id: "12.10",
+                number: "Ejercicio 12.10",
+                title: "Autovalores y Autovectores",
+                description: "Calcula los autovalores y autovectores de la matriz A = [[4, 2], [1, 3]].",
+                pythonFunctions: ["numpy", "np.linalg.eig()", "np.array()"],
+                solution: `import numpy as np
+
+A = np.array([[4, 2], [1, 3]])
+
+autovalores, autovectores = np.linalg.eig(A)
+
+print("=== AUTOVALORES Y AUTOVECTORES ===")
+print(f"Matriz A =\\n{A}")
+print(f"\nAutovalores: {autovalores}")
+print(f"Autovectores (columnas):\\n{autovectores}")
+
+# Verificación: A*v = λ*v
+for i in range(2):
+    lambda_i = autovalores[i]
+    v_i = autovectores[:, i]
+    Av = A @ v_i
+    lambda_v = lambda_i * v_i
+    print(f"\nVerificación λ={lambda_i:.4f}:")
+    print(f"  A·v = {Av}")
+    print(f"  λ·v = {lambda_v}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'autovalores' y 'autovectores', y menciona una matriz específica.\n\nFUNCIONES NECESARIAS:\n• np.array(): Para la matriz.\n• np.linalg.eig(): Calcula autovalores y autovectores.\n• @ (producto matriz-vector): Para verificar.\n\nPOR QUÉ FUNCIONA: Un autovector v de una matriz A satisface Av = λv donde λ es el autovalor. Para A = [[4,2],[1,3]], los autovalores son aproximadamente 4.79 y 2.21.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+A = np.array([[4, 2], [1, 3]])
+
+# Calcula autovalores y autovectores
+`
+            },
+            {
+                id: "12.11",
+                number: "Ejercicio 12.11",
+                title: "Inversa de Matriz 2x2",
+                description: "Calcula la inversa de A = [[3, 1], [1, 2]] y verifica que A·A⁻¹ = I.",
+                pythonFunctions: ["numpy", "np.linalg.inv()", "np.eye()"],
+                solution: `import numpy as np
+
+A = np.array([[3, 1], [1, 2]])
+
+A_inv = np.linalg.inv(A)
+identidad = np.eye(2)
+
+producto = A @ A_inv
+
+print("=== INVERSA DE MATRIZ ===")
+print(f"A =\\n{A}")
+print(f"A⁻¹ =\\n{A_inv}")
+print(f"\nA · A⁻¹ =\\n{producto}")
+
+# Verificación
+error = np.max(np.abs(producto - identidad))
+print(f"\nError máximo: {error:.2e}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'inversa' y 'verifica' con identidad. Esto indica usar np.linalg.inv().\n\nFUNCIONES NECESARIAS:\n• np.linalg.inv(): Calcula la matriz inversa.\n• np.eye(): Crea matriz identidad.\n• @: Producto de matrices.\n\nPOR QUÉ FUNCIONA: La inversa A⁻¹ cumple A·A⁻¹ = I (identidad). Para una matriz 2x2 [[a,b],[c,d]], la inversa es (1/(ad-bc))[[d,-b],[-c,a]].",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+A = np.array([[3, 1], [1, 2]])
+
+# Calcula la inversa
+`
+            },
+            {
+                id: "12.12",
+                number: "Ejercicio 12.12",
+                title: "Determinante e Invertibilidad",
+                description: "Calcula el determinante de A = [[1, 2], [3, 4]] y determina si es invertible.",
+                pythonFunctions: ["numpy", "np.linalg.det()"],
+                solution: `import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+det_A = np.linalg.det(A)
+
+print("=== DETERMINANTE ===")
+print(f"Matriz A =\\n{A}")
+print(f"det(A) = {det_A}")
+
+if abs(det_A) > 1e-10:
+    print("\nLa matriz ES invertible (det ≠ 0)")
+    A_inv = np.linalg.inv(A)
+    print(f"A⁻¹ =\\n{A_inv}")
+else:
+    print("\nLa matriz NO es invertible (det = 0)")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'determinante' y 'invertibilidad'.\n\nFUNCIONES NECESARIAS:\n• np.linalg.det(): Calcula el determinante.\n\nPOR QUÉ FUNCIONA: Una matriz es invertible si y solo si su determinante es no nulo. Para A 2x2 = [[a,b],[c,d]], det = ad - bc = 1·4 - 2·3 = -2.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+
+# Calcula el determinante
+`
             }
         ]
     },
@@ -1386,6 +1745,200 @@ y = np.array([1, 1.8, 1.3, 2.5, 6.3])
 # Ajusta polinomios de grado 2 y 3, compara R²
 `,
                 useSuiteNumerica: true
+            },
+            {
+                id: "14.7",
+                number: "Ejercicio 14.7",
+                title: "Interpolación de Lagrange - Predicción de Temperatura",
+                description: "Usa interpolación de Lagrange con los datos de temperatura T = [20, 22, 25, 28] en tiempos t = [0, 1, 2, 3] para predecir la temperatura en t = 1.5.",
+                pythonFunctions: ["numpy", "polinomios", "interpolación"],
+                solution: `import numpy as np
+
+# Datos: temperatura vs tiempo
+t_datos = np.array([0, 1, 2, 3])
+T_datos = np.array([20, 22, 25, 28])
+
+def lagrange(x_eval, x_datos, y_datos):
+    n = len(x_datos)
+    resultado = 0
+    for i in range(n):
+        termino = y_datos[i]
+        for j in range(n):
+            if i != j:
+                termino *= (x_eval - x_datos[j]) / (x_datos[i] - x_datos[j])
+        resultado += termino
+    return resultado
+
+t_eval = 1.5
+T_eval = lagrange(t_eval, t_datos, T_datos)
+
+print("=== INTERPOLACION DE LAGRANGE ===")
+print(f"Tiempos: {t_datos}")
+print(f"Temperaturas: {T_datos}")
+print(f"\nTemperatura en t = {t_eval}: T = {T_eval:.2f}")
+
+# Graficar
+t_plot = np.linspace(0, 3, 100)
+T_plot = [lagrange(ti, t_datos, T_datos) for ti in t_plot]
+
+import matplotlib.pyplot as plt
+plt.figure(figsize=(8, 5))
+plt.plot(t_plot, T_plot, 'b-', label='Interpolante')
+plt.plot(t_datos, T_datos, 'ro', markersize=10, label='Datos')
+plt.plot(t_eval, T_eval, 'g*', markersize=15, label=f'T({t_eval})')
+plt.xlabel('Tiempo (h)')
+plt.ylabel('Temperatura (°C)')
+plt.legend()
+plt.grid(True)
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'interpolación de Lagrange', usa la palabra 'predecir' y hay datos discretos.\n\nFUNCIONES NECESARIAS:\n• np.array(): Para los datos.\n• Bucles: Para implementar el polinomio de Lagrange.\n• matplotlib: Para graficar.\n\nPOR QUÉ FUNCIONA: El polinomio de Lagrange pasa exactamente por todos los puntos dados. Para n+1 puntos, el polinomio es de grado n. En t = 1.5, interpolate entre los puntos conocidos.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+t_datos = np.array([0, 1, 2, 3])
+T_datos = np.array([20, 22, 25, 28])
+
+def lagrange(x_eval, x_datos, y_datos):
+    # Implementa el polinomio de Lagrange
+    pass
+
+t_eval = 1.5
+
+# Calcula la temperatura
+`
+            },
+            {
+                id: "14.8",
+                number: "Ejercicio 14.8",
+                title: "Ajuste Lineal - Crecimiento Poblacional",
+                description: "Ajusta los datos de población P = [100, 150, 230, 350] en años t = [0, 5, 10, 15] con una regresión lineal y calcula la población proyectada para t = 20.",
+                pythonFunctions: ["numpy", "np.polyfit()", "np.poly1d()", "regresión"],
+                solution: `import numpy as np
+
+t = np.array([0, 5, 10, 15])
+P = np.array([100, 150, 230, 350])
+
+# Ajuste lineal (grado 1)
+coeffs = np.polyfit(t, P, 1)
+polinomio = np.poly1d(coeffs)
+
+print("=== REGRESION LINEAL ===")
+print(f"Datos: t = {t}, P = {P}")
+print(f"Ajuste: P = {coeffs[0]:.2f}·t + {coeffs[1]:.2f}")
+
+# Proyección para t = 20
+P_proyectado = polinomio(20)
+print(f"\nPoblación proyectada para t = 20: {P_proyectado:.1f}")
+
+# Coeficiente R²
+P_pred = polinomio(t)
+SS_res = np.sum((P - P_pred)**2)
+SS_tot = np.sum((P - np.mean(P))**2)
+R2 = 1 - SS_res / SS_tot
+print(f"R² = {R2:.4f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'ajuste', 'regresión', 'proyectada'. Las palabras clave indican encontrar una relación lineal.\n\nFUNCIONES NECESARIAS:\n• np.polyfit(): Ajuste polinomial.\n• np.poly1d(): Crear función polinómica.\n• numpy para cálculos.\n\nPOR QUÉ FUNCIONA: La regresión lineal encuentra la mejor línea P = at + b que minimiza la suma de errores al cuadrado. El coeficiente R² indica qué tan bien ajusta (1 = perfecto).",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+t = np.array([0, 5, 10, 15])
+P = np.array([100, 150, 230, 350])
+
+# Ajusta una línea y proyecta
+`
+            },
+            {
+                id: "14.9",
+                number: "Ejercicio 14.9",
+                title: "Gráfico de Funciones Trigonométricas",
+                description: "Grafica las funciones sin(x), cos(x) y tan(x) en el intervalo [0, 2π] en subgráficos separados.",
+                pythonFunctions: ["numpy", "np.sin()", "np.cos()", "np.tan()", "plt.subplot()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2*np.pi, 500)
+
+# Evitar discontinuidades de tan(x)
+x_tan = np.linspace(0.1, 2*np.pi - 0.1, 500)
+
+fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+
+# sin(x)
+axes[0].plot(x, np.sin(x), 'b-', linewidth=2)
+axes[0].set_title('sin(x)')
+axes[0].grid(True, alpha=0.3)
+axes[0].axhline(y=0, color='k', linewidth=0.5)
+
+# cos(x)
+axes[1].plot(x, np.cos(x), 'r-', linewidth=2)
+axes[1].set_title('cos(x)')
+axes[1].grid(True, alpha=0.3)
+axes[1].axhline(y=0, color='k', linewidth=0.5)
+
+# tan(x)
+axes[2].plot(x_tan, np.tan(x_tan), 'g-', linewidth=2)
+axes[2].set_title('tan(x)')
+axes[2].set_ylim(-5, 5)
+axes[2].grid(True, alpha=0.3)
+axes[2].axhline(y=0, color='k', linewidth=0.5)
+
+plt.tight_layout()
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'gráfico', menciona 'sin', 'cos', 'tan' y 'subgráficos'.\n\nFUNCIONES NECESARIAS:\n• np.sin(), np.cos(), np.tan(): Funciones trigonométricas.\n• plt.subplot(): Múltiples gráficos.\n• np.linspace(): Intervalo de x.\n\nPOR QUÉ FUNCIONA: Las funciones trigonométricas son periódicas. sin y cos tienen período 2π, tan tiene período π. Se usa un intervalo reducido para tan(x) para evitar las discontinuidades en ±π/2.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2*np.pi, 500)
+
+# Grafica sin, cos y tan en subgráficos
+`
+            },
+            {
+                id: "14.10",
+                number: "Ejercicio 14.10",
+                title: "Curva de Bezier Cuadrática",
+                description: "Grafica una curva de Bézier cuadrática con puntos de control P0=(0,0), P1=(1,2), P2=(2,0).",
+                pythonFunctions: ["numpy", "matplotlib", "np.linspace()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+P0 = np.array([0, 0])
+P1 = np.array([1, 2])
+P2 = np.array([2, 0])
+
+t = np.linspace(0, 1, 100)
+
+# Curva de Bézier cuadrática: B(t) = (1-t)²P0 + 2(1-t)tP1 + t²P2
+x = (1-t)**2 * P0[0] + 2*(1-t)*t * P1[0] + t**2 * P2[0]
+y = (1-t)**2 * P0[1] + 2*(1-t)*t * P1[1] + t**2 * P2[1]
+
+plt.figure(figsize=(8, 5))
+plt.plot(x, y, 'b-', linewidth=2, label='Curva Bézier')
+plt.plot(P0[0], P0[1], 'ro', markersize=10, label='P0')
+plt.plot(P1[0], P1[1], 'go', markersize=10, label='P1')
+plt.plot(P2[0], P2[1], 'ro', markersize=10, label='P2')
+plt.plot([P0[0], P1[0], P2[0]], [P0[1], P1[1], P2[1]], 'k--', alpha=0.5, label='Polígono de control')
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
+plt.title('Curva de Bézier Cuadrática')
+plt.grid(True, alpha=0.3)
+plt.axis('equal')
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Bézier' y tiene puntos de control. Las curvas paramétricas requieren interpolación.\n\nFUNCIONES NECESARIAS:\n• np.linspace(): Parámetro t en [0,1].\n• plt.plot(): Graficar curva y puntos.\n• Operaciones con arrays: Calcular la curva.\n\nPOR QUÉ FUNCIONA: Las curvas de Bézier usan polinomios para controlar la forma. La curva cuadrática tiene 3 puntos de control y está definida por B(t) = (1−t)²P₀ + 2(1−t)tP₁ + t²P₂.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+P0 = np.array([0, 0])
+P1 = np.array([1, 2])
+P2 = np.array([2, 0])
+
+t = np.linspace(0, 1, 100)
+
+# Calcula la curva de Bézier cuadrática
+`
             }
         ]
     },
@@ -1821,6 +2374,243 @@ def condiciones_frontera(ya, yb):
 # Resuelve el PVF
 `,
                 useSuiteNumerica: true
+            },
+            {
+                id: "16.2",
+                number: "Ejercicio 16.2",
+                title: "Método de Euler Mejorado (Heun)",
+                description: "Implementa el método de Euler modificado (Heun) para resolver y' = 0.5y con y(0) = 1 en [0, 4].",
+                pythonFunctions: ["numpy", "EDO", "método de Euler modificado"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+def euler_mejorado(f, y0, t_span, h):
+    t_start, t_end = t_span
+    t = np.arange(t_start, t_end + h, h)
+    y = np.zeros(len(t))
+    y[0] = y0
+    
+    for i in range(len(t) - 1):
+        k1 = f(t[i], y[i])
+        k2 = f(t[i] + h, y[i] + h * k1)
+        y[i+1] = y[i] + (h/2) * (k1 + k2)
+    
+    return t, y
+
+f = lambda t, y: 0.5 * y
+y0 = 1
+t_span = (0, 4)
+h = 0.1
+
+t, y = euler_mejorado(f, y0, t_span, h)
+
+# Solución exacta: y = e^(0.5t)
+t_exact = np.linspace(0, 4, 200)
+y_exact = np.exp(0.5 * t_exact)
+
+print("=== METODO DE EULER MEJORADO (HEUN) ===")
+print(f"y' = 0.5y, y(0) = 1")
+print(f"h = {h}")
+print(f"\nSolución en algunos puntos:")
+for i in range(0, len(t), 5):
+    print(f"t = {t[i]:.1f}, y = {y[i]:.6f}")
+
+plt.figure(figsize=(10, 5))
+plt.plot(t_exact, y_exact, 'b-', linewidth=2, label='Exacta: y = e^(0.5t)')
+plt.plot(t, y, 'ro-', markersize=4, label='Euler Mejorado')
+plt.xlabel('t')
+plt.ylabel('y')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.title('Método de Euler Mejorado')
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Euler modificado' o 'Heun', y tiene una EDO simple y' = 0.5y.\n\nFUNCIONES NECESARIAS:\n• numpy: Para crear arrays y cálculos.\n• Bucles: Para las iteraciones.\n• lambda: Para definir f(t,y).\n\nPOR QUÉ FUNCIONA: El método de Euler usa yₙ₊₁ = yₙ + h·f(tₙ,yₙ). Euler mejorado promedia dos pendientes: k₁ = f(tₙ,yₙ) y k₂ = f(tₙ₊₁,yₙ+h·k₁). Luego yₙ₊₁ = yₙ + (h/2)(k₁+k₂). Es más preciso que Euler.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+def euler_mejorado(f, y0, t_span, h):
+    # Implementa el método de Euler modificado
+    pass
+
+f = lambda t, y: 0.5 * y
+y0 = 1
+
+# Resuelve la EDO
+`
+            },
+            {
+                id: "16.3",
+                number: "Ejercicio 16.3",
+                title: "Sistema de EDOs - Carrera de Infectivos",
+                description: "Modela la propagación de un virus con el modelo SI: I' = βSI, S' = −βSI, con S(0)=99, I(0)=1, β=0.01.",
+                pythonFunctions: ["scipy.integrate.solve_ivp", "sistema de EDOs"],
+                solution: `import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
+def modelo_SI(t, y, beta):
+    S, I = y
+    dSdt = -beta * S * I
+    dIdt = beta * S * I
+    return [dSdt, dIdt]
+
+beta = 0.01
+S0 = 99
+I0 = 1
+y0 = [S0, I0]
+
+t_span = (0, 50)
+t_eval = np.linspace(0, 50, 500)
+
+sol = solve_ivp(modelo_SI, t_span, y0, t_eval=t_eval, args=(beta,))
+
+print("=== MODELO SI (Susceptibles-Infectados) ===")
+print(f"β = {beta}, S(0) = {S0}, I(0) = {I0}")
+print(f"\nPoblación final: S = {sol.y[0,-1]:.2f}, I = {sol.y[1,-1]:.2f}")
+
+plt.figure(figsize=(10, 5))
+plt.plot(sol.t, sol.y[0], 'b-', linewidth=2, label='Susceptibles (S)')
+plt.plot(sol.t, sol.y[1], 'r-', linewidth=2, label='Infectados (I)')
+plt.xlabel('Tiempo')
+plt.ylabel('Población')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.title('Modelo SI - Propagación de Virus')
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'sistema de EDOs' y tiene dos variables S e I que interactúan.\n\nFUNCIONES NECESARIAS:\n• solve_ivp: Resolver sistema de EDOs.\n• args: Pasar parámetros adicionales.\n\nPOR QUÉ FUNCIONA: El modelo SI tiene dos ecuaciones acopladas. Los susceptibles (S) se infectan al contacto con感染ados (I) a tasa β. Los Infectados no se recuperan en este modelo simple.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
+from scipy.integrate import solve_ivp
+
+def modelo_SI(t, y, beta):
+    S, I = y
+    # Implementa las ecuaciones
+    pass
+
+beta = 0.01
+y0 = [99, 1]
+
+# Resuelve el sistema
+`
+            },
+            {
+                id: "16.4",
+                number: "Ejercicio 16.4",
+                title: "EDO de Segundo Orden - Péndulo Simple",
+                description: "Resuelve la ecuación del péndulo simple: θ'' + (g/L)sin(θ) = 0, con θ(0)=π/4, θ'(0)=0, L=1, g=9.8.",
+                pythonFunctions: ["scipy.integrate.solve_ivp", "sistema de EDOs"],
+                solution: `import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
+g = 9.8
+L = 1
+
+def pendulo(t, y, g, L):
+    theta, omega = y
+    dtheta = omega
+    domega = -(g/L) * np.sin(theta)
+    return [dtheta, domega]
+
+y0 = [np.pi/4, 0]  # θ(0) = π/4, ω(0) = 0
+t_span = (0, 10)
+t_eval = np.linspace(0, 10, 500)
+
+sol = solve_ivp(pendulo, t_span, y0, t_eval=t_eval, args=(g, L))
+
+print("=== PENDULO SIMPLE ===")
+print(f"g = {g}, L = {L}")
+print(f"θ(0) = π/4 = {np.pi/4:.4f} rad")
+print(f"\nPeríodo aproximado: analizar los picos")
+
+plt.figure(figsize=(10, 5))
+plt.plot(sol.t, sol.y[0], 'b-', linewidth=2)
+plt.xlabel('Tiempo (s)')
+plt.ylabel('θ (rad)')
+plt.title('Péndulo Simple - Oscilaciones')
+plt.grid(True, alpha=0.3)
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'EDO de segundo orden' y tiene 'péndulo'. Esto indica convertir a sistema de primer orden.\n\nFUNCIONES NECESARIAS:\n• solve_ivp: Resolver el sistema.\n• np.sin(): Función trigonométrica.\n\nPOR QUÉ FUNCIONA: Una EDO de segundo orden θ'' = f(t,θ,θ') se convierte a sistema: θ' = ω, ω' = f(t,θ,ω). Para péndulo: θ' = ω, ω' = −(g/L)sin(θ).",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
+from scipy.integrate import solve_ivp
+
+g = 9.8
+L = 1
+
+def pendulo(t, y, g, L):
+    theta, omega = y
+    # Convierte a sistema de primer orden
+    pass
+
+y0 = [np.pi/4, 0]
+
+# Resuelve
+`
+            },
+            {
+                id: "16.5",
+                number: "Ejercicio 16.5",
+                title: "Método de Runge-Kutta 4 (RK4)",
+                description: "Implementa el método RK4 para resolver y' = y − x² + 1 con y(0) = 0.5 en [0, 2].",
+                pythonFunctions: ["numpy", "Runge-Kutta 4", "EDO"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+def rk4(f, y0, t_span, h):
+    t_start, t_end = t_span
+    t = np.arange(t_start, t_end + h, h)
+    y = np.zeros(len(t))
+    y[0] = y0
+    
+    for i in range(len(t) - 1):
+        k1 = f(t[i], y[i])
+        k2 = f(t[i] + h/2, y[i] + h*k1/2)
+        k3 = f(t[i] + h/2, y[i] + h*k2/2)
+        k4 = f(t[i] + h, y[i] + h*k3)
+        
+        y[i+1] = y[i] + (h/6)*(k1 + 2*k2 + 2*k3 + k4)
+    
+    return t, y
+
+f = lambda t, y: y - t**2 + 1
+y0 = 0.5
+t_span = (0, 2)
+h = 0.1
+
+t, y = rk4(f, y0, t_span, h)
+
+# Solución exacta: y = x² + 2x + 1 - e^x
+t_exact = np.linspace(0, 2, 200)
+y_exact = t_exact**2 + 2*t_exact + 1 - np.exp(t_exact)
+
+print("=== RUNGE-KUTTA 4 (RK4) ===")
+print(f"y' = y - x² + 1, y(0) = 0.5, h = {h}")
+
+plt.figure(figsize=(10, 5))
+plt.plot(t_exact, y_exact, 'b-', linewidth=2, label='Exacta')
+plt.plot(t, y, 'ro-', markersize=3, label='RK4')
+plt.xlabel('t')
+plt.ylabel('y')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.title('Método Runge-Kutta 4')
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Runge-Kutta 4' o 'RK4'. Es un método de mayor orden que Euler.\n\nFUNCIONES NECESARIAS:\n• Bucles: Para las iteraciones.\n• numpy: Para cálculos.\n\nPOR QUÉ FUNCIONA: RK4 usa 4 evaluaciones de la pendiente por paso:\nk₁ = f(t,y)\nk₂ = f(t+h/2, y+h·k₁/2)\nk₃ = f(t+h/2, y+h·k₂/2)\nk₄ = f(t+h, y+h·k₃)\nyₙ₊₁ = yₙ + (h/6)(k₁ + 2k₂ + 2k₃ + k₄)\nEs preciso de orden 4 (error O(h⁴)).",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+def rk4(f, y0, t_span, h):
+    # Implementa el método RK4
+    pass
+
+f = lambda t, y: y - t**2 + 1
+y0 = 0.5
+
+# Resuelve
+`
             }
         ]
     }
