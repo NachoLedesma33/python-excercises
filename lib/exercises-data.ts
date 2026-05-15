@@ -234,7 +234,7 @@ x = 25
 
 # Método directo
 P = x**4 + x**3 + 2*x**2 - x
-print(f"P({x}) = {x}⁴ + {x}³ + 2·{x}² - {x}")
+print(f"P({x}) = {x}**4 + {x}**3 + 2*{x}**2 - {x}")
 print(f"P({x}) = {x**4} + {x**3} + {2*x**2} - {x}")
 print(f"P({x}) = {P}")
 
@@ -374,8 +374,8 @@ print("=== DISTANCIA EN 3D ===")
 print(f"P1: {P1}")
 print(f"P2: {P2}")
 print(f"dx = {dx}, dy = {dy}, dz = {dz}")
-print(f"d = √({dx}² + {dy}² + {dz}²)")
-print(f"d = √({dx**2} + {dy**2} + {dz**2})")
+print(f"d = sqrt({dx}**2 + {dy}**2 + {dz}**2)")
+print(f"d = sqrt({dx**2} + {dy**2} + {dz**2})")
 print(f"d = {distancia:.2f}")`,
                 explanation: "La distancia euclidiana en 3D es la generalización del teorema de Pitágoras. En 2D: d = √(dx² + dy²). En 3D agregamos dz². Esto representa la longitud del segmento que une los dos puntos en el espacio tridimensional.",
                 difficulty: "básico",
@@ -1706,12 +1706,12 @@ for xi, yi in zip(x, y):
 
 print("\\n=== GRADO 2 ===")
 print(f"Coeficientes: {coefs2}")
-print(f"P₂(x) = {coefs2[0]:.4f}x² + {coefs2[1]:.4f}x + {coefs2[2]:.4f}")
+print(f"P2(x) = {coefs2[0]:.4f}x^2 + {coefs2[1]:.4f}x + {coefs2[2]:.4f}")
 print(f"R² = {R2_2:.3f}")
 
 print("\\n=== GRADO 3 ===")
 print(f"Coeficientes: {coefs3}")
-print(f"P₃(x) = {coefs3[0]:.4f}x³ + {coefs3[1]:.4f}x² + {coefs3[2]:.4f}x + {coefs3[3]:.4f}")
+print(f"P3(x) = {coefs3[0]:.4f}x^3 + {coefs3[1]:.4f}x^2 + {coefs3[2]:.4f}x + {coefs3[3]:.4f}")
 print(f"R² = {R2_3:.3f}")
 
 print("\\n=== COMPARACIÓN ===")
@@ -2521,7 +2521,7 @@ sol = solve_ivp(pendulo, t_span, y0, t_eval=t_eval, args=(g, L))
 
 print("=== PENDULO SIMPLE ===")
 print(f"g = {g}, L = {L}")
-print(f"θ(0) = π/4 = {np.pi/4:.4f} rad")
+print(f"theta(0) = pi/4 = {np.pi/4:.4f} rad")
 print(f"\nPeríodo aproximado: analizar los picos")
 
 plt.figure(figsize=(10, 5))
@@ -2586,7 +2586,7 @@ t_exact = np.linspace(0, 2, 200)
 y_exact = t_exact**2 + 2*t_exact + 1 - np.exp(t_exact)
 
 print("=== RUNGE-KUTTA 4 (RK4) ===")
-print(f"y' = y - x² + 1, y(0) = 0.5, h = {h}")
+print(f"y' = y - x**2 + 1, y(0) = 0.5, h = {h}")
 
 plt.figure(figsize=(10, 5))
 plt.plot(t_exact, y_exact, 'b-', linewidth=2, label='Exacta')
