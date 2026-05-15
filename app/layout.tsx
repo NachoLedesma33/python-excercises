@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   description: 'Aplicación interactiva para aprender Python con ejercicios de computación y cálculo numérico',
   icons: {
     icon: '/icon.svg',
-    apple: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/apple-icon.png',
   },
 }
 
