@@ -215,7 +215,7 @@ raiz2 = x ** 0.5  # Método alternativo
 
 print(f"sqrt({x}) usando math.sqrt(): {raiz1}")
 print(f"sqrt({x}) usando x**0.5: {raiz2}")
-print(f"Verificación: {raiz1}² = {raiz1**2}")`,
+print(f"Verificacion: {raiz1}**2 = {raiz1**2}")`,
                 explanation: "La raíz cuadrada de un número x es el valor y tal que y² = x. En Python hay dos formas: math.sqrt(x) y x**0.5 (usando exponenciación). Ambas dan el mismo resultado. Para 25, la raíz es exactamente 5.0.",
                 difficulty: "básico",
                 starterCode: `import math
@@ -269,10 +269,9 @@ volumen = math.pi * r**2 * h
 
 print("=== CILINDRO ===")
 print(f"Radio: {r}, Altura: {h}")
-print(f"\\nÁrea de las tapas: 2πr² = {area_tapas:.4f}")
-print(f"Área lateral: 2πrh = {area_lateral:.4f}")
-print(f"Área total: {area_total:.4f}")
-print(f"\\nVolumen: πr²h = {volumen:.4f}")`,
+print(f"\\nArea de las tapas: 2*pi*r**2 = {area_tapas:.4f}")
+print(f"Area lateral: 2*pi*r*h = {area_lateral:.4f}")
+print(f"\\nVolumen: pi*r**2*h = {volumen:.4f}")`,
                 explanation: "El cilindro tiene dos tapas circulares (área = πr² cada una) y una superficie lateral (área = 2πrh, que es el perímetro de la base por la altura). El área total es 2πr² + 2πrh = 2πr(r+h). El volumen es el área de la base por la altura: πr²h.",
                 difficulty: "básico",
                 starterCode: `import math
@@ -304,10 +303,10 @@ area = 0.5 * a * b * math.sin(theta_rad)
 print("=== TRIÁNGULO ===")
 print(f"Lado a: {a}")
 print(f"Lado b: {b}")
-print(f"Ángulo θ: {theta_grados}°")
+print(f"Angulo theta: {theta_grados} grados")
 print(f"\\nsin({theta_grados}°) = {math.sin(theta_rad):.4f}")
 print(f"\\nÁrea = (1/2)·{a}·{b}·sin({theta_grados}°)")
-print(f"Área = {area:.4f} unidades²")`,
+print(f"Area = {area:.4f} unidades**2")`,
                 explanation: "Cuando conocemos dos lados y el ángulo entre ellos, el área se calcula como A = ½ab·sin(θ). Es importante convertir grados a radianes con math.radians() porque las funciones trigonométricas de Python trabajan en radianes. Para θ = 60°, sin(60°) = √3/2 ≈ 0.866.",
                 difficulty: "intermedio",
                 starterCode: `import math
@@ -337,10 +336,10 @@ c = math.sqrt(c_squared)
 
 print("=== LEY DE LOS COSENOS ===")
 print(f"Lado a: {a}, Lado b: {b}, Angulo: {theta_grados}°")
-print(f"c² = a² + b² − 2ab·cos(θ)")
-print(f"c² = {a}² + {b}² − 2·{a}·{b}·cos({theta_grados}°)")
-print(f"c² = {a**2} + {b**2} − {2*a*b*math.cos(theta_rad):.4f}")
-print(f"c² = {c_squared:.4f}")
+print(f"c**2 = a**2 + b**2 - 2*a*b*cos(theta)")
+print(f"c**2 = {a}**2 + {b}**2 - 2*{a}*{b}*cos({theta_grados})")
+print(f"c**2 = {a**2} + {b**2} - {2*a*b*math.cos(theta_rad):.4f}")
+print(f"c**2 = {c_squared:.4f}")
 print(f"c = {c:.4f}")`,
                 explanation: "La ley de los cosenos generaliza el teorema de Pitágoras para triángulos no rectángulos. Cuando θ = 90°, cos(θ) = 0 y se reduce a c² = a² + b² (Pitágoras). Para θ < 90°, el triángulo es acutángulo; para θ > 90°, es obtusángulo.",
                 difficulty: "intermedio",
@@ -644,7 +643,7 @@ def newton(f, df, x0, tol=1e-8, max_iter=100):
     return x, max_iter
 
 # Encontrar las tres raíces con diferentes x0
-print("=== Raíces de f(x) = 2x³ - 12x² + 17x - 5 ===\\n")
+print("=== Raices de f(x) = 2x**3 - 12x**2 + 17x - 5 ===\\n")
 
 valores_iniciales = [0.5, 1.5, 5.0]
 raices = []
@@ -706,7 +705,7 @@ def biseccion(f, a, b, tol=1e-6, max_iter=100):
     
     return (a + b) / 2, max_iter
 
-print("=== Raíces de f(x) = 2sin(√x) - x ===\\n")
+print("=== Raices de f(x) = 2sin(sqrt(x)) - x ===\\n")
 
 # Buscar raíces en diferentes intervalos
 # Raíz trivial x = 0
@@ -772,7 +771,7 @@ def newton_numerico(f, x0, tol=1e-8, max_iter=100):
     
     return x, max_iter
 
-print("=== Primera raíz positiva de f(x) = sin(x) + cos(1+x²) - 1 ===\\n")
+print("=== Primera raiz positiva de f(x) = sin(x) + cos(1+x**2) - 1 ===\\n")
 
 # Buscar valores donde cambia signo
 print("Exploración inicial:")
@@ -830,23 +829,19 @@ V_objetivo = 30.0  # metros cúbicos
 
 print("=== TANQUE ESFÉRICO ===")
 print(f"Radio R = {R} m")
-print(f"Volumen objetivo V = {V_objetivo} m³")
-print(f"Volumen máximo (esfera completa) = {4/3 * math.pi * R**3:.2f} m³")
-
-# El rango válido de h es [0, 2R]
-h_max = 2 * R
-V_max = volumen_esfera_parcial(h_max, R)
-print(f"h máximo = {h_max} m (V = {V_max:.2f} m³)")
+print(f"Volumen objetivo V = {V_objetivo} m**3")
+print(f"Volumen maximo (esfera completa) = {4/3 * math.pi * R**3:.2f} m**3")
+print(f"h maximo = {h_max} m (V = {V_max:.2f} m**3)")
 
 # Resolver
-print("\\nBuscando h tal que V(h) = 30 m³...")
+print("\\nBuscando h tal que V(h) = 30 m**3...")
 h_sol, iters = biseccion(ecuacion, 0.1, h_max, args=(R, V_objetivo))
 
 print(f"\\nSOLUCIÓN:")
 print(f"Profundidad h = {h_sol:.2f} m")
 print(f"Iteraciones: {iters}")
 print(f"\\nVerificación:")
-print(f"V({h_sol:.2f}) = {volumen_esfera_parcial(h_sol, R):.2f} m³")`,
+print(f"V({h_sol:.2f}) = {volumen_esfera_parcial(h_sol, R):.2f} m**3")`,
                 explanation: "Este es un problema de ingeniería real. La fórmula V = (πh²/3)(3R − h) relaciona el volumen con la altura del líquido en un tanque esférico. Despejamos h resolviendo la ecuación no lineal V(h) − 30 = 0 usando bisección en el intervalo [0, 2R]. La solución es h ≈ 2.027 m.",
                 difficulty: "avanzado",
                 starterCode: `import math
@@ -1518,7 +1513,7 @@ plt.show()
 print("La cicloide es la curva trazada por un punto")
 print("en el borde de un círculo que rueda sin deslizar.")
 print(f"\\nRadio r = {r}")
-print(f"Período en x: 2πr = {2*np.pi*r:.4f}")
+print(f"Periodo en x: 2*pi*r = {2*np.pi*r:.4f}")
 print(f"Altura máxima: 2r = {2*r}")`,
                 explanation: "La cicloide es la trayectoria de un punto en el borde de un círculo que rueda. Las ecuaciones x = r(φ - sin φ) y y = r(1 - cos φ) generan arcos con cúspides donde el punto toca el suelo (φ = 0, 2π, 4π...). Es famosa por ser la solución al problema de la braquistócrona.",
                 difficulty: "intermedio",
@@ -1638,7 +1633,7 @@ print(f"\\nModelo: y = ax + b")
 print(f"a (pendiente) = {a:.2f}")
 print(f"b (ordenada) = {b:.2f}")
 
-print(f"\\nCoeficiente R² = {R2:.3f}")
+print(f"\\nCoeficiente R**2 = {R2:.3f}")
 print(f"Correlación R = {np.sqrt(R2):.3f}")
 
 # Tabla de valores
@@ -1655,7 +1650,7 @@ plt.plot(x_line, a*x_line + b, 'b-', linewidth=2,
          label=f'Regresión: y = {a:.3f}x + {b:.3f}')
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title(f'Regresión Lineal (R² = {R2:.4f})')
+plt.title(f'Regresion Lineal (R**2 = {R2:.4f})')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()`,
@@ -1707,18 +1702,18 @@ for xi, yi in zip(x, y):
 print("\\n=== GRADO 2 ===")
 print(f"Coeficientes: {coefs2}")
 print(f"P2(x) = {coefs2[0]:.4f}x^2 + {coefs2[1]:.4f}x + {coefs2[2]:.4f}")
-print(f"R² = {R2_2:.3f}")
+print(f"R**2 = {R2_2:.3f}")
 
 print("\\n=== GRADO 3 ===")
 print(f"Coeficientes: {coefs3}")
 print(f"P3(x) = {coefs3[0]:.4f}x^3 + {coefs3[1]:.4f}x^2 + {coefs3[2]:.4f}x + {coefs3[3]:.4f}")
-print(f"R² = {R2_3:.3f}")
+print(f"R**2 = {R2_3:.3f}")
 
 print("\\n=== COMPARACIÓN ===")
 if R2_3 > R2_2:
-    print(f"El polinomio de grado 3 ajusta mejor (R² = {R2_3:.4f} > {R2_2:.4f})")
+    print(f"El polinomio de grado 3 ajusta mejor (R**2 = {R2_3:.4f} > {R2_2:.4f})")
 else:
-    print(f"El polinomio de grado 2 ajusta mejor (R² = {R2_2:.4f} > {R2_3:.4f})")
+    print(f"El polinomio de grado 2 ajusta mejor (R**2 = {R2_2:.4f} > {R2_3:.4f})")
 
 # Graficar
 x_plot = np.linspace(-0.5, 4.5, 200)
@@ -1726,9 +1721,9 @@ x_plot = np.linspace(-0.5, 4.5, 200)
 plt.figure(figsize=(12, 5))
 plt.scatter(x, y, color='red', s=100, label='Datos', zorder=5)
 plt.plot(x_plot, poly2(x_plot), 'b-', linewidth=2, 
-         label=f'Grado 2 (R² = {R2_2:.4f})')
+         label=f'Grado 2 (R**2 = {R2_2:.4f})')
 plt.plot(x_plot, poly3(x_plot), 'g--', linewidth=2, 
-         label=f'Grado 3 (R² = {R2_3:.4f})')
+         label=f'Grado 3 (R**2 = {R2_3:.4f})')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Comparación de Regresión Polinomial')
@@ -1835,7 +1830,7 @@ P_pred = polinomio(t)
 SS_res = np.sum((P - P_pred)**2)
 SS_tot = np.sum((P - np.mean(P))**2)
 R2 = 1 - SS_res / SS_tot
-print(f"R² = {R2:.4f}")`,
+print(f"R**2 = {R2:.4f}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'ajuste', 'regresión', 'proyectada'. Las palabras clave indican encontrar una relación lineal.\n\nFUNCIONES NECESARIAS:\n• np.polyfit(): Ajuste polinomial.\n• np.poly1d(): Crear función polinómica.\n• numpy para cálculos.\n\nPOR QUÉ FUNCIONA: La regresión lineal encuentra la mejor línea P = at + b que minimiza la suma de errores al cuadrado. El coeficiente R² indica qué tan bien ajusta (1 = perfecto).",
                 difficulty: "básico",
                 starterCode: `import numpy as np
@@ -2310,7 +2305,7 @@ sol = solve_bvp(ecuacion, condiciones_frontera, x, y_init)
 
 print("=== PROBLEMA DE VALOR EN FRONTERA ===")
 print("EDO: y'' = -y")
-print("Condiciones: y(0) = 0, y(π) = 0")
+print("Condiciones: y(0) = 0, y(pi) = 0")
 print(f"\\nConvergió: {sol.success}")
 print(f"Mensaje: {sol.message}")
 
@@ -2333,7 +2328,7 @@ y_num_norm = y_num / np.max(np.abs(y_num)) if np.max(np.abs(y_num)) > 0 else y_n
 
 print("\\nVerificación de condiciones de frontera:")
 print(f"  y(0) = {sol.sol(0)[0]:.6e} (debe ser 0)")
-print(f"  y(π) = {sol.sol(np.pi)[0]:.6e} (debe ser 0)")
+print(f"  y(pi) = {sol.sol(np.pi)[0]:.6e} (debe ser 0)")
 
 # Graficar
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -2466,17 +2461,17 @@ t_eval = np.linspace(0, 50, 500)
 sol = solve_ivp(modelo_SI, t_span, y0, t_eval=t_eval, args=(beta,))
 
 print("=== MODELO SI (Susceptibles-Infectados) ===")
-print(f"β = {beta}, S(0) = {S0}, I(0) = {I0}")
-print(f"\nPoblación final: S = {sol.y[0,-1]:.2f}, I = {sol.y[1,-1]:.2f}")
+print(f"beta = {beta}, S(0) = {S0}, I(0) = {I0}")
+print(f"\\nPoblacion final: S = {sol.y[0,-1]:.2f}, I = {sol.y[1,-1]:.2f}")
 
 plt.figure(figsize=(10, 5))
 plt.plot(sol.t, sol.y[0], 'b-', linewidth=2, label='Susceptibles (S)')
 plt.plot(sol.t, sol.y[1], 'r-', linewidth=2, label='Infectados (I)')
 plt.xlabel('Tiempo')
-plt.ylabel('Población')
+plt.ylabel('Poblacion')
 plt.legend()
 plt.grid(True, alpha=0.3)
-plt.title('Modelo SI - Propagación de Virus')
+plt.title('Modelo SI - Propagacion de Virus')
 plt.show()`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'sistema de EDOs' y tiene dos variables S e I que interactúan.\n\nFUNCIONES NECESARIAS:\n• solve_ivp: Resolver sistema de EDOs.\n• args: Pasar parámetros adicionales.\n\nPOR QUÉ FUNCIONA: El modelo SI tiene dos ecuaciones acopladas. Los susceptibles (S) se infectan al contacto con感染ados (I) a tasa β. Los Infectados no se recuperan en este modelo simple.",
                 difficulty: "avanzado",
@@ -2513,7 +2508,7 @@ def pendulo(t, y, g, L):
     domega = -(g/L) * np.sin(theta)
     return [dtheta, domega]
 
-y0 = [np.pi/4, 0]  # θ(0) = π/4, ω(0) = 0
+y0 = [np.pi/4, 0]  # theta(0) = pi/4, omega(0) = 0
 t_span = (0, 10)
 t_eval = np.linspace(0, 10, 500)
 
@@ -2522,13 +2517,13 @@ sol = solve_ivp(pendulo, t_span, y0, t_eval=t_eval, args=(g, L))
 print("=== PENDULO SIMPLE ===")
 print(f"g = {g}, L = {L}")
 print(f"theta(0) = pi/4 = {np.pi/4:.4f} rad")
-print(f"\nPeríodo aproximado: analizar los picos")
+print(f"\\nPeriodo aproximado: analizar los picos")
 
 plt.figure(figsize=(10, 5))
 plt.plot(sol.t, sol.y[0], 'b-', linewidth=2)
 plt.xlabel('Tiempo (s)')
-plt.ylabel('θ (rad)')
-plt.title('Péndulo Simple - Oscilaciones')
+plt.ylabel('theta (rad)')
+plt.title('Pendulo Simple - Oscilaciones')
 plt.grid(True, alpha=0.3)
 plt.show()`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'EDO de segundo orden' y tiene 'péndulo'. Esto indica convertir a sistema de primer orden.\n\nFUNCIONES NECESARIAS:\n• solve_ivp: Resolver el sistema.\n• np.sin(): Función trigonométrica.\n\nPOR QUÉ FUNCIONA: Una EDO de segundo orden θ'' = f(t,θ,θ') se convierte a sistema: θ' = ω, ω' = f(t,θ,ω). Para péndulo: θ' = ω, ω' = −(g/L)sin(θ).",
