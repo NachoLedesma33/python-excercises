@@ -3674,6 +3674,322 @@ colors = np.random.rand(50)
 plt.scatter(x, y, s=sizes, c=colors)
 plt.show()
 `
+            },
+            {
+                id: "16.11",
+                number: "Ejercicio 16.11",
+                title: "SuiteNumerica - punto_fijo()",
+                description: "Usa la función punto_fijo() de SuiteNumericaMaster para encontrar la raíz de x = cos(x).",
+                pythonFunctions: ["SuiteNumericaMaster", "punto_fijo()", "math.cos()"],
+                solution: `from lib import SuiteNumericaMaster as snm
+import math
+
+def g(x):
+    return math.cos(x)
+
+raiz = snm.punto_fijo(g, 0.5, tol=1e-8)
+print(f"Raiz de x = cos(x): {raiz:.8f}")
+print(f"Verificacion: cos({raiz:.8f}) = {math.cos(raiz):.8f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'punto fijo' y 'x = cos(x)'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.punto_fijo(): Método de punto fijo.\n• math.cos(): Función coseno.\n\nPOR QUÉ FUNCIONA: Transforma f(x)=0 en x=g(x). Para x=cos(x), iteramos xₙ₊₁=cos(xₙ). La raíz es ≈0.739.",
+                difficulty: "intermedio",
+                starterCode: `from lib import SuiteNumericaMaster as snm
+import math
+
+def g(x):
+    return math.cos(x)
+
+# Usa punto_fijo para encontrar la raiz
+`
+            },
+            {
+                id: "16.12",
+                number: "Ejercicio 16.12",
+                title: "SuiteNumerica - newton()",
+                description: "Usa newton() para encontrar la raíz de f(x) = x² - 2.",
+                pythonFunctions: ["SuiteNumericaMaster", "newton()"],
+                solution: `from lib import SuiteNumericaMaster as snm
+import math
+
+def f(x):
+    return x**2 - 2
+
+def df(x):
+    return 2*x
+
+raiz = snm.newton(f, df, 1.0, tol=1e-8)
+print(f"Raiz de x**2 - 2: {raiz:.8f}")
+print(f"Verificacion: sqrt(2) = {math.sqrt(2):.8f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Newton' y 'x² - 2'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.newton(): Método de Newton-Raphson.\n• Definir f(x) y su derivada df(x).\n\nPOR QUÉ FUNCIONA: Newton-Raphson: xₙ₊₁ = xₙ - f(xₙ)/f'(xₙ). Converge cuadráticamente. Raíz = √2 ≈ 1.414.",
+                difficulty: "intermedio",
+                starterCode: `from lib import SuiteNumericaMaster as snm
+
+def f(x):
+    return x**2 - 2
+
+def df(x):
+    return 2*x
+
+# Usa newton() para encontrar la raiz
+`
+            },
+            {
+                id: "16.13",
+                number: "Ejercicio 16.13",
+                title: "SuiteNumerica - biseccion()",
+                description: "Usa biseccion() para encontrar la raíz de f(x) = ln(x) - 1 en [1, 4].",
+                pythonFunctions: ["SuiteNumericaMaster", "biseccion()", "math.log()"],
+                solution: `from lib import SuiteNumericaMaster as snm
+import math
+
+def f(x):
+    return math.log(x) - 1
+
+raiz = snm.biseccion(f, 1, 4, tol=1e-8)
+print(f"Raiz de ln(x) - 1 = 0: {raiz:.8f}")
+print(f"Verificacion: ln({raiz:.8f}) = {math.log(raiz):.8f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'bisección' y 'ln(x) - 1'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.biseccion(): Método de bisección.\n• math.log(): Logaritmo natural.\n\nPOR QUÉ FUNCIONA: Bisección divide el intervalo por la mitad. ln(x) = 1 cuando x = e ≈ 2.718.",
+                difficulty: "básico",
+                starterCode: `from lib import SuiteNumericaMaster as snm
+import math
+
+def f(x):
+    return math.log(x) - 1
+
+# Usa biseccion() para encontrar la raiz
+`
+            },
+            {
+                id: "16.14",
+                number: "Ejercicio 16.14",
+                title: "SuiteNumerica - euler()",
+                description: "Usa euler() para resolver y' = 0.5*y, y(0)=1 en [0, 2].",
+                pythonFunctions: ["SuiteNumericaMaster", "euler()", "matplotlib"],
+                solution: `from lib import SuiteNumericaMaster as snm
+import numpy as np
+
+f = lambda t, y: 0.5*y
+y0 = 1
+t_span = (0, 2)
+h = 0.1
+
+t, y = snm.euler(f, y0, t_span, h)
+
+# Comparar con solucion exacta
+y_exacta = np.exp(0.5*t)
+
+print("=== METODO DE EULER ===")
+for i in range(0, len(t), 5):
+    print(f"t={t[i]:.1f}, y_euler={y[i]:.4f}, y_exacta={y_exacta[i]:.4f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Euler' y 'y' = 0.5*y'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.euler(): Método de Euler.\n• lambda: Define la EDO.\n\nPOR QUÉ FUNCIONA: Euler: yₙ₊₁ = yₙ + h*f(tₙ,yₙ). Solución exacta: y = e^(0.5t).",
+                difficulty: "intermedio",
+                starterCode: `from lib import SuiteNumericaMaster as snm
+
+f = lambda t, y: 0.5*y
+y0 = 1
+
+# Usa euler() para resolver
+`
+            },
+            {
+                id: "16.15",
+                number: "Ejercicio 16.15",
+                title: "SuiteNumerica - lagrange()",
+                description: "Usa lagrange() para interpolar los puntos (0,1), (1,2), (2,4) y evaluar en x=1.5.",
+                pythonFunctions: ["SuiteNumericaMaster", "lagrange()", "numpy"],
+                solution: `from lib import SuiteNumericaMaster as snm
+import numpy as np
+
+x_datos = np.array([0, 1, 2])
+y_datos = np.array([1, 2, 4])
+
+polinomio = snm.interpolacion_lagrange(x_datos, y_datos)
+
+x_eval = 1.5
+y_eval = polinomio(x_eval)
+
+print("=== INTERPOLACION LAGRANGE ===")
+print(f"Puntos: {list(x_datos)}, {list(y_datos)}")
+print(f"P(1.5) = {y_eval:.4f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Lagrange' e 'interpolar'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.interpolacion_lagrange(): Crea polinomio interpolador.\n\nPOR QUÉ FUNCIONA: El polinomio de Lagrange pasa exactamente por todos los puntos dados.",
+                difficulty: "intermedio",
+                starterCode: `from lib import SuiteNumericaMaster as snm
+import numpy as np
+
+x_datos = np.array([0, 1, 2])
+y_datos = np.array([1, 2, 4])
+
+# Crea el polinomio de Lagrange
+polinomio = snm.interpolacion_lagrange(x_datos, y_datos)
+
+# Evalua en x=1.5
+`
+            },
+            {
+                id: "16.16",
+                number: "Ejercicio 16.16",
+                title: "np.linalg.matrix_power() - Potencia de Matriz",
+                description: "Calcula A³ para A = [[1, 2], [3, 4]] usando np.linalg.matrix_power().",
+                pythonFunctions: ["numpy", "np.linalg.matrix_power()"],
+                solution: `import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+
+A2 = np.linalg.matrix_power(A, 2)
+A3 = np.linalg.matrix_power(A, 3)
+
+print("=== POTENCIA DE MATRIZ ===")
+print(f"A =\\n{A}")
+print(f"A^2 =\\n{A2}")
+print(f"A^3 =\\n{A3}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'potencia' de matriz.\n\nFUNCIONES NECESARIAS:\n• np.linalg.matrix_power(A, n): Calcula A^n.\n\nPOR QUÉ FUNCIONA: Equivalente a multiplicar la matriz por sí misma n veces.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+
+# Calcula A al cubo
+A3 = np.linalg.matrix_power(A, 3)
+print(A3)
+`
+            },
+            {
+                id: "16.17",
+                number: "Ejercicio 16.17",
+                title: "plt.axhline y plt.axvline - Ejes",
+                description: "Grafica y = x² y agrega líneas horizontales y verticales en puntos clave.",
+                pythonFunctions: ["matplotlib", "plt.axhline()", "plt.axvline()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-2, 2, 100)
+y = x**2
+
+plt.figure(figsize=(8, 6))
+plt.plot(x, y, 'b-', linewidth=2)
+
+# Lineas horizontales y verticales
+plt.axhline(y=1, color='r', linestyle='--', label='y = 1')
+plt.axvline(x=0, color='g', linestyle='--', label='x = 0')
+plt.axhline(y=4, color='orange', linestyle='--', label='y = 4')
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('y = x^2 con Ejes')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'líneas horizontales' y 'verticales'.\n\nFUNCIONES NECESARIAS:\n• plt.axhline(): Línea horizontal en y específico.\n• plt.axvline(): Línea vertical en x específico.\n\nPOR QUÉ FUNCIONA: Útil para marcar valores importantes como ejes, límites, etc.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-2, 2, 100)
+y = x**2
+
+# Grafica y agrega lineas horizontales y verticales
+plt.plot(x, y)
+plt.axhline(y=1, color='r', linestyle='--')
+plt.axvline(x=0, color='g', linestyle='--')
+plt.show()
+`
+            },
+            {
+                id: "16.18",
+                number: "Ejercicio 16.18",
+                title: "np.meshgrid - Grilla 2D",
+                description: "Crea una grilla 2D para evaluar z = x² + y² en el cuadrado [-2,2]x[-2,2].",
+                pythonFunctions: ["numpy", "np.meshgrid()", "3D"],
+                solution: `import numpy as np
+
+x = np.linspace(-2, 2, 10)
+y = np.linspace(-2, 2, 10)
+
+X, Y = np.meshgrid(x, y)
+Z = X**2 + Y**2
+
+print("=== MESHGRID ===")
+print(f"X shape: {X.shape}")
+print(f"Y shape: {Y.shape}")
+print(f"Z shape: {Z.shape}")
+print(f"Z[0,0] = {Z[0,0]} (x=-2, y=-2)")
+print(f"Z[5,5] = {Z[5,5]} (x=0, y=0)")
+print(f"Z[9,9] = {Z[9,9]} (x=2, y=2)")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'meshgrid' para crear grilla 2D.\n\nFUNCIONES NECESARIAS:\n• np.meshgrid(x, y): Crea matrices de coordenadas 2D.\n• Útil para funciones de dos variables y gráficos 3D.\n\nPOR QUÉ FUNCIONA: Genera todas las combinaciones de x e y para evaluar una función z = f(x,y).",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+x = np.linspace(-2, 2, 10)
+y = np.linspace(-2, 2, 10)
+
+# Crea la grilla 2D
+X, Y = np.meshgrid(x, y)
+
+# Calcula Z = X**2 + Y**2
+Z = X**2 + Y**2
+
+print(X.shape, Y.shape, Z.shape)
+`
+            },
+            {
+                id: "16.19",
+                number: "Ejercicio 16.19",
+                title: "len() - Longitud de Secuencia",
+                description: "Usa len() para encontrar la longitud de una lista, string y array.",
+                pythonFunctions: ["len()", "listas", "strings", "numpy"],
+                solution: `import numpy as np
+
+# Lista
+numeros = [1, 2, 3, 4, 5]
+print(f"Lista: {numeros}")
+print(f"Longitud: {len(numeros)}")
+
+# String
+texto = "Python"
+print(f"\\nTexto: {texto}")
+print(f"Longitud: {len(texto)}")
+
+# Array de NumPy
+arr = np.array([10, 20, 30, 40])
+print(f"\\nArray: {arr}")
+print(f"Longitud: {len(arr)}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'longitud' o 'cuántos elementos'.\n\nFUNCIONES NECESARIAS:\n• len(): Devuelve el número de elementos.\n• Funciona con listas, strings, arrays, tuplas, diccionarios.\n\nPOR QUÉ FUNCIONA: len([1,2,3]) = 3, len('hola') = 4.",
+                difficulty: "básico",
+                starterCode: `numeros = [1, 2, 3, 4, 5]
+texto = "Python"
+arr = [10, 20, 30]
+
+# Usa len() para cada uno
+`
+            },
+            {
+                id: "16.20",
+                number: "Ejercicio 16.20",
+                title: "sum() - Suma de Elementos",
+                description: "Usa sum() para sumar los elementos de una lista y un array.",
+                pythonFunctions: ["sum()", "listas", "numpy"],
+                solution: `import numpy as np
+
+# Lista de precios
+precios = [100, 250, 80, 320, 150]
+total = sum(precios)
+print(f"Precios: {precios}")
+print(f"Total: {total}")
+
+# Array de NumPy
+ventas = np.array([50, 75, 60, 90, 45])
+total_ventas = sum(ventas)
+print(f"\\nVentas: {ventas}")
+print(f"Total ventas: {total_ventas}")
+
+# Con valor inicial
+total_con_inicio = sum(precios, 1000)
+print(f"\\nTotal + 1000 inicial: {total_con_inicio}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'suma' de elementos.\n\nFUNCIONES NECESARIAS:\n• sum(iterable): Suma todos los elementos.\n• sum(iterable, start): Suma con valor inicial.\n\nPOR QUÉ FUNCIONA: sum([1,2,3]) = 6. Equivalente a reduce(lambda a,b: a+b, lista).",
+                difficulty: "básico",
+                starterCode: `precios = [100, 250, 80, 320, 150]
+
+# Calcula la suma total
+`
             }
         ]
     }
