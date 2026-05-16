@@ -550,6 +550,108 @@ r = 2
 
 # Calcula factorial, combinaciones y permutaciones
 `
+            },
+            {
+                id: "10.2",
+                number: "Ejercicio 10.2",
+                title: "Entrada de Usuario y Tipos",
+                description: "Usa input() para pedir un número al usuario, conviértelo a float y muestra su tipo con type().",
+                pythonFunctions: ["input()", "float()", "type()", "print()"],
+                solution: `numero = input("Ingresa un numero: ")
+numero_float = float(numero)
+
+print(f"Valor ingresado: {numero}")
+print(f"Tipo original: {type(numero)}")
+print(f"Valor convertido: {numero_float}")
+print(f"Tipo convertido: {type(numero_float)}")
+
+# Operaciones
+print(f"Doble: {numero_float * 2}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'input' para pedir datos y 'type' para ver el tipo.\n\nFUNCIONES NECESARIAS:\n• input(): Lee texto del usuario.\n• float()/int(): Convierte texto a número.\n• type(): Muestra el tipo de dato.\n\nPOR QUÉ FUNCIONA: input() siempre devuelve string. Hay que convertir para hacer cálculos.",
+                difficulty: "básico",
+                starterCode: `# Pedir un numero al usuario
+numero = input("Ingresa un numero: ")
+
+# Convertir a float y mostrar tipo
+`
+            },
+            {
+                id: "10.3",
+                number: "Ejercicio 10.3",
+                title: "Redondeo y Valor Máximo/Mínimo",
+                description: "Dada la lista de temperaturas [23.567, 18.234, 25.891, 19.456], redondea cada una a 1 decimal y encuentra la máxima y mínima.",
+                pythonFunctions: ["round()", "max()", "min()", "listas"],
+                solution: `temps = [23.567, 18.234, 25.891, 19.456]
+
+temps_redondas = [round(t, 1) for t in temps]
+
+print(f"Temperaturas originales: {temps}")
+print(f"Temperaturas redondeadas: {temps_redondas}")
+print(f"Maxima: {max(temps_redondas)}")
+print(f"Minima: {min(temps_redondas)}")
+print(f"Rango: {max(temps_redondas) - min(temps_redondas)}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'redondear' y 'máxima/mínima'.\n\nFUNCIONES NECESARIAS:\n• round(n, d): Redondea a d decimales.\n• max()/min(): Máximo y mínimo de una lista.\n\nPOR QUÉ FUNCIONA: round(23.567, 1) = 23.6. max() y min() encuentran los valores extremos.",
+                difficulty: "básico",
+                starterCode: `temps = [23.567, 18.234, 25.891, 19.456]
+
+# Redondea a 1 decimal y encuentra max/min
+`
+            },
+            {
+                id: "10.4",
+                number: "Ejercicio 10.4",
+                title: "Funciones Trigonométricas - Tan y Log10",
+                description: "Calcula tan(45°) en radianes y log10(1000).",
+                pythonFunctions: ["math.tan()", "math.radians()", "math.log10()", "math.pi"],
+                solution: `import math
+
+# Tangente de 45 grados
+angulo = 45
+tan_45 = math.tan(math.radians(angulo))
+
+# Logaritmo base 10
+log_1000 = math.log10(1000)
+
+print("=== TAN y LOG10 ===")
+print(f"tan({angulo}°) = {tan_45:.4f}")
+print(f"log10(1000) = {log_1000:.4f}")
+
+# Verificacion
+print(f"Verificacion: 10^{log_1000} = {10**log_1000}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'tan' y 'log10'. math.tan() necesita radianes.\n\nFUNCIONES NECESARIAS:\n• math.tan(): Tangente de un ángulo.\n• math.radians(): Convierte grados a radianes.\n• math.log10(): Logaritmo base 10.\n• math.pi: Constante π.\n\nPOR QUÉ FUNCIONA: tan(45°) = 1. log10(1000) = 3 porque 10³ = 1000.",
+                difficulty: "básico",
+                starterCode: `import math
+
+# Calcula tan(45 grados) y log10(1000)
+`
+            },
+            {
+                id: "10.5",
+                number: "Ejercicio 10.5",
+                title: "Conversión Grados-Radianes",
+                description: "Convierte 180° a radianes y π radianes a grados usando math.degrees() y math.radians().",
+                pythonFunctions: ["math.degrees()", "math.radians()", "math.pi"],
+                solution: `import math
+
+# Conversion grados a radianes
+grados = 180
+rad = math.radians(grados)
+print(f"{grados}° = {rad:.4f} radianes")
+
+# Conversion radianes a grados
+radianes = math.pi
+deg = math.degrees(radianes)
+print(f"{radianes} rad = {deg:.1f} grados")
+
+# Conversion PI/2
+print(f"PI/2 rad = {math.degrees(math.pi/2):.1f} grados")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'degrees' y 'radians' para convertir entre unidades.\n\nFUNCIONES NECESARIAS:\n• math.radians(): Grados → Radianes.\n• math.degrees(): Radianes → Grados.\n• math.pi: Valor de π.\n\nPOR QUÉ FUNCIONA: 180° = π rad. π/2 rad = 90°. La relación es π rad = 180°.",
+                difficulty: "básico",
+                starterCode: `import math
+
+# Convierte 180 grados a radianes
+# Convierte pi radianes a grados
+`
             }
         ]
     },
@@ -2443,6 +2545,281 @@ x = np.linspace(-2, 2, 100)
 
 # Crea los 3 subgráficos
 `
+            },
+            {
+                id: "14.19",
+                number: "Ejercicio 14.19",
+                title: "np.arange y np.zeros/ones",
+                description: "Crea un array del 0 al 9 con arange, un array de 5 ceros y uno de 4 unos.",
+                pythonFunctions: ["numpy", "np.arange()", "np.zeros()", "np.ones()"],
+                solution: `import numpy as np
+
+# arange: secuencia con paso
+arr1 = np.arange(10)
+print("arange(10):", arr1)
+
+arr2 = np.arange(0, 20, 2)
+print("arange(0, 20, 2):", arr2)
+
+# zeros y ones
+arr3 = np.zeros(5)
+print("zeros(5):", arr3)
+
+arr4 = np.ones(4)
+print("ones(4):", arr4)
+
+# Matriz de ceros
+matriz = np.zeros((3, 3))
+print("\\nMatriz 3x3 de ceros:\\n", matriz)`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'arange', 'zeros', 'ones'.\n\nFUNCIONES NECESARIAS:\n• np.arange(start, stop, step): Secuencia como range pero returns array.\n• np.zeros(n): Array de n ceros.\n• np.ones(n): Array de n unos.\n\nPOR QUÉ FUNCIONA: np.arange(10) = [0,1,2,...,9]. np.zeros(5) = [0,0,0,0,0].",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+
+# Crea array 0-9 con arange
+arr1 = np.arange(10)
+
+# Crea array de 5 ceros
+arr_zeros = np.zeros(5)
+
+# Crea array de 4 unos
+arr_ones = np.ones(4)
+
+print(arr1, arr_zeros, arr_ones)
+`
+            },
+            {
+                id: "14.20",
+                number: "Ejercicio 14.20",
+                title: "np.roots - Raíces de Polinomio",
+                description: "Usa np.roots para encontrar las raíces del polinomio x³ - 6x² + 11x - 6.",
+                pythonFunctions: ["numpy", "np.roots()", "polinomios"],
+                solution: `import numpy as np
+
+# Coeficientes: x^3 - 6x^2 + 11x - 6 = 0
+coeficientes = [1, -6, 11, -6]
+
+raices = np.roots(coeficientes)
+
+print("=== RAICES DE POLINOMIO ===")
+print(f"Polinomio: x^3 - 6x^2 + 11x - 6")
+print(f"Raices: {raices}")
+
+# Verificacion
+print("\\nVerificacion (deben ser ~0):")
+for i, r in enumerate(raices):
+    print(f"P({r:.2f}) = {np.polyval(coeficientes, r):.2e}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'raíces' de un polinomio.\n\nFUNCIONES NECESARIAS:\n• np.roots(coef): Calcula raíces del polinomio.\n• np.polyval(coef, x): Evalúa el polinomio.\n\nPOR QUÉ FUNCIONA: Para x³ - 6x² + 11x - 6 = 0, las raíces son 1, 2, 3 (porque (x-1)(x-2)(x-3) = x³ - 6x² + 11x - 6).",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+
+coeficientes = [1, -6, 11, -6]
+
+# Calcula las raíces
+`
+            },
+            {
+                id: "14.21",
+                number: "Ejercicio 14.21",
+                title: "Gráfico de Pie (Circular)",
+                description: "Crea un gráfico circular mostrando la distribución de ventas por producto.",
+                pythonFunctions: ["matplotlib", "plt.pie()", "labels"],
+                solution: `import matplotlib.pyplot as plt
+
+productos = ['A', 'B', 'C', 'D']
+ventas = [30, 45, 15, 10]
+
+plt.figure(figsize=(8, 8))
+plt.pie(ventas, labels=productos, autopct='%1.1f%%', 
+        colors=['gold', 'skyblue', 'lightgreen', 'lightcoral'])
+plt.title('Distribucion de Ventas por Producto')
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'gráfico circular' o 'pie'.\n\nFUNCIONES NECESARIAS:\n• plt.pie(): Crea gráfico circular.\n• autopct: Muestra porcentaje.\n\nPOR QUÉ FUNCIONA: Muestra la proporción de cada categoría respecto al total.",
+                difficulty: "básico",
+                starterCode: `import matplotlib.pyplot as plt
+
+productos = ['A', 'B', 'C', 'D']
+ventas = [30, 45, 15, 10]
+
+# Crea el grafico circular
+`
+            },
+            {
+                id: "14.22",
+                number: "Ejercicio 14.22",
+                title: "plt.fill_between - Área bajo curva",
+                description: "Grafica y = x² en [0, 3] y sombrea el área bajo la curva.",
+                pythonFunctions: ["matplotlib", "plt.fill_between()", "plt.plot()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 3, 100)
+y = x**2
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, 'b-', linewidth=2, label='y = x^2')
+plt.fill_between(x, y, alpha=0.3, color='blue')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Area bajo la curva y = x^2')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'área bajo curva' y 'fill'.\n\nFUNCIONES NECESARIAS:\n• plt.fill_between(): Sombrea área entre curvas.\n\nPOR QUÉ FUNCIONA: Rellena el área entre la curva y el eje x.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 3, 100)
+y = x**2
+
+# Grafica y sombrea el area bajo la curva
+`
+            },
+            {
+                id: "14.23",
+                number: "Ejercicio 14.23",
+                title: "plt.text y Anotaciones",
+                description: "Grafica y = x y agrega texto con la ecuación y puntos importantes.",
+                pythonFunctions: ["matplotlib", "plt.text()", "plt.annotate()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 5, 100)
+y = x
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, 'b-', linewidth=2)
+plt.text(2, 2.2, 'y = x', fontsize=14, color='blue')
+plt.annotate('Origin', xy=(0, 0), xytext=(0.5, 0.5),
+             arrowprops=dict(arrowstyle='->', color='red'))
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Linea y = x con Anotaciones')
+plt.grid(True, alpha=0.3)
+plt.axis([0, 5, 0, 5])
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'texto' y 'anotaciones'.\n\nFUNCIONES NECESARIAS:\n• plt.text(): Agrega texto en posición específica.\n• plt.annotate(): Agrega anotación con flecha.\n\nPOR QUÉ FUNCIONA: Permite añadir etiquetas y comentarios a gráficos.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 5, 100)
+y = x
+
+# Agrega texto y anotaciones
+`
+            },
+            {
+                id: "14.24",
+                number: "Ejercicio 14.24",
+                title: "plt.xlim, plt.ylim y Límites de Ejes",
+                description: "Grafica sin(x) en [0, 4π] pero muestra solo el rango y [0, 1.5].",
+                pythonFunctions: ["matplotlib", "plt.xlim()", "plt.ylim()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 4*np.pi, 200)
+y = np.sin(x)
+
+plt.figure(figsize=(12, 5))
+plt.plot(x, y, 'b-', linewidth=2)
+plt.xlim(0, 4*np.pi)
+plt.ylim(0, 1.5)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('sin(x) con limites personalizados')
+plt.grid(True, alpha=0.3)
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'límites' de ejes.\n\nFUNCIONES NECESARIAS:\n• plt.xlim(min, max): Define rango del eje x.\n• plt.ylim(min, max): Define rango del eje y.\n\nPOR QUÉ FUNCIONA: Permite zoom y enfocar áreas específicas.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 4*np.pi, 200)
+y = np.sin(x)
+
+# Grafica con limites personalizados
+`
+            },
+            {
+                id: "14.25",
+                number: "Ejercicio 14.25",
+                title: "plt.style.use y Estilos",
+                description: "Aplica diferentes estilos de matplotlib al mismo gráfico.",
+                pythonFunctions: ["matplotlib", "plt.style.use()", "plt.plot()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 10, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+
+# Ver estilos disponibles
+print("Estilos disponibles:", plt.style.available[:5])
+
+# Usar un estilo
+plt.style.use('ggplot')
+
+plt.figure(figsize=(10, 5))
+plt.plot(x, y1, 'b-', label='sin(x)')
+plt.plot(x, y2, 'r-', label='cos(x)')
+plt.title('Funciones con estilo ggplot')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+plt.style.use('default')`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'estilos' de matplotlib.\n\nFUNCIONES NECESARIAS:\n• plt.style.use(): Aplica un estilo predefinido.\n• plt.style.available: Lista de estilos.\n\nPOR QUÉ FUNCIONA: Cambia la apariencia del gráfico (colores, fondos, etc.).",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+# Aplica un estilo y grafica
+plt.style.use('ggplot')
+plt.plot(x, y)
+plt.show()
+`
+            },
+            {
+                id: "14.26",
+                number: "Ejercicio 14.26",
+                title: "plt.savefig - Guardar Gráfico",
+                description: "Grafica una función y guárdala en un archivo PNG con dpi personalizado.",
+                pythonFunctions: ["matplotlib", "plt.savefig()", "plt.figure()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2*np.pi, 100)
+y = np.sin(x)
+
+plt.figure(figsize=(8, 6))
+plt.plot(x, y, 'b-', linewidth=2)
+plt.title('Grafico de sen(x)')
+plt.xlabel('x')
+plt.ylabel('sen(x)')
+plt.grid(True, alpha=0.3)
+
+# Guardar figura
+plt.savefig('grafico_seno.png', dpi=150, bbox_inches='tight')
+print("Grafico guardado como 'grafico_seno.png'")
+
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'guardar' o 'exportar' gráfico.\n\nFUNCIONES NECESARIAS:\n• plt.savefig(): Guarda la figura en archivo.\n• dpi: Resolución de la imagen.\n• bbox_inches: Recorta espacios blancos.\n\nPOR QUÉ FUNCIONA: Exporta el gráfico a PNG, PDF, SVG, etc.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2*np.pi, 100)
+y = np.sin(x)
+
+plt.figure(figsize=(8, 6))
+plt.plot(x, y)
+
+# Guardar el grafico
+`
             }
         ]
     },
@@ -3114,6 +3491,188 @@ f = lambda t, y: y - t**2 + 1
 y0 = 0.5
 
 # Resuelve
+`
+            },
+            {
+                id: "16.6",
+                number: "Ejercicio 16.6",
+                title: "integrate.quad - Integración Numérica",
+                description: "Usa integrate.quad para calcular la integral de f(x) = x² desde 0 a 2.",
+                pythonFunctions: ["scipy.integrate.quad()", "integración"],
+                solution: `import numpy as np
+from scipy.integrate import quad
+
+def f(x):
+    return x**2
+
+resultado, error = quad(f, 0, 2)
+
+print("=== INTEGRACION CON QUAD ===")
+print(f"Integral de x**2 desde 0 hasta 2")
+print(f"Resultado: {resultado:.6f}")
+print(f"Error estimado: {error:.2e}")
+print(f"Exacta: {8/3:.6f}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'integración numérica' con 'quad'.\n\nFUNCIONES NECESARIAS:\n• scipy.integrate.quad(): Integración numérica adaptativa.\n• Retorna (resultado, error_estimado).\n\nPOR QUÉ FUNCIONA: quad usa métodos adaptativos de alta precisión. ∫x²dx = x³/3, desde 0 a 2 = 8/3 ≈ 2.667.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+from scipy.integrate import quad
+
+def f(x):
+    return x**2
+
+# Calcula la integral de 0 a 2
+`
+            },
+            {
+                id: "16.7",
+                number: "Ejercicio 16.7",
+                title: "optimize.fsolve - Sistema No Lineal",
+                description: "Usa optimize.fsolve para resolver el sistema: x² + y = 5, x + y² = 4.",
+                pythonFunctions: ["scipy.optimize.fsolve()", "sistemas no lineales"],
+                solution: `import numpy as np
+from scipy.optimize import fsolve
+
+def sistema(vars):
+    x, y = vars
+    eq1 = x**2 + y - 5
+    eq2 = x + y**2 - 4
+    return [eq1, eq2]
+
+solucion = fsolve(sistema, [1, 1])
+
+print("=== SISTEMA NO LINEAL ===")
+print(f"x² + y = 5")
+print(f"x + y² = 4")
+print(f"Solucion: x = {solucion[0]:.4f}, y = {solucion[1]:.4f}")
+
+# Verificacion
+print(f"Verificacion: eq1 = {solucion[0]**2 + solucion[1] - 5:.2e}")
+print(f"Verificacion: eq2 = {solucion[0] + solucion[1]**2 - 4:.2e}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'sistema no lineal' y 'fsolve'.\n\nFUNCIONES NECESARIAS:\n• scipy.optimize.fsolve(): Resuelve sistemas de ecuaciones.\n• Debe recibir una función que retorne las ecuaciones.\n\nPOR QUÉ FUNCIONA: fsolve usa métodos iterativos para encontrar la raíz del sistema.",
+                difficulty: "avanzado",
+                starterCode: `import numpy as np
+from scipy.optimize import fsolve
+
+def sistema(vars):
+    x, y = vars
+    # Define las ecuaciones
+    return [0, 0]  # completa
+
+solucion = fsolve(sistema, [1, 1])
+print(solucion)
+`
+            },
+            {
+                id: "16.8",
+                number: "Ejercicio 16.8",
+                title: "optimize.root_scalar - Raíz con Brentq",
+                description: "Usa optimize.root_scalar con método Brentq para encontrar la raíz de f(x) = x³ - 2x - 5.",
+                pythonFunctions: ["scipy.optimize.root_scalar()", "brentq"],
+                solution: `import numpy as np
+from scipy.optimize import root_scalar
+
+def f(x):
+    return x**3 - 2*x - 5
+
+# Buscar raíz en intervalo [1, 3]
+resultado = root_scalar(f, bracket=[1, 3], method='brentq')
+
+print("=== ROOT_SCALAR CON BRENTQ ===")
+print(f"f(x) = x³ - 2x - 5")
+print(f"Raiz: {resultado.root:.6f}")
+print(f"Iteraciones: {resultado.iterations}")
+print(f"Verificacion: f({resultado.root:.6f}) = {f(resultado.root):.2e}")`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'root_scalar' y 'brentq'.\n\nFUNCIONES NECESARIAS:\n• scipy.optimize.root_scalar(): Busca raíz de función escalar.\n• method='brentq': Combina bisección y interpolación (robusto).\n• bracket: Intervalo donde cambia de signo.\n\nPOR QUÉ FUNCIONA: Brentq es muy robusto, garantiza convergencia si hay cambio de signo.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+from scipy.optimize import root_scalar
+
+def f(x):
+    return x**3 - 2*x - 5
+
+# Usa root_scalar con brentq
+resultado = root_scalar(f, bracket=[1, 3], method='brentq')
+print(resultado.root)
+`
+            },
+            {
+                id: "16.9",
+                number: "Ejercicio 16.9",
+                title: "Crear Figura con figure()",
+                description: "Crea dos figuras separadas usando plt.figure() y agrega diferentes gráficos a cada una.",
+                pythonFunctions: ["matplotlib", "plt.figure()", "plt.plot()"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2*np.pi, 100)
+
+# Figura 1: sen(x)
+plt.figure(1)
+plt.plot(x, np.sin(x), 'b-')
+plt.title('Funcion Seno')
+plt.grid(True)
+
+# Figura 2: cos(x)
+plt.figure(2)
+plt.plot(x, np.cos(x), 'r-')
+plt.title('Funcion Coseno')
+plt.grid(True)
+
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'múltiples figuras'.\n\nFUNCIONES NECESARIAS:\n• plt.figure(n): Crea o selecciona figura número n.\n• Permite crear múltiples gráficos independientes.\n\nPOR QUÉ FUNCIONA: Cada figure() crea una ventana de gráfico separada.",
+                difficulty: "básico",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2*np.pi, 100)
+
+# Crea figura 1 con sen(x)
+plt.figure(1)
+plt.plot(x, np.sin(x))
+
+# Crea figura 2 con cos(x)
+plt.figure(2)
+plt.plot(x, np.cos(x))
+
+plt.show()
+`
+            },
+            {
+                id: "16.10",
+                number: "Ejercicio 16.10",
+                title: "scatter con Tamaño y Color",
+                description: "Crea un scatter plot donde el tamaño y color de los puntos representan valores adicionales.",
+                pythonFunctions: ["matplotlib", "plt.scatter()", "s", "c"],
+                solution: `import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+x = np.random.rand(50)
+y = np.random.rand(50)
+sizes = 100 * np.random.rand(50)  # tamaño
+colors = np.random.rand(50)  # color
+
+plt.figure(figsize=(10, 6))
+plt.scatter(x, y, s=sizes, c=colors, cmap='viridis', alpha=0.7)
+plt.colorbar(label='Color')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Scatter con Tamano y Color')
+plt.show()`,
+                explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'scatter' con 'tamaño' y 'color' variables.\n\nFUNCIONES NECESARIAS:\n• plt.scatter(s=, c=): Tamaño y color de puntos.\n• cmap: Paleta de colores.\n• alpha: Transparencia.\n\nPOR QUÉ FUNCIONA: Permite visualizar 4 dimensiones: x, y, tamaño, color.",
+                difficulty: "intermedio",
+                starterCode: `import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+x = np.random.rand(50)
+y = np.random.rand(50)
+sizes = 100 * np.random.rand(50)
+colors = np.random.rand(50)
+
+# Scatter con tamano y color
+plt.scatter(x, y, s=sizes, c=colors)
+plt.show()
 `
             }
         ]
