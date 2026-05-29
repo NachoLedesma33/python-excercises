@@ -3681,19 +3681,18 @@ plt.show()
                 title: "SuiteNumerica - punto_fijo()",
                 description: "Usa la función punto_fijo() de SuiteNumericaMaster para encontrar la raíz de x = cos(x).",
                 pythonFunctions: ["SuiteNumericaMaster", "punto_fijo()", "math.cos()"],
-                solution: `from lib import SuiteNumericaMaster as snm
-import math
+                solution: `import math
 
 def g(x):
     return math.cos(x)
 
-raiz = snm.punto_fijo(g, 0.5, tol=1e-8)
+raiz = SuiteNumericaMaster.punto_fijo(g, 0.5, tol=1e-8)
 print(f"Raiz de x = cos(x): {raiz:.8f}")
 print(f"Verificacion: cos({raiz:.8f}) = {math.cos(raiz):.8f}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'punto fijo' y 'x = cos(x)'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.punto_fijo(): Método de punto fijo.\n• math.cos(): Función coseno.\n\nPOR QUÉ FUNCIONA: Transforma f(x)=0 en x=g(x). Para x=cos(x), iteramos xₙ₊₁=cos(xₙ). La raíz es ≈0.739.",
                 difficulty: "intermedio",
-                starterCode: `from lib import SuiteNumericaMaster as snm
-import math
+                useSuiteNumerica: true,
+                starterCode: `import math
 
 def g(x):
     return math.cos(x)
@@ -3707,8 +3706,7 @@ def g(x):
                 title: "SuiteNumerica - newton()",
                 description: "Usa newton() para encontrar la raíz de f(x) = x² - 2.",
                 pythonFunctions: ["SuiteNumericaMaster", "newton()"],
-                solution: `from lib import SuiteNumericaMaster as snm
-import math
+                solution: `import math
 
 def f(x):
     return x**2 - 2
@@ -3716,13 +3714,13 @@ def f(x):
 def df(x):
     return 2*x
 
-raiz = snm.newton(f, df, 1.0, tol=1e-8)
+raiz = SuiteNumericaMaster.newton(f, df, 1.0, tol=1e-8)
 print(f"Raiz de x**2 - 2: {raiz:.8f}")
 print(f"Verificacion: sqrt(2) = {math.sqrt(2):.8f}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Newton' y 'x² - 2'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.newton(): Método de Newton-Raphson.\n• Definir f(x) y su derivada df(x).\n\nPOR QUÉ FUNCIONA: Newton-Raphson: xₙ₊₁ = xₙ - f(xₙ)/f'(xₙ). Converge cuadráticamente. Raíz = √2 ≈ 1.414.",
                 difficulty: "intermedio",
-                starterCode: `from lib import SuiteNumericaMaster as snm
-
+                useSuiteNumerica: true,
+                starterCode: `
 def f(x):
     return x**2 - 2
 
@@ -3738,19 +3736,18 @@ def df(x):
                 title: "SuiteNumerica - biseccion()",
                 description: "Usa biseccion() para encontrar la raíz de f(x) = ln(x) - 1 en [1, 4].",
                 pythonFunctions: ["SuiteNumericaMaster", "biseccion()", "math.log()"],
-                solution: `from lib import SuiteNumericaMaster as snm
-import math
+                solution: `import math
 
 def f(x):
     return math.log(x) - 1
 
-raiz = snm.biseccion(f, 1, 4, tol=1e-8)
+raiz = SuiteNumericaMaster.biseccion(f, 1, 4, tol=1e-8)
 print(f"Raiz de ln(x) - 1 = 0: {raiz:.8f}")
 print(f"Verificacion: ln({raiz:.8f}) = {math.log(raiz):.8f}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'bisección' y 'ln(x) - 1'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.biseccion(): Método de bisección.\n• math.log(): Logaritmo natural.\n\nPOR QUÉ FUNCIONA: Bisección divide el intervalo por la mitad. ln(x) = 1 cuando x = e ≈ 2.718.",
                 difficulty: "básico",
-                starterCode: `from lib import SuiteNumericaMaster as snm
-import math
+                useSuiteNumerica: true,
+                starterCode: `import math
 
 def f(x):
     return math.log(x) - 1
@@ -3764,15 +3761,14 @@ def f(x):
                 title: "SuiteNumerica - euler()",
                 description: "Usa euler() para resolver y' = 0.5*y, y(0)=1 en [0, 2].",
                 pythonFunctions: ["SuiteNumericaMaster", "euler()", "matplotlib"],
-                solution: `from lib import SuiteNumericaMaster as snm
-import numpy as np
+                solution: `import numpy as np
 
 f = lambda t, y: 0.5*y
 y0 = 1
 t_span = (0, 2)
 h = 0.1
 
-t, y = snm.euler(f, y0, t_span, h)
+t, y = SuiteNumericaMaster.euler(f, y0, t_span, h)
 
 # Comparar con solucion exacta
 y_exacta = np.exp(0.5*t)
@@ -3782,8 +3778,8 @@ for i in range(0, len(t), 5):
     print(f"t={t[i]:.1f}, y_euler={y[i]:.4f}, y_exacta={y_exacta[i]:.4f}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Euler' y 'y' = 0.5*y'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.euler(): Método de Euler.\n• lambda: Define la EDO.\n\nPOR QUÉ FUNCIONA: Euler: yₙ₊₁ = yₙ + h*f(tₙ,yₙ). Solución exacta: y = e^(0.5t).",
                 difficulty: "intermedio",
-                starterCode: `from lib import SuiteNumericaMaster as snm
-
+                useSuiteNumerica: true,
+                starterCode: `
 f = lambda t, y: 0.5*y
 y0 = 1
 
@@ -3796,13 +3792,12 @@ y0 = 1
                 title: "SuiteNumerica - lagrange()",
                 description: "Usa lagrange() para interpolar los puntos (0,1), (1,2), (2,4) y evaluar en x=1.5.",
                 pythonFunctions: ["SuiteNumericaMaster", "lagrange()", "numpy"],
-                solution: `from lib import SuiteNumericaMaster as snm
-import numpy as np
+                solution: `import numpy as np
 
 x_datos = np.array([0, 1, 2])
 y_datos = np.array([1, 2, 4])
 
-polinomio = snm.interpolacion_lagrange(x_datos, y_datos)
+polinomio = SuiteNumericaMaster.interpolacion_lagrange(x_datos, y_datos)
 
 x_eval = 1.5
 y_eval = polinomio(x_eval)
@@ -3812,14 +3807,14 @@ print(f"Puntos: {list(x_datos)}, {list(y_datos)}")
 print(f"P(1.5) = {y_eval:.4f}")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'Lagrange' e 'interpolar'.\n\nFUNCIONES NECESARIAS:\n• SuiteNumericaMaster.interpolacion_lagrange(): Crea polinomio interpolador.\n\nPOR QUÉ FUNCIONA: El polinomio de Lagrange pasa exactamente por todos los puntos dados.",
                 difficulty: "intermedio",
-                starterCode: `from lib import SuiteNumericaMaster as snm
-import numpy as np
+                useSuiteNumerica: true,
+                starterCode: `import numpy as np
 
 x_datos = np.array([0, 1, 2])
 y_datos = np.array([1, 2, 4])
 
 # Crea el polinomio de Lagrange
-polinomio = snm.interpolacion_lagrange(x_datos, y_datos)
+polinomio = SuiteNumericaMaster.interpolacion_lagrange(x_datos, y_datos)
 
 # Evalua en x=1.5
 `
