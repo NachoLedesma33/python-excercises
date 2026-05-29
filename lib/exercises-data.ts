@@ -127,6 +127,18 @@ class SuiteNumericaMaster:
             t_eval = np.linspace(t_span[0], t_span[1], 500)
         sol = integrate.solve_ivp(sistema, t_span, y0, t_eval=t_eval)
         return sol
+    
+    @staticmethod
+    def euler(f, y0, t_span, h):
+        """Método de Euler para EDOs: y' = f(t,y), y(t0)=y0"""
+        t0, tf = t_span
+        n = int((tf - t0) / h) + 1
+        t = np.linspace(t0, tf, n)
+        y = np.zeros(n)
+        y[0] = y0
+        for i in range(1, n):
+            y[i] = y[i-1] + h * f(t[i-1], y[i-1])
+        return t, y
 `;
 
 export const sectionsData: Section[] = [
