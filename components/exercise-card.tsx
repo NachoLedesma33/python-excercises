@@ -272,8 +272,8 @@ output
           <div className="flex items-start gap-3">
             <Badge variant="outline" className="shrink-0">{exercise.number}</Badge>
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-foreground">{exercise.title}</h3>
-              <p className="text-sm text-muted-foreground line-clamp-2 mt-1"><MathText text={exercise.description} /></p>
+              <h3 className="font-bold text-foreground text-lg">{exercise.title}</h3>
+              <p className="text-sm text-muted-foreground line-clamp-2 mt-1 font-medium"><MathText text={exercise.description} /></p>
             </div>
             <div className="flex items-center gap-2 shrink-0">
               {exercise.requiresGraph && (
@@ -324,10 +324,10 @@ output
                 </Badge>
               )}
             </div>
-            <CardTitle className="text-xl">{exercise.title}</CardTitle>
+            <CardTitle className="text-2xl font-bold">{exercise.title}</CardTitle>
           </div>
         </div>
-        <p className="text-muted-foreground mt-2 exercise-desc"><MathText text={exercise.description} /></p>
+        <p className="text-muted-foreground mt-2 exercise-desc text-base font-medium"><MathText text={exercise.description} /></p>
         
         <div className="flex flex-wrap gap-1 mt-3">
           {exercise.pythonFunctions.map((func) => (
@@ -520,18 +520,18 @@ output
             {/* Text Output */}
             {output && (
               <div className={`rounded-lg border overflow-hidden ${debugInfo ? 'border-red-300 dark:border-red-800' : 'border-border'}`}>
-                <div className={`px-4 py-2 border-b flex items-center gap-2 ${debugInfo ? 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800' : 'bg-muted/50 border-border'}`}>
+                <div className={`px-4 py-2.5 border-b flex items-center gap-2 ${debugInfo ? 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800' : 'bg-muted/50 border-border'}`}>
                   {debugInfo ? (
                     <>
                       <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
-                      <span className="text-sm font-medium text-red-800 dark:text-red-300">Error</span>
+                      <span className="text-base font-bold text-red-800 dark:text-red-300">Error</span>
                     </>
                   ) : (
-                    <span className="text-sm font-medium">Salida</span>
+                    <span className="text-base font-bold">Salida</span>
                   )}
                 </div>
                 <div className="p-4 bg-background min-h-[100px] max-h-[400px] overflow-auto">
-                  <pre className={`whitespace-pre-wrap font-mono text-sm ${debugInfo ? 'text-red-700 dark:text-red-300' : ''}`}>{output}</pre>
+                  <pre className={`whitespace-pre-wrap font-mono text-base font-medium ${debugInfo ? 'text-red-700 dark:text-red-300' : 'text-foreground'}`}>{output}</pre>
                 </div>
                 {debugInfo && (
                   <div className="border-t border-red-200 dark:border-red-800">
@@ -637,18 +637,18 @@ output
 
             {output && (
               <div className={`rounded-lg border overflow-hidden ${debugInfo ? 'border-red-300 dark:border-red-800' : 'border-border'}`}>
-                <div className={`px-4 py-2 border-b flex items-center gap-2 ${debugInfo ? 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800' : 'bg-muted/50 border-border'}`}>
+                <div className={`px-4 py-2.5 border-b flex items-center gap-2 ${debugInfo ? 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800' : 'bg-muted/50 border-border'}`}>
                   {debugInfo ? (
                     <>
                       <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
-                      <span className="text-sm font-medium text-red-800 dark:text-red-300">Error en solucion</span>
+                      <span className="text-base font-bold text-red-800 dark:text-red-300">Error en solucion</span>
                     </>
                   ) : (
-                    <span className="text-sm font-medium">Salida</span>
+                    <span className="text-base font-bold">Salida</span>
                   )}
                 </div>
                 <div className="p-4 bg-background min-h-[100px] max-h-[400px] overflow-auto">
-                  <pre className={`whitespace-pre-wrap font-mono text-sm ${debugInfo ? 'text-red-700 dark:text-red-300' : ''}`}>{output}</pre>
+                  <pre className={`whitespace-pre-wrap font-mono text-base font-medium ${debugInfo ? 'text-red-700 dark:text-red-300' : 'text-foreground'}`}>{output}</pre>
                 </div>
                 {debugInfo && (
                   <div className="border-t border-red-200 dark:border-red-800">

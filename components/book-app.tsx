@@ -255,8 +255,8 @@ export function BookApp() {
                                     </Badge>
                                   )}
                                 </div>
-                                <h3 className="font-semibold text-foreground mb-1">{exercise.title}</h3>
-                                <p className="text-sm text-muted-foreground line-clamp-2">{exercise.description}</p>
+                                <h3 className="font-bold text-foreground mb-1 text-base">{exercise.title}</h3>
+                                <p className="text-sm text-muted-foreground line-clamp-2 font-medium">{exercise.description}</p>
                                 <div className="flex flex-wrap gap-1 mt-2">
                                   {exercise.pythonFunctions.slice(0, 4).map((func) => (
                                     <Badge key={func} variant="secondary" className="text-xs font-mono">
@@ -294,8 +294,8 @@ export function BookApp() {
                               {iconMap[section.icon] || <Calculator className="w-6 h-6" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-semibold text-foreground mb-1 line-clamp-2">{section.title}</h3>
-                              <p className="text-xs text-muted-foreground line-clamp-2">{section.description}</p>
+                              <h3 className="font-bold text-foreground text-lg mb-1 line-clamp-2">{section.title}</h3>
+                              <p className="text-sm text-muted-foreground line-clamp-2 font-medium">{section.description}</p>
                               <div className="flex items-center gap-2 mt-2">
                                 <Badge variant="secondary" className="text-xs">
                                   {progress.completed}/{progress.total}
@@ -364,7 +364,7 @@ export function BookApp() {
                                     {exercise.number}
                                   </Badge>
                                   <div className="flex-1 min-w-0">
-                                    <h3 className="font-medium text-foreground truncate">{exercise.title}</h3>
+                                    <h3 className="font-bold text-foreground truncate text-base">{exercise.title}</h3>
                                   </div>
                                   <Badge 
                                     variant={
