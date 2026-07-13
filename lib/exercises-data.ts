@@ -549,7 +549,7 @@ permutaciones = math.factorial(n) // math.factorial(n-r)
 print(f"P({n},{r}) = {permutaciones}")
 
 # Coeficientes binomiales (a+b)^n
-print(f"\nCoeficientes de (a+b)⁵:")
+print(f"\\nCoeficientes de (a+b)^5:")
 for k in range(n+1):
     coef = math.factorial(n) // (math.factorial(k) * math.factorial(n-k))
     print(f"  a{5-k}b{k}: {coef}")`,
@@ -1321,7 +1321,7 @@ if abs(det_A) > 1e-10:
     # También con inversa
     A_inv = np.linalg.inv(A)
     x_inv = A_inv @ b
-    print(f"\\nUsando x = A⁻¹·b: {x_inv}")
+    print(f"\\nUsando x = A^(-1)*b: {x_inv}")
 else:
     print("El sistema no tiene solución única (matriz singular)")`,
                 explanation: "Un sistema Ax = b se resuelve con x = A⁻¹b o usando np.linalg.solve() que es más eficiente y estable. Primero verificamos que det(A) ≠ 0. La solución es x = 2, y = 3, z = -1. Verificamos sustituyendo en las ecuaciones originales.",
@@ -1532,8 +1532,8 @@ producto = A @ A_inv
 
 print("=== INVERSA DE MATRIZ ===")
 print(f"A =\\n{A}")
-print(f"A⁻¹ =\\n{A_inv}")
-print(f"\nA · A⁻¹ =\\n{producto}")
+print(f"A^(-1) =\\n{A_inv}")
+print(f"\nA * A^(-1) =\\n{producto}")
 
 # Verificación
 error = np.max(np.abs(producto - identidad))
@@ -1565,7 +1565,7 @@ print(f"det(A) = {det_A}")
 if abs(det_A) > 1e-10:
     print("\nLa matriz ES invertible (det ≠ 0)")
     A_inv = np.linalg.inv(A)
-    print(f"A⁻¹ =\\n{A_inv}")
+    print(f"A^(-1) =\\n{A_inv}")
 else:
     print("\nLa matriz NO es invertible (det = 0)")`,
                 explanation: "CÓMO IDENTIFICAR QUÉ USAR: El enunciado dice 'determinante' y 'invertibilidad'.\n\nFUNCIONES NECESARIAS:\n• np.linalg.det(): Calcula el determinante.\n\nPOR QUÉ FUNCIONA: Una matriz es invertible si y solo si su determinante es no nulo. Para A 2x2 = [[a,b],[c,d]], det = ad - bc = 1·4 - 2·3 = -2.",
@@ -3553,8 +3553,8 @@ def sistema(vars):
 solucion = fsolve(sistema, [1, 1])
 
 print("=== SISTEMA NO LINEAL ===")
-print(f"x² + y = 5")
-print(f"x + y² = 4")
+print(f"x^2 + y = 5")
+print(f"x + y^2 = 4")
 print(f"Solucion: x = {solucion[0]:.4f}, y = {solucion[1]:.4f}")
 
 # Verificacion
@@ -3590,7 +3590,7 @@ def f(x):
 resultado = root_scalar(f, bracket=[1, 3], method='brentq')
 
 print("=== ROOT_SCALAR CON BRENTQ ===")
-print(f"f(x) = x³ - 2x - 5")
+print(f"f(x) = x^3 - 2x - 5")
 print(f"Raiz: {resultado.root:.6f}")
 print(f"Iteraciones: {resultado.iterations}")
 print(f"Verificacion: f({resultado.root:.6f}) = {f(resultado.root):.2e}")`,
