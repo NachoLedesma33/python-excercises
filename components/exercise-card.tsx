@@ -8,11 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Editor from "@monaco-editor/react";
 import { 
   Play, Lightbulb, Code, Copy, Check, 
-  RotateCcw, Sparkles, BookOpen, Terminal, Loader2, LineChart, ImageIcon
+  RotateCcw, Sparkles, BookOpen, Terminal, Loader2, LineChart, ImageIcon, CheckCircle2
 } from "lucide-react";
 import { type Exercise, SUITE_NUMERICA_CODE } from "@/lib/exercises-data";
 import { analyzeError, type DebugResult } from "@/lib/debug-assistant";
 import { explainCode, type ExplanationLine } from "@/lib/code-explainer";
+import { markExerciseCompleted, isExerciseCompleted } from "@/lib/progress";
 import { useTheme } from "next-themes";
 import { AlertTriangle, ChevronDown, ChevronRight } from "lucide-react";
 
@@ -59,6 +60,11 @@ export function ExerciseCard({ exercise, expanded = false }: ExerciseCardProps) 
   const [showTraceback, setShowTraceback] = useState(false);
   const [lineExplanations, setLineExplanations] = useState<ExplanationLine[]>([]);
   const [showLineExplanations, setShowLineExplanations] = useState(false);
+  const [completed, setCompleted] = useState(false);
+
+  useEffect(() => {
+    setCompleted(isExerciseCompleted(exercise.id));
+  }, [exercise.id]);
   const [pyodide, setPyodide] = useState<any>(null);
   const [pyodideLoading, setPyodideLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("code");
@@ -225,6 +231,11 @@ output
       setLineExplanations(explanations);
       setShowLineExplanations(true);
     }
+  };
+
+  const markCompleted = () => {
+    markExerciseCompleted(exercise.id);
+    setCompleted(true);
   };
 
   const resetCode = () => {
@@ -417,6 +428,21 @@ output
                 <Lightbulb className="w-4 h-4" />
                 {showLineExplanations ? "Ocultar explicaciones" : "Explicar codigo"}
               </Button>
+              {!completed ? (
+                <Button
+                  variant="outline"
+                  onClick={markCompleted}
+                  className="gap-2"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  Marcar como completado
+                </Button>
+              ) : (
+                <Badge variant="secondary" className="gap-1 px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800">
+                  <CheckCircle2 className="w-4 h-4" />
+                  Completado
+                </Badge>
+              )}
               {exercise.requiresGraph && (
                 <span className="text-xs text-muted-foreground flex items-center gap-1 ml-2">
                   <LineChart className="w-3 h-3" />

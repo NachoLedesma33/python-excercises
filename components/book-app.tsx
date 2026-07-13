@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { 
   Search, Book, Code, X, 
   Calculator, FunctionSquare, Grid3x3, TrendingUp, GitBranch,
@@ -13,6 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { sectionsData, pythonFunctions, type Exercise, type Section } from "@/lib/exercises-data";
 import { ExerciseCard } from "./exercise-card";
+import { getSectionProgress, loadProgress } from "@/lib/progress";
+import { CheckCircle2, Circle } from "lucide-react";
 
 const iconMap: Record<string, React.ReactNode> = {
   "calculator": <Calculator className="w-5 h-5" />,
@@ -29,6 +31,25 @@ export function BookApp() {
   const [showFunctionsPanel, setShowFunctionsPanel] = useState(false);
   const [functionFilter, setFunctionFilter] = useState("");
   const [activeTab, setActiveTab] = useState("sections");
+  const [progressRefresh, setProgressRefresh] = useState(0);
+
+  // Refresh progress when going back from exercise
+  const refreshProgress = useCallback(() => {
+    setProgressRefresh(prev => prev + 1);
+  }, []);
+
+  const sectionProgress = useMemo(() => {
+    // progressRefresh dependency forces recalculation
+    void progressRefresh;
+    const result: Record<string, { completed: number; total: number; percentage: number }> = {};
+    sectionsData.forEach(section => {
+      result[section.id] = getSectionProgress(
+        section.id,
+        section.exercises.map(e => e.id)
+      );
+    });
+    return result;
+  }, [progressRefresh]);
 
   const filteredSections = useMemo(() => {
     if (!searchQuery.trim()) return sectionsData;
@@ -56,6 +77,7 @@ export function BookApp() {
   }, [functionFilter]);
 
   const totalExercises = sectionsData.reduce((acc, s) => acc + s.exercises.length, 0);
+  const totalCompleted = Object.values(sectionProgress).reduce((acc, p) => acc + p.completed, 0);
   
   const groupedFunctions = useMemo(() => {
     const groups: Record<string, typeof pythonFunctions> = {};
@@ -96,6 +118,12 @@ export function BookApp() {
                   <Code className="w-3 h-3" />
                   {totalExercises} ejercicios
                 </Badge>
+                {totalCompleted > 0 && (
+                  <Badge variant="secondary" className="gap-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800">
+                    <CheckCircle2 className="w-3 h-3" />
+                    {totalCompleted}/{totalExercises} completados
+                  </Badge>
+                )}
               </div>
               <Button 
                 variant={showFunctionsPanel ? "default" : "outline"}
@@ -156,7 +184,7 @@ export function BookApp() {
                   <div className="space-y-4">
                     <Button 
                       variant="ghost" 
-                      onClick={() => setSelectedExercise(null)}
+                      onClick={() => { setSelectedExercise(null); refreshProgress(); }}
                       className="gap-2"
                     >
                       <ChevronRight className="w-4 h-4 rotate-180" />
@@ -193,7 +221,9 @@ export function BookApp() {
                     </Card>
 
                     <div className="grid gap-4">
-                      {currentSection.exercises.map((exercise) => (
+                      {currentSection.exercises.map((exercise) => {
+                        const isCompleted = loadProgress().completedExercises.includes(exercise.id);
+                        return (
                         <Card 
                           key={exercise.id} 
                           className="cursor-pointer hover:border-primary/50 transition-colors"
@@ -203,6 +233,9 @@ export function BookApp() {
                             <div className="flex items-start justify-between gap-4">
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
+                                  {isCompleted && (
+                                    <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
+                                  )}
                                   <Badge variant="outline" className="text-xs">
                                     {exercise.number}
                                   </Badge>
@@ -241,12 +274,15 @@ export function BookApp() {
                             </div>
                           </CardContent>
                         </Card>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 ) : (
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredSections.map((section) => (
+                    {filteredSections.map((section) => {
+                      const progress = sectionProgress[section.id] || { completed: 0, total: section.exercises.length, percentage: 0 };
+                      return (
                       <Card 
                         key={section.id}
                         className="cursor-pointer hover:border-primary/50 hover:shadow-md transition-all group"
@@ -261,14 +297,25 @@ export function BookApp() {
                               <p className="text-xs text-muted-foreground mb-1">{section.chapter}</p>
                               <h3 className="font-semibold text-foreground mb-1 line-clamp-2">{section.title}</h3>
                               <p className="text-xs text-muted-foreground line-clamp-2">{section.description}</p>
-                              <Badge variant="secondary" className="mt-2 text-xs">
-                                {section.exercises.length} ejercicios
-                              </Badge>
+                              <div className="flex items-center gap-2 mt-2">
+                                <Badge variant="secondary" className="text-xs">
+                                  {progress.completed}/{progress.total}
+                                </Badge>
+                                {progress.completed > 0 && (
+                                  <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden max-w-[100px]">
+                                    <div 
+                                      className="h-full bg-green-500 dark:bg-green-400 rounded-full transition-all"
+                                      style={{ width: `${progress.percentage}%` }}
+                                    />
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </CardContent>
-                      </Card>
-                    ))}
+                       </Card>
+                      );
+                    })}
                   </div>
                 )}
               </TabsContent>
@@ -279,7 +326,7 @@ export function BookApp() {
                   <div className="space-y-4">
                     <Button 
                       variant="ghost" 
-                      onClick={() => setSelectedExercise(null)}
+                      onClick={() => { setSelectedExercise(null); refreshProgress(); }}
                       className="gap-2"
                     >
                       <ChevronRight className="w-4 h-4 rotate-180" />
@@ -301,7 +348,9 @@ export function BookApp() {
                           </Badge>
                         </div>
                         <div className="grid gap-3">
-                          {section.exercises.map((exercise) => (
+                          {section.exercises.map((exercise) => {
+                            const isCompleted = loadProgress().completedExercises.includes(exercise.id);
+                            return (
                             <Card 
                               key={exercise.id}
                               className="cursor-pointer hover:border-primary/50 transition-colors"
@@ -309,6 +358,9 @@ export function BookApp() {
                             >
                               <CardContent className="p-4">
                                 <div className="flex items-center gap-3">
+                                  {isCompleted && (
+                                    <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
+                                  )}
                                   <Badge variant="outline" className="text-xs shrink-0">
                                     {exercise.number}
                                   </Badge>
@@ -328,7 +380,8 @@ export function BookApp() {
                                 </div>
                               </CardContent>
                             </Card>
-                          ))}
+                            );
+                          })}
                         </div>
                       </div>
                     ))}
