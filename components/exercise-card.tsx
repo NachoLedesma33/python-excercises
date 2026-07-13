@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { type Exercise, SUITE_NUMERICA_CODE } from "@/lib/exercises-data";
 import { analyzeError, type DebugResult } from "@/lib/debug-assistant";
+import { explainCode, type ExplanationLine } from "@/lib/code-explainer";
 import { useTheme } from "next-themes";
 import { AlertTriangle, ChevronDown, ChevronRight } from "lucide-react";
 
@@ -56,6 +57,8 @@ export function ExerciseCard({ exercise, expanded = false }: ExerciseCardProps) 
   const [copied, setCopied] = useState(false);
   const [debugInfo, setDebugInfo] = useState<DebugResult | null>(null);
   const [showTraceback, setShowTraceback] = useState(false);
+  const [lineExplanations, setLineExplanations] = useState<ExplanationLine[]>([]);
+  const [showLineExplanations, setShowLineExplanations] = useState(false);
   const [pyodide, setPyodide] = useState<any>(null);
   const [pyodideLoading, setPyodideLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("code");
@@ -214,10 +217,21 @@ output
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const toggleLineExplanations = () => {
+    if (showLineExplanations) {
+      setShowLineExplanations(false);
+    } else {
+      const explanations = explainCode(code);
+      setLineExplanations(explanations);
+      setShowLineExplanations(true);
+    }
+  };
+
   const resetCode = () => {
     setCode(exercise.starterCode || "# Escribe tu codigo aqui\n");
     setOutput("");
     setGraphImage(null);
+    setShowLineExplanations(false);
   };
 
   const loadSolution = () => {
@@ -395,6 +409,14 @@ output
                 <BookOpen className="w-4 h-4" />
                 Cargar solucion
               </Button>
+              <Button
+                variant={showLineExplanations ? "default" : "outline"}
+                onClick={toggleLineExplanations}
+                className="gap-2"
+              >
+                <Lightbulb className="w-4 h-4" />
+                {showLineExplanations ? "Ocultar explicaciones" : "Explicar codigo"}
+              </Button>
               {exercise.requiresGraph && (
                 <span className="text-xs text-muted-foreground flex items-center gap-1 ml-2">
                   <LineChart className="w-3 h-3" />
@@ -402,6 +424,39 @@ output
                 </span>
               )}
             </div>
+
+            {/* Line-by-line Explanations */}
+            {showLineExplanations && lineExplanations.length > 0 && (
+              <div className="rounded-lg border border-border overflow-hidden">
+                <div className="bg-amber-50 dark:bg-amber-950 px-4 py-2 border-b border-amber-200 dark:border-amber-800 flex items-center gap-2">
+                  <Lightbulb className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  <span className="text-sm font-medium text-amber-800 dark:text-amber-300">Explicacion linea a linea</span>
+                  <span className="text-xs text-amber-600 dark:text-amber-400">({lineExplanations.length} lineas explicadas)</span>
+                </div>
+                <div className="p-4 bg-background max-h-[300px] overflow-auto space-y-2">
+                  {lineExplanations.map((item) => (
+                    <div key={item.line} className="flex gap-3 text-sm">
+                      <span className="text-muted-foreground font-mono text-xs w-6 text-right shrink-0 pt-0.5">{item.line}</span>
+                      <div className="flex-1 min-w-0">
+                        <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono text-foreground">{item.code.trim()}</code>
+                        <p className="text-muted-foreground mt-0.5">{item.explanation}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {showLineExplanations && lineExplanations.length === 0 && (
+              <div className="rounded-lg border border-border overflow-hidden">
+                <div className="bg-muted/50 px-4 py-2 border-b border-border">
+                  <span className="text-sm font-medium">Explicacion linea a linea</span>
+                </div>
+                <div className="p-4 bg-background">
+                  <p className="text-sm text-muted-foreground">No se encontraron patrones reconocibles para explicar. Probá con mas codigo en el editor.</p>
+                </div>
+              </div>
+            )}
 
             {/* Graph Output */}
             {graphImage && (
