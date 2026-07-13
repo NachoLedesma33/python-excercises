@@ -141,6 +141,11 @@ import base64
     });
   };
 
+  const isCodeEmpty = (code: string): boolean => {
+    const stripped = code.replace(/#.*$/gm, '').replace(/"""[\s\S]*?"""/g, '').replace(/'''[\s\S]*?'''/g, '').trim();
+    return stripped.length === 0;
+  };
+
   const runCode = async (codeToRun: string) => {
     setIsRunning(true);
     setOutput("");
@@ -206,7 +211,18 @@ output
         setGraphImage(`data:image/png;base64,${graphData}`);
       }
 
-      setOutput(stdout || (graphData ? "Grafico generado correctamente" : "Codigo ejecutado correctamente (sin salida de texto)"));
+      const hasOutput = stdout && stdout.trim().length > 0;
+      const hasGraph = graphData && graphData !== 'None';
+
+      if (isCodeEmpty(codeToRun)) {
+        setOutput("Escribí tu solución en el editor y hacé clic en Ejecutar.");
+      } else if (hasOutput) {
+        setOutput(stdout);
+      } else if (hasGraph) {
+        setOutput("Gráfico generado correctamente");
+      } else {
+        setOutput("Código ejecutado correctamente (sin salida de texto). Usá print() para ver resultados.");
+      }
       
     } catch (error: any) {
       const debug = analyzeError(error.message);
