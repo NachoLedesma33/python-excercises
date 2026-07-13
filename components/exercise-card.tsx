@@ -11,7 +11,9 @@ import {
   RotateCcw, Sparkles, BookOpen, Terminal, Loader2, LineChart, ImageIcon
 } from "lucide-react";
 import { type Exercise, SUITE_NUMERICA_CODE } from "@/lib/exercises-data";
+import { analyzeError, type DebugResult } from "@/lib/debug-assistant";
 import { useTheme } from "next-themes";
+import { AlertTriangle, ChevronDown, ChevronRight } from "lucide-react";
 
 function formatTextWithMath(text: string): React.ReactNode {
   if (!text) return null;
@@ -52,6 +54,8 @@ export function ExerciseCard({ exercise, expanded = false }: ExerciseCardProps) 
   const [graphImage, setGraphImage] = useState<string | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [debugInfo, setDebugInfo] = useState<DebugResult | null>(null);
+  const [showTraceback, setShowTraceback] = useState(false);
   const [pyodide, setPyodide] = useState<any>(null);
   const [pyodideLoading, setPyodideLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("code");
@@ -132,6 +136,8 @@ import base64
     setIsRunning(true);
     setOutput("");
     setGraphImage(null);
+    setDebugInfo(null);
+    setShowTraceback(false);
     
     try {
       const py = await loadPyodide();
@@ -194,7 +200,9 @@ output
       setOutput(stdout || (graphData ? "Grafico generado correctamente" : "Codigo ejecutado correctamente (sin salida de texto)"));
       
     } catch (error: any) {
-      setOutput(`Error: ${error.message}`);
+      const debug = analyzeError(error.message);
+      setDebugInfo(debug);
+      setOutput(`${debug.message}\n\n${debug.suggestion || ''}`);
     } finally {
       setIsRunning(false);
     }
@@ -414,13 +422,36 @@ output
 
             {/* Text Output */}
             {output && (
-              <div className="rounded-lg border border-border overflow-hidden">
-                <div className="bg-muted/50 px-4 py-2 border-b border-border">
-                  <span className="text-sm font-medium">Salida</span>
+              <div className={`rounded-lg border overflow-hidden ${debugInfo ? 'border-red-300 dark:border-red-800' : 'border-border'}`}>
+                <div className={`px-4 py-2 border-b flex items-center gap-2 ${debugInfo ? 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800' : 'bg-muted/50 border-border'}`}>
+                  {debugInfo ? (
+                    <>
+                      <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
+                      <span className="text-sm font-medium text-red-800 dark:text-red-300">Error</span>
+                    </>
+                  ) : (
+                    <span className="text-sm font-medium">Salida</span>
+                  )}
                 </div>
                 <div className="p-4 bg-background min-h-[100px] max-h-[400px] overflow-auto">
-                  <pre className="whitespace-pre-wrap font-mono text-sm">{output}</pre>
+                  <pre className={`whitespace-pre-wrap font-mono text-sm ${debugInfo ? 'text-red-700 dark:text-red-300' : ''}`}>{output}</pre>
                 </div>
+                {debugInfo && (
+                  <div className="border-t border-red-200 dark:border-red-800">
+                    <button
+                      onClick={() => setShowTraceback(!showTraceback)}
+                      className="w-full px-4 py-2 text-xs text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950 flex items-center gap-1"
+                    >
+                      {showTraceback ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+                      {showTraceback ? 'Ocultar' : 'Mostrar'} traceback completo
+                    </button>
+                    {showTraceback && (
+                      <div className="px-4 pb-4 bg-red-50 dark:bg-red-950/50 border-t border-red-200 dark:border-red-800">
+                        <pre className="whitespace-pre-wrap font-mono text-xs text-red-600 dark:text-red-400 mt-2 overflow-auto max-h-[300px]">{debugInfo.rawTraceback}</pre>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </TabsContent>
@@ -508,13 +539,36 @@ output
             )}
 
             {output && (
-              <div className="rounded-lg border border-border overflow-hidden">
-                <div className="bg-muted/50 px-4 py-2 border-b border-border">
-                  <span className="text-sm font-medium">Salida</span>
+              <div className={`rounded-lg border overflow-hidden ${debugInfo ? 'border-red-300 dark:border-red-800' : 'border-border'}`}>
+                <div className={`px-4 py-2 border-b flex items-center gap-2 ${debugInfo ? 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800' : 'bg-muted/50 border-border'}`}>
+                  {debugInfo ? (
+                    <>
+                      <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
+                      <span className="text-sm font-medium text-red-800 dark:text-red-300">Error en solucion</span>
+                    </>
+                  ) : (
+                    <span className="text-sm font-medium">Salida</span>
+                  )}
                 </div>
                 <div className="p-4 bg-background min-h-[100px] max-h-[400px] overflow-auto">
-                  <pre className="whitespace-pre-wrap font-mono text-sm">{output}</pre>
+                  <pre className={`whitespace-pre-wrap font-mono text-sm ${debugInfo ? 'text-red-700 dark:text-red-300' : ''}`}>{output}</pre>
                 </div>
+                {debugInfo && (
+                  <div className="border-t border-red-200 dark:border-red-800">
+                    <button
+                      onClick={() => setShowTraceback(!showTraceback)}
+                      className="w-full px-4 py-2 text-xs text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950 flex items-center gap-1"
+                    >
+                      {showTraceback ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+                      {showTraceback ? 'Ocultar' : 'Mostrar'} traceback completo
+                    </button>
+                    {showTraceback && (
+                      <div className="px-4 pb-4 bg-red-50 dark:bg-red-950/50 border-t border-red-200 dark:border-red-800">
+                        <pre className="whitespace-pre-wrap font-mono text-xs text-red-600 dark:text-red-400 mt-2 overflow-auto max-h-[300px]">{debugInfo.rawTraceback}</pre>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </TabsContent>
