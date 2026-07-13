@@ -283,8 +283,10 @@ output
               )}
               <Badge 
                 variant={
-                  exercise.difficulty === 'básico' ? 'secondary' :
                   exercise.difficulty === 'intermedio' ? 'default' : 'destructive'
+                }
+                className={
+                  exercise.difficulty === 'básico' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800' : ''
                 }
               >
                 {exercise.difficulty}
@@ -305,8 +307,10 @@ output
               <Badge variant="outline">{exercise.number}</Badge>
               <Badge 
                 variant={
-                  exercise.difficulty === 'básico' ? 'secondary' :
                   exercise.difficulty === 'intermedio' ? 'default' : 'destructive'
+                }
+                className={
+                  exercise.difficulty === 'básico' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800' : ''
                 }
               >
                 {exercise.difficulty}

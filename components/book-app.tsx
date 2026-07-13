@@ -239,12 +239,13 @@ export function BookApp() {
                                   <Badge variant="outline" className="text-xs">
                                     {exercise.number}
                                   </Badge>
-                                  <Badge 
+                                   <Badge 
                                     variant={
-                                      exercise.difficulty === 'básico' ? 'secondary' :
                                       exercise.difficulty === 'intermedio' ? 'default' : 'destructive'
                                     }
-                                    className="text-xs"
+                                    className={
+                                      exercise.difficulty === 'básico' ? 'text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800' : 'text-xs'
+                                    }
                                   >
                                     {exercise.difficulty}
                                   </Badge>
@@ -366,12 +367,13 @@ export function BookApp() {
                                   <div className="flex-1 min-w-0">
                                     <h3 className="font-bold text-foreground truncate text-base">{exercise.title}</h3>
                                   </div>
-                                  <Badge 
+                                   <Badge 
                                     variant={
-                                      exercise.difficulty === 'básico' ? 'secondary' :
                                       exercise.difficulty === 'intermedio' ? 'default' : 'destructive'
                                     }
-                                    className="text-xs shrink-0"
+                                    className={
+                                      exercise.difficulty === 'básico' ? 'text-xs shrink-0 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800' : 'text-xs shrink-0'
+                                    }
                                   >
                                     {exercise.difficulty}
                                   </Badge>
