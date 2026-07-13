@@ -211,7 +211,7 @@ export function BookApp() {
                           </div>
                           <div>
                             <CardTitle className="text-xl">{currentSection.title}</CardTitle>
-                            <p className="text-sm text-muted-foreground">{currentSection.chapter} - {currentSection.exercises.length} ejercicios</p>
+                            <p className="text-sm text-muted-foreground">{currentSection.exercises.length} ejercicios</p>
                           </div>
                         </div>
                       </CardHeader>
@@ -294,7 +294,6 @@ export function BookApp() {
                               {iconMap[section.icon] || <Calculator className="w-6 h-6" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-xs text-muted-foreground mb-1">{section.chapter}</p>
                               <h3 className="font-semibold text-foreground mb-1 line-clamp-2">{section.title}</h3>
                               <p className="text-xs text-muted-foreground line-clamp-2">{section.description}</p>
                               <div className="flex items-center gap-2 mt-2">
